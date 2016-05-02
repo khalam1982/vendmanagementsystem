@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://www.TrilliantAMI/TrilliantEndDeviceControls#" xmlns:tns="http://www.TrilliantAMI/TrilliantCommonTypes" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.TrilliantAMI/TrilliantCommonTypes">
+    <xs:import namespace="http://www.TrilliantAMI/TrilliantEndDeviceControls#" schemaLocation="AMIInterfaceImplService_schema5.xsd"/>
+    <xs:complexType name="adjustCredit">
+        <xs:complexContent>
+            <xs:extension base="ns1:TrilliantEndDeviceControl">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="credit" type="tns:credit"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="credit">
+        <xs:sequence>
+            <xs:element name="type" type="tns:CreditType"/>
+            <xs:element name="amount" type="xs:long"/>
+            <xs:element name="currency" type="tns:Currency"/>
+            <xs:element name="startTime" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="AdjustCreditValues">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="adjustCredit" nillable="true" type="tns:adjustCredit"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:simpleType name="CreditType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="emergency"/>
+            <xs:enumeration value="credit"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="Currency">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GBP"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

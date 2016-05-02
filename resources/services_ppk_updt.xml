@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- This file was auto-generated from WSDL --><!-- by the Apache Axis2 version: 1.4.1  Built on : Aug 19, 2008 (10:13:39 LKT) --><serviceGroup>
+    <service name="SmartMeterPPKeyService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.centrica.vms.ws.ppk.service.SmartMeterPPKeyServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.centrica.vms.ws.ppk.service.SmartMeterPPKeyServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="UpdatePPKey" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.ppk.ws.vms.centrica.com">
+            <actionMapping>urn:UpdatePPKey</actionMapping>
+            <outputActionMapping>http://service.ppk.ws.vms.centrica.com/SmartMeterPPKeyServicePortType/UpdatePPKeyResponse</outputActionMapping>
+            <faultActionMapping faultName="BusinessProcessingFault">http://service.ppk.ws.vms.centrica.com/SmartMeterPPKeyServicePortType/UpdatePPKey/Fault/BusinessProcessingFault</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

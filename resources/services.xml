@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.4.1  Built on : Aug 19, 2008 (10:13:39 LKT) -->
+<serviceGroup>
+    <service name="SmartMeterVendProcessing">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.centrica.vms.ws.sap.service.SmartMeterVendProcessingMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.centrica.vms.ws.sap.service.SmartMeterVendProcessingSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="CreateVend" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.sap.ws.vms.centrica.com">
+            <actionMapping>urn:CreateVend</actionMapping>
+            <outputActionMapping>urn:CreateVendResponse</outputActionMapping>
+        </operation>
+        <operation name="VoidVend" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.sap.ws.vms.centrica.com">
+            <actionMapping>urn:VoidVend</actionMapping>
+            <outputActionMapping>urn:VoidVendResponse</outputActionMapping>
+        </operation>
+        <operation name="ReverseVend" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.sap.ws.vms.centrica.com">
+            <actionMapping>urn:ReverseVend</actionMapping>
+            <outputActionMapping>urn:ReverseVendResponse</outputActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

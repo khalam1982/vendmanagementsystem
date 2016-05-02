@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="true" reset="false" threshold="null">
+ 
+   <appender class="org.apache.log4j.ConsoleAppender" name="A1">
+      <!-- <param name="Threshold" value="INFO" /> -->
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%d [%t] %-5p %c - %m%n"/>
+      </layout>
+   </appender>
+
+   <appender class="org.apache.log4j.RollingFileAppender" name="file">
+      <param name="Threshold" value="INFO"/>
+      <param name="File" value="${catalina.home}/logs/vms.log"/>
+      <param name="maxBackupIndex" value="5"/>
+      <param name="maxFileSize" value="100MB"/>
+      <layout class="org.apache.log4j.PatternLayout">
+         <param name="ConversionPattern" value="%d{ISO8601}{GMT} %-5p  [%c{1}] %m %n"/>
+      </layout>
+   </appender>
+ 
+	<root>
+		<level value="INFO"/>
+		<appender-ref ref="A1"/>
+		<appender-ref ref="file"/>
+	</root>
+ <loggerFactory class="org.owasp.esapi.reference.Log4JLoggerFactory"/>
+</log4j:configuration>

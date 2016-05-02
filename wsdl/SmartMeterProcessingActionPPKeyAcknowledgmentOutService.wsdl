@@ -1,0 +1,53 @@
+<wsdl:definitions name="SmartMeterProcessingActionPPKeyAcknowledgmentOut" targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:p1="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+   <wsdl:documentation/>
+   <wsp:UsingPolicy wsdl:required="true"/>
+   <wsp:Policy wsu:Id="OP_PPKeyAcknowledgment_Async"/>
+   <wsdl:types>
+      <xsd:schema targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+         <xsd:element name="UpdatePPKeyAcknowledgment" type="UpdatePPKeyAcknowledgmentMessage"/>
+         <xsd:complexType name="UpdatePPKeyAcknowledgmentMessage">
+            <xsd:annotation>
+               <xsd:appinfo source="http://sap.com/xi/VersionID">f8b91e9129c511e4a55600000091f37a</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:sequence>
+               <xsd:element name="TransactionID" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="MPXN" type="xsd:string" minOccurs="0"/>
+               <xsd:element name="MSN" type="xsd:string"/>
+               <xsd:element name="ReasonCode" type="xsd:string"/>
+               <xsd:element name="Description" type="xsd:string"/>
+            </xsd:sequence>
+         </xsd:complexType>
+      </xsd:schema>
+   </wsdl:types>
+   <wsdl:message name="UpdatePPKeyAcknowledgment">
+      <wsdl:documentation/>
+      <wsdl:part name="UpdatePPKeyAcknowledgment" element="p1:UpdatePPKeyAcknowledgment"/>
+   </wsdl:message>
+   <wsdl:portType name="SmartMeterProcessingActionPPKeyAcknowledgmentOut">
+      <wsdl:documentation/>
+      <wsdl:operation name="PPKeyAcknowledgment_Async">
+         <wsdl:documentation/>
+         <wsp:Policy>
+            <wsp:PolicyReference URI="#OP_PPKeyAcknowledgment_Async"/>
+         </wsp:Policy>
+         <wsdl:input message="p1:UpdatePPKeyAcknowledgment"/>
+      </wsdl:operation>
+   </wsdl:portType>
+   <wsdl:binding name="SmartMeterProcessingActionPPKeyAcknowledgmentOutBinding" type="p1:SmartMeterProcessingActionPPKeyAcknowledgmentOut">
+      <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      <wsdl:operation name="PPKeyAcknowledgment_Async">
+         <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+         <wsdl:input>
+            <soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+         </wsdl:input>
+      </wsdl:operation>
+   </wsdl:binding>
+   <wsdl:service name="SmartMeterProcessingActionPPKeyAcknowledgmentOutService">
+      <wsdl:port name="HTTP_Port" binding="p1:SmartMeterProcessingActionPPKeyAcknowledgmentOutBinding">
+         <soap:address location="http://tpicxd2dv.uk.centricaplc.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterProcessingActionPPKeyAcknowledgmentOut&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:port>
+      <wsdl:port name="HTTPS_Port" binding="p1:SmartMeterProcessingActionPPKeyAcknowledgmentOutBinding">
+         <soap:address location="https://tpicxd2dv.uk.centricaplc.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterProcessingActionPPKeyAcknowledgmentOut&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"/>
+      </wsdl:port>
+   </wsdl:service>
+</wsdl:definitions>

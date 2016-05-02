@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?><xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing" xmlns="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing" xmlns:p1="urn:britishgas.co.uk:Enterprise:Meter" xmlns:p6="urn:britishgas.co.uk:Enterprise:Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:import namespace="urn:britishgas.co.uk:Enterprise:Common" schemaLocation="VMSCommonSchema.xsd"/>
+	<xsd:import namespace="urn:britishgas.co.uk:Enterprise:Meter" schemaLocation="VMSMeterSchema.xsd"/> 
+	<xsd:complexType name="VendCode">
+		<xsd:sequence>
+			<xsd:element name="VendCode" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VendRequestKey">
+		<xsd:sequence>
+			<xsd:element name="VendRequestIdentifier" type="p6:BG_Identifier" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VendRequestTimestamp">
+		<xsd:sequence>
+			<xsd:element name="VendRequestDateTime" type="xsd:dateTime"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VoidVendRequestMessage">
+		<xsd:sequence>
+			<xsd:element name="MessageHeader" type="p6:BG_MessageHeader"/> 
+			<xsd:element name="VendRequestKey" type="VendRequestKey"/>
+			<xsd:element name="VendRequestPAN" type="PanNumber"/> 
+ 			<xsd:element name="VendRequestMSN" type="p1:MeteringAssetBasic" minOccurs="0"/>
+			<xsd:element name="OriginalVendRequestKey" type="VendRequestKey"/>
+			<xsd:element name="VendRequestTimeStamp" type="VendRequestTimestamp"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VendRequestAdditional">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="EN">Additional
+				parameters</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="VendCreditType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="PURCHASE"/>
+						<xsd:enumeration value="ADJUSTMENT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="VendHoldingPeriod" type="xsd:string"/>
+			<xsd:element name="VendSource" type="xsd:string"/> 
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReverseVendResponseMessage">
+		<xsd:sequence>
+			<xsd:element name="VendOutcome" type="VendOutcome"/>
+			<xsd:element name="Log" type="p6:BG_Log" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VendAmount">
+		<xsd:sequence>
+			<xsd:element name="VendAmount" type="p6:BG_CurrencyAmount" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ReverseVendMessage">
+		<xsd:sequence>
+			<xsd:element name="MessageHeader" type="p6:BG_MessageHeader"/> 
+			<xsd:element name="VendRequestKey" type="VendRequestKey"/>
+			<xsd:element name="OriginalVendRequestKey" type="VendRequestKey"/>
+			<xsd:element name="VendRequestTimeStamp" type="VendRequestTimestamp"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VoidVendRequestResponseMessage">
+		<xsd:sequence>
+			<xsd:element name="VendOutcome" type="VendOutcome"/>
+			<xsd:element name="Log" type="p6:BG_Log" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PanNumber">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="EN">PAN to identify
+				Contract and Meter</xsd:documentation>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="PanNumber" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateVendResponseMessage">
+		<xsd:sequence>
+			<xsd:element name="VendCode" type="VendCode" minOccurs="0"/>
+			<xsd:element name="VendOutcome" type="VendOutcome"/>
+			<xsd:element name="Log" type="p6:BG_Log" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CreateVendMessage">
+		<xsd:sequence>
+			<xsd:element name="MessageHeader" type="p6:BG_MessageHeader"/> 
+			<xsd:element name="VendRequestKey" type="VendRequestKey"/>
+			<xsd:element name="PanNumber" type="PanNumber"/>
+			 <xsd:element name="VendMSN" type="p1:MeteringAssetBasic" minOccurs="0"/>
+			<xsd:element name="VendAmount" type="VendAmount"/>
+			<xsd:element name="VendRequestTimestamp" type="VendRequestTimestamp"/>
+			<xsd:element name="VendAdditional" type="VendRequestAdditional"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="VendOutcome">
+		<xsd:sequence>
+			<xsd:element name="VendOutcomeCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="200"/>
+						<xsd:enumeration value="V001"/>
+						<xsd:enumeration value="V002"/>
+						<xsd:enumeration value="V003"/>
+						<xsd:enumeration value="V004"/>
+						<xsd:enumeration value="V005"/>
+						<xsd:enumeration value="V006"/>
+						<xsd:enumeration value="V007"/>
+						<xsd:enumeration value="V008"/>
+						<xsd:enumeration value="V009"/> 
+  						<xsd:enumeration value="V010"/> 
+  						<xsd:enumeration value="V011"/> 
+  						<xsd:enumeration value="V012"/>
+  						<xsd:enumeration value="V013"/>
+						<xsd:enumeration value="V014"/>
+						<xsd:enumeration value="V015"/>
+						<xsd:enumeration value="V016"/>
+						<xsd:enumeration value="V017"/>
+						<xsd:enumeration value="V018"/>
+						<xsd:enumeration value="V019"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="VendOutcomeDescription" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

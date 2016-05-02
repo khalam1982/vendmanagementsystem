@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.UserDetails" table="VMS_USER">
+	<id column="USER_ID" name="userID" type="java.lang.Integer">
+		<generator class="sequence">
+		<param name="sequence">SEQ_VMS_USER</param>
+		</generator>
+	</id>
+	<version column="VERSION" name="version" type="java.lang.Integer"/>
+	<property name="userName" column="USERNAME" type="java.lang.String" />
+	<property name="password" column="PASSWORD" type="java.lang.String"/>
+	<property name="lanID" column="LAN_ID" type="java.lang.String"/>
+	<property name="groupID" column="GROUP_ID" type="java.lang.String"/>
+	<property name="retryCount" column="RETRY_COUNT" type="java.lang.Integer"/>
+	<property name="lockIND" column="LOCK_IND" type="java.lang.Character"/>
+	<property name="superIND" column="SUPER_IND" type="java.lang.Character"/>
+	<property name="powerIND" column="POWER_IND" type="java.lang.Character"/>
+	<property name="passwordDate" column="PASSWORD_DATE" type="java.util.Date"/>
+	<property name="createdBy" column="CREATED_BY" type="java.lang.String"/>
+	<property name="updatedBy" column="UPDATED_BY" type="java.lang.String"/>
+	<property name="createdTimestamp" column="CREATED_TIMESTAMP" type="java.util.Date"/>
+	<property name="updatedTimestamp" column="UPDATED_TIMESTAMP" type="java.util.Date"/>
+	<set  name="userFunctionDetails" cascade="all,delete-orphan" lazy="false">
+		<key column="USER_ID"/>
+		<one-to-many class="com.centrica.vms.model.UserFunctionDetails" />
+	</set >
+</class>
+</hibernate-mapping>

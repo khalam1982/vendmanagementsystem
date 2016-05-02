@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+<session-factory>
+    <property name="show_sql">true</property>
+    <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
+  	<property name="hibernate.connection.datasource">java:comp/env/jdbc/PrepaymentDB</property>
+    
+    <!-- <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+    <property name="connection.url">jdbc:oracle:thin:@10.13.6.114:1526:TVCPPY02</property>
+    <property name="connection.username">PREPAY_APP_USER</property>
+    <property name="connection.password">trespa55</property>  -->
+    
+    <!--  thread is the short name for      
+    org.hibernate.context.ThreadLocalSessionContext      
+    and let Hibernate bind the session automatically to the thread    -->
+    <property name="current_session_context_class">thread</property>
+    <mapping resource="properties/CreditIDDetails.hbm.xml"/>
+    <mapping resource="properties/FunctionDetails.hbm.xml"/>
+    <mapping resource="properties/GroupDetails.hbm.xml"/>
+    <mapping resource="properties/MeterDetails.hbm.xml"/>
+    <mapping resource="properties/CustomerDetails.hbm.xml"/>
+    <mapping resource="properties/PremiseDetails.hbm.xml"/>
+    <mapping resource="properties/SourceDetails.hbm.xml"/>
+    <mapping resource="properties/StatusDetails.hbm.xml"/>
+    <mapping resource="properties/UnsendVCTransaction.hbm.xml"/>
+    <mapping resource="properties/UserCredentials.hbm.xml"/>
+    <mapping resource="properties/UserDetails.hbm.xml"/>
+    <mapping resource="properties/UserFunctionDetails.hbm.xml"/>
+    <mapping resource="properties/VendHistoryDetails.hbm.xml"/>
+    <mapping resource="properties/VendTxnSchedulerDetails.hbm.xml"/>
+    <mapping resource="properties/VendTxnWSDetails.hbm.xml"/>
+    <mapping resource="properties/VMSMessagingSystem.hbm.xml"/>
+    <mapping resource="properties/VendTxnStatus.hbm.xml"/>
+    <mapping resource="properties/VendReportDetails.hbm.xml" />
+	<mapping resource="properties/PPKTransaction.hbm.xml" />
+	<mapping resource="properties/PPKTransactionScheduler.hbm.xml" />
+	<mapping resource="properties/PPKTransactionStatus.hbm.xml" />
+	<mapping resource="properties/VendRetry.hbm.xml" />
+</session-factory>
+</hibernate-configuration>               

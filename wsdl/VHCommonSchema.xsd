@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:VHCommon"
+	xmlns="urn:britishgas.co.uk:Enterprise:VHCommon" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:complexType name="statusType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Status Type</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="statusCode" type="integerType"/>
+            <xsd:element name="statusDescription" type="stringType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="sourceType">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Source Type</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="sourceCode" type="stringType"/>
+            <xsd:element name="sourceDescription" type="stringType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+	<xsd:simpleType name="stringType">
+	    <xsd:annotation>
+            <xsd:documentation xml:lang="EN">String Type</xsd:documentation>
+        </xsd:annotation>
+		<xsd:restriction base="xsd:string">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="100" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="dateType">
+	    <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Date Type</xsd:documentation>
+        </xsd:annotation>
+		<xsd:restriction base="xsd:dateTime"/>
+	</xsd:simpleType>
+	<xsd:simpleType name="integerType">
+	    <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Integer Type</xsd:documentation>
+        </xsd:annotation>
+		<xsd:restriction base="xsd:integer">
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

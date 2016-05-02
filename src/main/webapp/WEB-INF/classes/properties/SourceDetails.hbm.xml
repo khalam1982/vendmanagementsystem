@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.SourceDetails" table="SOURCE_DETAILS">
+	<id column="SOURCE" name="source" type="java.lang.String">
+	</id>
+	<property name="holdingPeriod" column="HOLDING_PERIOD" type="java.lang.Long"/>
+	<property name="sourceDescription" column="SOURCE_DESCRIPTION" type="java.lang.String"/>
+	<property name="maxVend" column="MAX_VEND" type="java.lang.Integer"/>
+	<property name="vendConfigurable" column="MAX_VEND_CONFIG" type="java.lang.Integer"/>
+</class>
+</hibernate-mapping>

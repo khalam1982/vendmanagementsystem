@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:britishgas.co.uk:Enterprise:SmartVend" xmlns:p1="urn:britishgas.co.uk:Enterprise:SmartVend"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+	<wsdl:documentation />
+	<wsdl:types>
+		<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p6="urn:britishgas.co.uk:Enterprise:Common"
+			xmlns="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing">
+			<xsd:import namespace="urn:britishgas.co.uk:Enterprise:Common" />
+			<xsd:complexType name="VendRequestType">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">2171b561747511df841200212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendRequestType" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">36c1cb30747511dfa0870016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="PanNumber">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">PAN to identify
+						Contract and Meter</xsd:documentation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">ce620bb1747211dfbb0b00212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="PanNumber" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">e0e2add0747211dfcff80016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendCode">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">9189a6b1747411df8c9e00212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendCode" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">a6c486d0747411dfb2bc0016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendRequestKey">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">d89c9ae098c711df838300212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendRequestIdentifier" type="p6:BG_Identifier"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">de028660747411dfb3370016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendRequestAdditional">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Additional
+						parameters</xsd:documentation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">3277f3108a9b11df9a3800212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendCreditType">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">c5625b30747411df819e0016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:enumeration value="PURCHASE" />
+								<xsd:enumeration value="ADJUSTMENT" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="VendHoldingPeriod" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">c5625b31747411df92f20016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendSource" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">c5625b32747411dfc41f0016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendRequestTimestamp">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">1f47dd60756e11dfcaef00212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendRequestDateTime" type="xsd:dateTime">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">22091360747511dfa4290016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendAmount">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">78345c50747411df981800212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendAmount" type="p6:BG_CurrencyAmount"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">8751fd50747411df96e00016d4bf2945
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:Common"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:britishgas.co.uk:Enterprise:Common">
+			<xsd:simpleType name="BG_Amount">
+				<xsd:annotation>
+					<xsd:documentation xml:lang="EN">Financial
+						amount</xsd:documentation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">27a53eb1d9c111deacfb00215a790830
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:restriction base="xsd:decimal" />
+			</xsd:simpleType>
+			<xsd:simpleType name="BG_Identifier.Content">
+				<xsd:restriction base="xsd:token">
+					<xsd:minLength value="1" />
+					<xsd:maxLength value="40" />
+				</xsd:restriction>
+			</xsd:simpleType>
+			<xsd:complexType name="BG_MessageHeader">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">896e00e19e3411dfb39600212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="ServiceConsumer" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">a15208009e3411dfb7bb003005cc250f
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Version" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">a15208019e3411df874c003005cc250f
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BG_CurrencyAmount">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">7e4a8f716ef611dfc91700212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="CurrencyType" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">36ce42a0627f11df96d500059a3c7800
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Amount" type="BG_Amount">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">95f7ca90627e11dfa45400059a3c7800
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="BG_Identifier">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/helperType">true</xsd:appinfo>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">6a3cbee1b9a211de98b800215a790830
+					</xsd:appinfo>
+					<xsd:appinfo source="http://sap.com/esi/RepresentationTerm">Identifier</xsd:appinfo>
+					<xsd:appinfo source="http://sap.com/esi/FixedValues">false</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:simpleContent>
+					<xsd:extension base="BG_Identifier.Content">
+						<xsd:attribute name="schemeID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+						<xsd:attribute name="schemeAgencyID">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:token">
+									<xsd:minLength value="1" />
+									<xsd:maxLength value="60" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:attribute>
+					</xsd:extension>
+				</xsd:simpleContent>
+			</xsd:complexType>
+		</xsd:schema>
+		<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:SmartVend"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:p6="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing"
+			xmlns:p7="urn:britishgas.co.uk:Enterprise:Common" xmlns="urn:britishgas.co.uk:Enterprise:SmartVend">
+			<xsd:import namespace="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing" />
+			<xsd:import namespace="urn:britishgas.co.uk:Enterprise:Common" />
+			<xsd:element name="TransactionEventNotification" type="TransactionEventNotificationMessage" />
+			<xsd:complexType name="VendHistoryTimestamps">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">3eab1270d54611df9fe500212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendCodeTimestamp" type="xsd:dateTime"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">308761d0d54611dfc2970024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MessageTimestamp" type="xsd:dateTime"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">308761d1d54611df82c60024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="TransactionEventNotificationMessage">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">a25394c0d5f311dfcf8d00212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="MessageHeader" type="p7:BG_MessageHeader">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a0d5f211dfc1a80024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PANNumber" type="p6:PanNumber">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a1d5f211df88520024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendAmount" type="p6:VendAmount">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a2d5f211dfc77e0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendProcessState" type="VendProcessState">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a3d5f211df91b30024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendCode" type="p6:VendCode">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a4d5f211dfb58e0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendHistoryTimestamps" type="VendHistoryTimestamps">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a5d5f211dfbde00024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendRequestAdditional" type="p6:VendRequestAdditional">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a6d5f211dfc92c0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendRequestType" type="p6:VendRequestType">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a7d5f211df8b8d0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendRequestKey" type="p6:VendRequestKey">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a8d5f211dfccd10024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendRequestTimestamp" type="p6:VendRequestTimestamp">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178a9d5f211df862f0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="OriginalVendRequestKey" type="p6:VendRequestKey"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">2b2178aad5f211df846b0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendProcessState">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">bff118c1d54611df8c7500212830cb26
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="VendStatus" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">ba390410d54611dfc26a0024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendStatusTimestamp" type="xsd:dateTime"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">ba390411d54611dfb8630024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendStatusReason" type="xsd:string"
+						minOccurs="0">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">ba390412d54611dfc6d00024d69a298c
+							</xsd:appinfo>
+							<xsd:documentation></xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="TransactionEventNotification">
+		<wsdl:documentation />
+		<wsdl:part name="TransactionEventNotification" element="p1:TransactionEventNotification" />
+	</wsdl:message>
+	<wsdl:portType name="ActionSmartVend">
+		<wsdl:documentation />
+		<wsdl:operation name="NotifyTransactionEventByElements">
+			<wsdl:documentation />
+			<wsdl:input message="p1:TransactionEventNotification" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="ActionSmartVendBinding" type="p1:ActionSmartVend">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		<wsdl:operation name="NotifyTransactionEventByElements">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="ActionSmartVendService">
+		<wsdl:port name="HTTP_Port" binding="p1:ActionSmartVendBinding">
+			<soap:address
+				location="http://pidvpd4.uk.centricaplc.com:8030/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART_PD4&amp;receiverParty=&amp;receiverService=&amp;interface=ActionSmartVend&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AEnterprise%3ASmartVend"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+		<wsdl:port name="HTTPS_Port" binding="p1:ActionSmartVendBinding">
+			<soap:address
+				location="https://pidvpd4.uk.centricaplc.com:8430/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART_PD4&amp;receiverParty=&amp;receiverService=&amp;interface=ActionSmartVend&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AEnterprise%3ASmartVend"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

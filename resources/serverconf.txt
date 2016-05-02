@@ -1,0 +1,53 @@
+//Server.xml configuration --- Unix
+ <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+               maxThreads="150" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" keystoreFile="./webapps/vmscertificate.cer"  keystorePass="vmscertificate"/>
+
+//Server.xml configuration --- Windows
+ <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+               maxThreads="150" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" keystoreFile="/webapps/vmscertificate.cer"  keystorePass="vmscertificate"/>
+               
+               
+               
+//context.xml configuration
+
+<Resource auth="Container" description="DB Connection"
+		driverClass="oracle.jdbc.driver.OracleDriver" maxPoolSize="20" minPoolSize="10"
+		acquireIncrement="1" name="jdbc/PrepaymentDB" user="PREPAY_APP_USER"
+		password="trespa55" factory="org.apache.naming.factory.BeanFactory"
+		type="com.mchange.v2.c3p0.ComboPooledDataSource" jdbcUrl="jdbc:oracle:thin:@10.13.6.114:1526:TVCPPY01"
+		acquireRetryAttempts="1" />
+	<Resource name="bean/HeadendDetails" auth="Container"
+		type="com.centrica.vms.scheduler.external.model.HeadendDetails" factory="org.apache.naming.factory.BeanFactory"
+		url="http://ipaddress:portnumber/VMSTestClient/services/UnityService" userName="test_tnadmin" password="test_tnadmin" timeout="10000"
+		noofretries="5" retryPeriod="30,60,60,60,60"/>
+		
+		
+//Command to create the certificate		
+		
+JavaPath\java\jdk1.6.0_21\bin>keytool -genkey -alias vmscertificate -keyalg RSA  -validity 7300 -keypass vmscertificate -keystore vmscertificate.cer -storepass vmscertificate
+
+//Information to enter while creating the certificate
+What is your first and last name?
+  [Unknown]:  vend management system
+What is the name of your organizational unit?
+  [Unknown]:  prepayment
+What is the name of your organization?
+  [Unknown]:  centrica
+What is the name of your City or Locality?
+  [Unknown]:  staines
+What is the name of your State or Province?
+  [Unknown]:  middlesex
+What is the two-letter country code for this unit?
+  [Unknown]:  uk
+Is CN=vend management system, OU=prepayment, O=centrica, L=staines, ST=middlesex
+, C=uk correct?
+  [no]:  y
+  
+  
+  //Certificate path in Windows:
+  C:\PST\Prabhu\Project\vendworkspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\webapps
+  
+  //Certificate Path in Unix :
+  opt/tomcat/webapps

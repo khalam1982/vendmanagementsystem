@@ -1,0 +1,20 @@
+<xs:schema xmlns:xsd="urn:britishgas.co.uk:Enterprise:SmartMeterVendHistory" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="qualified" elementFormDefault="qualified"
+	targetNamespace="http://service.sap.ws.vh.vms.centrica.com"> 
+	<xs:import namespace="urn:britishgas.co.uk:Enterprise:SmartMeterVendHistory"
+		schemaLocation="VHMainSchema.xsd" />
+	<xs:element name="GetVendHistory">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="VendHistoryRequest" type="xsd:VendHistoryRequestMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="GetVendHistoryResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="VendHistoryResponse" type="xsd:VendHistoryResponseMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

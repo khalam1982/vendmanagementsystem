@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:britishgas.co.uk:Enterprise:SmartMeterVendHistory" xmlns:com="urn:britishgas.co.uk:Enterprise:VHCommon" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="urn:britishgas.co.uk:Enterprise:SmartMeterVendHistory">
+ <xsd:import namespace="urn:britishgas.co.uk:Enterprise:VHCommon" schemaLocation="VHCommonSchema.xsd"/>
+
+<xsd:complexType name="VendHistoryRequestMessage">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Get Vend History Request</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="pan" type="com:stringType"/> 
+            <xsd:element minOccurs="0"  name="validFrom" type="com:dateType"/>
+            <xsd:element minOccurs="0"  name="validTo" type="com:dateType"/>
+            <xsd:element name="noOfTxns" type="com:integerType"/>
+        </xsd:sequence>
+ </xsd:complexType>
+ <xsd:complexType name="VendHistoryResponseMessage">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Vend/Adjustment History</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="pan" type="com:stringType"/> 
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="CreditPurchase" type="Purchase_Txn"/>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="CreditAdjustment" type="Adjustment_Txn"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Purchase_Txn">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Vend Purchase transaction details</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+             <xsd:element name="TxnDetails" type="Txn_Details"/>
+             <xsd:element minOccurs="0" name="VoidTxnDetails" type="VoidTxn_Details"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Adjustment_Txn">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Vend/Adjustment History</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+        	<xsd:element name="creditType" type="Adjustment_Type"/>
+            <xsd:element name="TxnDetails" type="Txn_Details"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Txn_Details">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Transaction details</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="transactionID" type="com:stringType"/>
+            <xsd:element name="vendCode" type="com:stringType"/>
+            <xsd:element name="transactionType" type="com:stringType"/>
+            <xsd:element maxOccurs="unbounded" name="TxnOutcome" type="Txn_Outcome"/>
+            <xsd:element name="msn" type="com:stringType"/>
+            <xsd:element name="holdingPeriod" type="com:stringType"/>
+            <xsd:element name="SourceDetails" type="com:sourceType"/>
+            <xsd:element name="created_timestamp" type="com:dateType"/>
+            <xsd:element name="actual_timestamp" type="com:dateType"/>
+            <xsd:element name="vendcode_timestamp" type="com:dateType"/>
+            <xsd:element name="credit_value" type="com:stringType"/>
+            <xsd:element name="topUpSource" type="com:stringType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="VoidTxn_Details">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Void Transaction details</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element  name="adjustmentType" type="xsd:string"  default="NEGATIVE">
+			</xsd:element>
+            <xsd:element name="TxnDetails" type="Txn_Details"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Txn_Outcome">
+        <xsd:annotation>
+            <xsd:documentation xml:lang="EN">Transaction Outcome</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="Status" type="com:statusType"/>
+            <xsd:element name="updated_timestamp" type="com:dateType"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:simpleType name="Adjustment_Type">
+		<xsd:restriction base="xsd:string">
+  			<xsd:enumeration value="NEGATIVE"/>
+  			<xsd:enumeration value="POSITIVE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+</xsd:schema>

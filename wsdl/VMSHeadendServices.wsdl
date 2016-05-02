@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:fault="http://fault.headend.ws.vms.centrica.com" xmlns:hdns="http://header.headend.ws.vms.centrica.com"  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"  xmlns:ax23="http://model.headend.ws.vms.centrica.com" xmlns:xsd="http://service.headend.ws.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"  targetNamespace="http://service.headend.ws.vms.centrica.com">
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://model.headend.ws.vms.centrica.com">
+            <xs:complexType name="Transaction">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="transactionID" nillable="false" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="DeliveryReceipt">
+                <xs:complexContent>
+                    <xs:extension base="ax23:Transaction">
+                        <xs:sequence>
+                            <xs:element minOccurs="1" name="deliveryStatus"  nillable="false" type="ax23:StatusCode"/>
+                            <xs:element minOccurs="0" name="description" nillable="true" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:complexType name="DeliveryReceiptResponse">
+                <xs:complexContent>
+                    <xs:extension base="ax23:Transaction">
+                        <xs:sequence>
+                            <xs:element minOccurs="1" name="status" nillable="false" type="ax23:StatusCode"/>
+                        </xs:sequence>
+                    </xs:extension>
+                </xs:complexContent>
+            </xs:complexType>
+            <xs:simpleType name="StatusCode">
+        		<xs:restriction base="xs:int">
+          			<xs:enumeration value="200"/>
+          			<xs:enumeration value="300"/>
+        		</xs:restriction>
+      		</xs:simpleType> 
+        </xs:schema>
+        <xs:schema xmlns:ax24="http://model.headend.ws.vms.centrica.com" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service.headend.ws.vms.centrica.com">
+            <xs:import namespace="http://model.headend.ws.vms.centrica.com"/>
+            <xs:element name="acknowledgePaymentDelivery">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="deliveryReceipt" nillable="false" type="ax24:DeliveryReceipt"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="acknowledgePaymentDeliveryResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" name="deliveryReceiptResponse" nillable="false" type="ax24:DeliveryReceiptResponse"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+          <xs:schema  xmlns:hdns="http://header.headend.ws.vms.centrica.com" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://header.headend.ws.vms.centrica.com">
+                <xs:complexType name="RequestHeader">
+                    <xs:sequence>
+                        <xs:element  name="userDetails" nillable="false" type="hdns:UserDetails"/>
+                    </xs:sequence>
+                </xs:complexType>
+                <xs:complexType name="UserDetails">
+                    <xs:sequence>
+                        <xs:element name="userName" nillable="false" type="xs:string"/>
+                        <xs:element name="password" nillable="false" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+        </xs:schema>
+        <xs:schema  xmlns:fault="http://fault.headend.ws.vms.centrica.com" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://fault.headend.ws.vms.centrica.com">
+      		<xs:complexType name="ApiFault">
+        		<xs:sequence>
+         		 <xs:element name="exceptionMessage" type="xs:string"/>
+       		 </xs:sequence>
+     		 </xs:complexType>
+	  		 <xs:element name="LoginFault">
+        		<xs:complexType>
+          			<xs:complexContent>
+            		<xs:extension base="fault:ApiFault"/>
+          			</xs:complexContent>
+        		</xs:complexType>
+	  		 </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="acknowledgePaymentDeliveryRequest">
+        <wsdl:part name="parameters" element="xsd:acknowledgePaymentDelivery"/>
+    </wsdl:message>
+    <wsdl:message name="acknowledgePaymentDeliveryResponse">
+        <wsdl:part name="parameters" element="xsd:acknowledgePaymentDeliveryResponse"/>
+    </wsdl:message>
+     <wsdl:message name="Header">
+    	<wsdl:part name="request_header" type="hdns:RequestHeader"/>
+    </wsdl:message>
+     <wsdl:message name="LoginFault">
+    	<wsdl:part name="fault" element="fault:LoginFault"/>
+    </wsdl:message>
+    <wsdl:portType name="VMSHeadendServicePortType">
+        <wsdl:operation name="acknowledgePaymentDelivery">
+            <wsdl:input message="xsd:acknowledgePaymentDeliveryRequest" wsaw:Action="urn:acknowledgePaymentDelivery"/>
+            <wsdl:output message="xsd:acknowledgePaymentDeliveryResponse" wsaw:Action="urn:acknowledgePaymentDeliveryResponse"/>
+            <wsdl:fault  message="xsd:LoginFault" name="LoginFault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="VMSHeadendServiceSoapBinding" type="xsd:VMSHeadendServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="acknowledgePaymentDelivery">
+            <soap:operation soapAction="urn:acknowledgePaymentDelivery" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+            <wsdl:fault name="LoginFault">
+        		<soap:fault name="LoginFault" use="literal"/>
+     		</wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="VMSHeadendService">
+        <wsdl:port name="VMSHeadendServiceHttpSoapEndpoint" binding="xsd:VMSHeadendServiceSoapBinding">
+            <soap:address location="http://localhost:8080/axis2/services/VMSHeadendService"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

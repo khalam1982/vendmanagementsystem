@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.ws.model.VendTxnWSDetails" dynamic-update="true" table="VEND_TRANSACTION">
+	<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+	</id>
+	<version column="VERSION" name="version" type="java.lang.Integer"/>
+	<properties name="name"  update="true">
+		<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+		<property column="ACTUAL_TIMESTAMP" name="actualTimeStamp" type="java.util.Date"/>
+		<property column="VENDCODE_TIMESTAMP" name="vendcodeTimeStamp" type="java.util.Date"/>
+		<property column="VENDCODE" name="vendCode" type="java.lang.String"/>
+		<property column="TRANSACTION_TYPE" name="transactionType" type="java.lang.String"/>
+		<property column="CREDIT_VALUE" name="creditValue" type="java.lang.String"/>
+		<property column="PAN" name="pan" type="java.lang.String"/>
+		<property column="MSN" name="msn" type="java.lang.String"/>
+		<property column="PPKEY" name="ppKey" type="java.lang.String"/>
+		<property column="SOURCE" name="source" type="java.lang.String"/>
+		<property column="HOLDING_PERIOD" name="holdingPeriod" type="java.lang.Long"/>
+		<property column="TRIGGER_NAME" name="triggerName" type="java.lang.String"/>
+		<property column="ORIGINAL_TRANSACTION_ID" name="originalTransactionID" type="java.lang.String"/>
+		<property column="CREATED_BY" name="createdBy" type="java.lang.String"/>
+		<property column="TOP_UP_SRC" name="topUpSource" type="java.lang.String"/>
+		<property column="HEADEND" name="headend" type="java.lang.String"/>
+	</properties>
+	<property column="UPDATED_BY" name="updatedBy" type="java.lang.String"/>
+	<set name="txnStatusDetails" cascade="save-update" lazy="false" order-by="UPDATED_TIMESTAMP desc">
+		<key column="TRANSACTION_ID"/>
+		<one-to-many class="com.centrica.vms.model.VendTxnStatus" />
+	</set>
+</class>
+</hibernate-mapping>

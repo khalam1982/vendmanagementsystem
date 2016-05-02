@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!-- Trilliant Networks Web Services API version 1.0 -->
+<definitions targetNamespace="urn:ws.unity.trilliantnetworks.com"
+	xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:trns="urn:ws.unity.trilliantnetworks.com"
+	xmlns:fns="urn:fault.ws.unity.trilliantnetworks.com" xmlns:resns="urn:result.ws.unity.trilliantnetworks.com"
+	xmlns:hdns="urn:header.ws.unity.trilliantnetworks.com" xmlns:pre="urn:prepay.ws.unity.trilliantnetworks.com"
+	xmlns:ens="urn:tobject.ws.unity.trilliantnetworks.com">
+
+	<types>
+
+		<!-- TOBJECT SCHEMA -->
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:tobject.ws.unity.trilliantnetworks.com">
+			<import namespace="urn:ws.unity.trilliantnetworks.com" />
+
+			<complexType name="tObject">
+				<sequence>
+					<element name="id" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="type" type="xsd:string" nillable="false"
+						minOccurs="0" maxOccurs="1" />
+					<element name="createdById" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="createdDate" type="xsd:dateTime" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="lastModifiedById" type="xsd:string"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="lastModifiedByDate" type="xsd:dateTime"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="systemModStamp" type="xsd:dateTime"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="ownerId" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="values" type="ens:BaseValue" nillable="true"
+						minOccurs="0" maxOccurs="unbounded" />
+				</sequence>
+			</complexType>
+			<complexType name="BaseValue" abstract="true">
+				<sequence>
+					<element name="fieldName" type="xsd:string" nillable="false"
+						minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</complexType>
+		</schema>
+
+		<!-- HEADER SCHEMA -->
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:header.ws.unity.trilliantnetworks.com">
+
+			<import namespace="urn:ws.unity.trilliantnetworks.com" />
+
+			<complexType name="SessionHeader">
+				<sequence>
+					<element name="sessionId" type="xsd:string" nillable="false" />
+					<!--
+						<element name="userDetails" type="hdns:UserDetails"
+						nillable="false" />
+					-->
+					<element name="queryOptions" type="hdns:QueryOptions"
+						nillable="true" />
+					<element name="readMeterOptions" type="hdns:ReadMeterOptions"
+						nillable="true" />
+				</sequence>
+			</complexType>
+			<complexType name="UserDetails">
+				<sequence>
+					<element name="password" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="username" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="id" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="logonId" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="name" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="email" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="partnerId" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="partnerName" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="partnerNo" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="partnerCountry" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="partnerTimeZoneLookupId" type="xsd:string"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="singlePartner" type="xsd:boolean" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="timeZone" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="timeZoneOlsonName" type="xsd:string"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="dateFormat" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="timeFormat" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="currencySymbol" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="homePreferences" type="xsd:string" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="utilityPreferences" type="xsd:string"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="authorities" type="hdns:GrantedAuthority"
+						nillable="true" minOccurs="0" maxOccurs="unbounded" />
+					<element name="accountNonExpired" type="xsd:boolean"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="accountNonLocked" type="xsd:boolean"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="credentialsNonExpired" type="xsd:boolean"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="enabled" type="xsd:boolean" nillable="true"
+						minOccurs="0" maxOccurs="1" />
+					<element name="temporaryPassword" type="xsd:boolean"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="passwordCreatedDate" type="xsd:date"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+					<element name="partnerPasswordExpiration" type="xsd:int"
+						nillable="true" minOccurs="0" maxOccurs="1" />
+				</sequence>
+			</complexType>
+			<complexType name="GrantedAuthority">
+				<sequence>
+					<element name="authority" type="xsd:string" nillable="true" />
+				</sequence>
+			</complexType>
+			<complexType name="QueryOptions">
+				<sequence>
+					<element name="batchSize" nillable="false" type="xsd:int"
+						minOccurs="0" />
+				</sequence>
+			</complexType>
+			<complexType name="ReadMeterOptions">
+				<sequence>
+					<element name="batchSize" nillable="false" type="xsd:int"
+						minOccurs="0" />
+				</sequence>
+			</complexType>
+		</schema>
+
+		<!-- RESULTS OBJECT SCHEMA -->
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:result.ws.unity.trilliantnetworks.com">
+			<import namespace="urn:tobject.ws.unity.trilliantnetworks.com" />
+			<import namespace="urn:header.ws.unity.trilliantnetworks.com" />
+			<complexType name="LoginResult">
+				<sequence>
+					<element name="passwordExpired" type="xsd:boolean" />
+					<element name="serverUrl" type="xsd:string" nillable="true" />
+					<element name="sessionId" type="xsd:string" nillable="true" />
+					<element name="userId" type="xsd:string" nillable="true" />
+					<element name="account" type="ens:tObject" nillable="true" />
+					<element name="userInfo" type="hdns:UserDetails" />
+					<element name="sessionHeader" type="hdns:SessionHeader"
+						nillable="true" />
+					<element name="logonId" type="xsd:string" nillable="true" />
+				</sequence>
+			</complexType>
+		</schema>
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:prepay.ws.unity.trilliantnetworks.com">
+			<complexType name="Prepayment">
+				<sequence>
+					<element minOccurs="1" name="paymentCardNumber" nillable="false"
+						type="xsd:string" />
+				</sequence>
+			</complexType>
+		   <simpleType name="StatusCode">
+       		 <restriction base="xsd:int">
+          		<enumeration value="200"/> <xsd:annotation>Success</xsd:annotation>
+          		<enumeration value="300"/> <xsd:annotation>Used to notify that some unhandled error has occured</xsd:annotation>
+          		<enumeration value="310"/> <xsd:annotation>Used to notify that the device doesnt exist</xsd:annotation>
+          		<enumeration value="320"/> <xsd:annotation>Multiple devices found for the same payment card number</xsd:annotation>
+         		 <enumeration value="330"/> <xsd:annotation>Device is not active</xsd:annotation>
+         		 <enumeration value="340"/> <xsd:annotation>Device is not connected</xsd:annotation>
+          		<enumeration value="350"/> <xsd:annotation>Device is not in prepayment mode</xsd:annotation>
+       	 	 </restriction>
+       	   </simpleType>
+		   <simpleType name="VendCodeType">
+				<restriction base="xsd:string">
+					<enumeration value="Purchase" />
+					<enumeration value="Adjustment" />
+				</restriction>
+			</simpleType>
+		</schema>
+
+		<!-- FAULE SCHEMA -->
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:fault.ws.unity.trilliantnetworks.com">
+			<simpleType name="ExceptionCode">
+				<restriction base="xsd:string">
+					<enumeration value="API_CURRENTLY_DISABLED" />
+					<enumeration value="BAD_CREDENTIALS" />
+					<enumeration value="USER_LOCKOUT" />
+					<enumeration value="INVALID_PERMISSION" />
+					<enumeration value="EXCEEDED_ID_LIMIT" />
+					<enumeration value="EXCEEDED_MAX_SIZE_REQUEST" />
+					<enumeration value="EXCEEDED_MAX_TYPES_LIMIT" />
+					<enumeration value="EXCEEDED_RATE_LIMIT" />
+					<enumeration value="FUNCTIONALITY_NOT_ENABLED" />
+					<enumeration value="IMAGE_TOO_LARGE" />
+					<enumeration value="INACTIVE_USER" />
+					<enumeration value="INSUFFICIENT_ACCESS" />
+					<enumeration value="INVALID_ARGUMENT" />
+					<enumeration value="INVALID_BATCH_SIZE" />
+					<enumeration value="INVALID_COMM_CONFIG_CLASS" />
+					<enumeration value="INVALID_CROSS_REFERENCE_KEY" />
+					<enumeration value="INVALID_FIELD" />
+					<enumeration value="INVALID_ID_FIELD" />
+					<enumeration value="INVALID_LOGIN" />
+					<enumeration value="INVALID_NEW_PASSWORD" />
+					<enumeration value="INVALID_OPERATION" />
+					<enumeration value="INVALID_OPERATION_WITH_EXPIRED_PASSWORD" />
+					<enumeration value="INVALID_QUERY_FILTER_OPERATOR" />
+					<enumeration value="INVALID_QUERY_LOCATOR" />
+					<enumeration value="INVALID_QUERY_SCOPE" />
+					<enumeration value="INVALID_SEARCH" />
+					<enumeration value="INVALID_SEARCH_SCOPE" />
+					<enumeration value="INVALID_SESSION_ID" />
+					<enumeration value="INVALID_SOAP_HEADER" />
+					<enumeration value="INVALID_SSO_GATEWAY_URL" />
+					<enumeration value="INVALID_TDEVICE_TYPE" />
+					<enumeration value="INVALID_TYPE" />
+					<enumeration value="INVALID_TYPE_FOR_OPERATION" />
+					<enumeration value="LOGIN_DURING_RESTRICTED_DOMAIN" />
+					<enumeration value="LOGIN_DURING_RESTRICTED_TIME" />
+					<enumeration value="MALFORMED_ID" />
+					<enumeration value="MALFORMED_QUERY" />
+					<enumeration value="MALFORMED_SEARCH" />
+					<enumeration value="METER_READ_FAILED" />
+					<enumeration value="MISSING_ARGUMENT" />
+					<enumeration value="OPERATION_TOO_LARGE" />
+					<enumeration value="PASSWORD_LOCKOUT" />
+					<enumeration value="QUERY_TIMEOUT" />
+					<enumeration value="QUERY_TOO_COMPLICATED" />
+					<enumeration value="SERVER_UNAVAILABLE" />
+					<enumeration value="SSO_SERVICE_DOWN" />
+					<enumeration value="UNKNOWN_EXCEPTION" />
+					<enumeration value="UNSUPPORTED_API_VERSION" />
+					<enumeration value="UNSUPPORTED_CLIENT" />
+					<enumeration value="UNSUPPORTED_OPERATION" />
+					<enumeration value="JOB_DOES_NOT_EXIST" />
+					<enumeration value="JOB_EXISTS" />
+					<enumeration value="MAPPING_EXCEPTION" />
+				</restriction>
+			</simpleType>
+			<complexType name="ApiFault">
+				<sequence>
+					<element name="exceptionCode" type="fns:ExceptionCode" />
+					<element name="exceptionMessage" type="xsd:string" />
+				</sequence>
+			</complexType>
+
+			<element name="LoginFault">
+				<complexType>
+					<complexContent>
+						<extension base="fns:ApiFault" />
+					</complexContent>
+				</complexType>
+			</element>
+
+			<element name="AccessDeniedFault">
+				<complexType>
+					<complexContent>
+						<extension base="fns:ApiFault" />
+					</complexContent>
+				</complexType>
+			</element>
+			<element name="UnexpectedErrorFault">
+				<complexType>
+					<complexContent>
+						<extension base="fns:ApiFault" />
+					</complexContent>
+				</complexType>
+			</element>
+		</schema>
+
+		<!-- CORE SCHEMA -->
+		<schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+			targetNamespace="urn:ws.unity.trilliantnetworks.com">
+			<import namespace="urn:prepay.ws.unity.trilliantnetworks.com" />
+			<import namespace="urn:header.ws.unity.trilliantnetworks.com" />
+			<import namespace="urn:result.ws.unity.trilliantnetworks.com" />
+			<element name="login">
+				<complexType>
+					<sequence>
+						<element name="username" type="xsd:string" />
+						<element name="password" type="xsd:string" />
+					</sequence>
+				</complexType>
+			</element>
+			<element name="loginResponse">
+				<complexType>
+					<sequence>
+						<element name="result" type="resns:LoginResult" />
+					</sequence>
+				</complexType>
+			</element>
+
+			<element name="logout">
+				<complexType />
+			</element>
+			<element name="logoutResponse">
+				<complexType />
+			</element>
+			<element name="ApplyVendCodeRequest">
+				<complexType>
+					<complexContent>
+						<extension base="pre:Prepayment">
+							<sequence>
+								<element minOccurs="1" name="vendCode" nillable="false"
+									type="xsd:string" />
+								<element minOccurs="1" name="transactionId" nillable="false"
+									type="xsd:string" />
+								<element minOccurs="0" name="type" nillable="true"
+									type="pre:VendCodeType" />
+								<element minOccurs="0" name="value" nillable="true"
+									type="xsd:int" />
+								<element minOccurs="0" name="timestamp" nillable="true"
+									type="xsd:dateTime"/>
+							</sequence>
+						</extension>
+					</complexContent>
+				</complexType>
+			</element>
+
+			<element name="ApplyVendCodeResponse">
+				<complexType>
+					<sequence>
+						<element minOccurs="1" name="transactionId" nillable="false"
+							type="xsd:string" />
+						<element minOccurs="1" name="deliveryStatus" nillable="false"
+							type="pre:StatusCode" />
+					</sequence>
+				</complexType>
+			</element>
+		</schema>
+	</types>
+	<message name="ApiFault">
+		<part name="fault" type="fns:ApiFault" />
+	</message>
+	<message name="LoginFault">
+		<part name="fault" element="fns:LoginFault" />
+	</message>
+	<message name="AccessDeniedFault">
+		<part name="fault" element="fns:AccessDeniedFault" />
+	</message>
+	<message name="UnexpectedErrorFault">
+		<part name="fault" element="fns:UnexpectedErrorFault" />
+	</message>
+	<!-- Header message -->
+	<message name="Header">
+		<part name="request_header" type="hdns:SessionHeader" />
+	</message>
+	<!-- Method Messages -->
+	<message name="loginRequest">
+		<part element="trns:login" name="parameters" />
+	</message>
+	<message name="loginResponse">
+		<part element="trns:loginResponse" name="parameters" />
+	</message>
+
+	<message name="logoutRequest">
+		<part element="trns:logout" name="parameters" />
+	</message>
+	<message name="logoutResponse">
+		<part element="trns:logoutResponse" name="parameters" />
+	</message>
+	<message name="applyVendCodeRequest">
+		<part name="parameters" element="trns:ApplyVendCodeRequest" />
+	</message>
+	<message name="applyVendCodeResponse">
+		<part name="parameters" element="trns:ApplyVendCodeResponse" />
+	</message>
+	<portType name="Soap">
+
+		<operation name="login">
+			<documentation>Login to the Trilliant Networks</documentation>
+			<input message="trns:loginRequest" />
+			<output message="trns:loginResponse" />
+			<fault message="trns:LoginFault" name="LoginFault" />
+			<fault message="trns:AccessDeniedFault" name="AccessDeniedFault" />
+			<fault message="trns:UnexpectedErrorFault" name="UnexpectedErrorFault" />
+		</operation>
+
+		<operation name="logout">
+			<documentation>Logout from the Trilliant Networks
+			</documentation>
+			<input message="trns:logoutRequest" />
+			<output message="trns:logoutResponse" />
+			<fault message="trns:AccessDeniedFault" name="AccessDeniedFault" />
+			<fault message="trns:UnexpectedErrorFault" name="UnexpectedErrorFault" />
+		</operation>
+
+		<operation name="applyVendCode">
+			<documentation>Apply Vend Code</documentation>
+			<input message="trns:applyVendCodeRequest" />
+			<output message="trns:applyVendCodeResponse" />
+			<fault message="trns:LoginFault" name="LoginFault" />
+			<fault message="trns:AccessDeniedFault" name="AccessDeniedFault" />
+			<fault message="trns:UnexpectedErrorFault" name="UnexpectedErrorFault" />
+		</operation>
+	</portType>
+	<binding name="SoapBinding" type="trns:Soap">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<operation name="login">
+			<soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:login" />
+			<input>
+				<soap:body parts="parameters" use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+			<fault name="LoginFault">
+				<soap:fault name="LoginFault" use="literal" />
+			</fault>
+			<fault name="AccessDeniedFault">
+				<soap:fault name="AccessDeniedFault" use="literal" />
+			</fault>
+			<fault name="UnexpectedErrorFault">
+				<soap:fault name="UnexpectedErrorFault" use="literal" />
+			</fault>
+		</operation>
+		<operation name="logout">
+			<soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:logout" />
+			<input>
+				<soap:body parts="parameters" use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+			<fault name="AccessDeniedFault">
+				<soap:fault name="AccessDeniedFault" use="literal" />
+			</fault>
+			<fault name="UnexpectedErrorFault">
+				<soap:fault name="UnexpectedErrorFault" use="literal" />
+			</fault>
+		</operation>
+		<operation name="applyVendCode">
+			<soap:operation soapAction="urn:applyVendCode" style="document" />
+			<input>
+				<soap:body use="literal" />
+			</input>
+			<output>
+				<soap:body use="literal" />
+			</output>
+			<fault name="LoginFault">
+				<soap:fault name="LoginFault" use="literal" />
+			</fault>
+			<fault name="AccessDeniedFault">
+				<soap:fault name="AccessDeniedFault" use="literal" />
+			</fault>
+			<fault name="UnexpectedErrorFault">
+				<soap:fault name="UnexpectedErrorFault" use="literal" />
+			</fault>
+		</operation>
+	</binding>
+	<!-- Soap Service Endpoint -->
+	<service name="UnityService">
+		<documentation>Trilliant Unity SOAP API</documentation>
+		<port binding="trns:SoapBinding" name="UnityV1">
+			<soap:address location="http://localhost:8080/trilliant/services/UnityService" />
+		</port>
+	</service>
+</definitions>

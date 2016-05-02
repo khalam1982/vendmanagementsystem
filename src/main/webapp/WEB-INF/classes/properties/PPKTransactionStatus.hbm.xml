@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.PPKeyTxnStatus" table="PPK_STATUS_HISTORY">
+	<id column="PPK_STATUS_ID" name="ppkStatusId" type="java.lang.Integer">
+		<generator class="sequence">
+		<param name="sequence">SEQ_VMS_PPKTXNSTATUS</param>
+		</generator>
+	</id>
+	<property column="STATUS" name="status"  type="java.lang.Integer" />
+	<property column="UPDATED_TIMESTAMP" name="updatedDate" type="java.util.Date"/>
+	<many-to-one name="statusDetails" class="com.centrica.vms.model.StatusDetails" column="STATUS" update="false" insert="false" lazy="false"/>
+</class>
+</hibernate-mapping>

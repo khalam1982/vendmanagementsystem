@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SmartMeterProcessingActionVMSAcknowledgment_In" targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:hdns="http://header.adjustment.sap.ws.vms.centrica.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:p2="http://service.adjustment.sap.ws.vms.centrica.com" xmlns:p1="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://service.adjustment.sap.ws.vms.centrica.com" xmlns="http://service.adjustment.sap.ws.vms.centrica.com" xmlns:ax24="http://model.adjustment.sap.ws.vms.centrica.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:import namespace="http://model.adjustment.sap.ws.vms.centrica.com"/>
+			<xsd:element name="acknowledgePaymentDelivery">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element form="qualified" name="deliveryReceipt" type="ax24:DeliveryReceipt"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="acknowledgePaymentDeliveryResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element form="qualified" name="deliveryReceiptResponse" type="ax24:DeliveryReceiptResponse"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+    <xsd:schema targetNamespace="http://model.adjustment.sap.ws.vms.centrica.com" xmlns="http://model.adjustment.sap.ws.vms.centrica.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:simpleType name="ResponseCode">
+				<xsd:restriction base="xsd:int"/>
+			</xsd:simpleType>
+			<xsd:simpleType name="DeliveryStatusCode">
+				<xsd:restriction base="xsd:int"/>
+			</xsd:simpleType>
+			<xsd:simpleType name="MeterSource">
+				<xsd:restriction base="xsd:string"/>
+			</xsd:simpleType>
+			<xsd:complexType name="Transaction">
+				<xsd:sequence>
+					<xsd:element form="qualified" minOccurs="0" name="transactionID" nillable="true" type="xsd:string"/>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="DeliveryReceiptResponse">
+				<xsd:complexContent>
+					<xsd:extension base="Transaction">
+						<xsd:sequence>
+							<xsd:element form="qualified" name="deliveryStatus" type="DeliveryStatusCode"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+			<xsd:complexType name="DeliveryReceipt">
+				<xsd:complexContent>
+					<xsd:extension base="Transaction">
+						<xsd:sequence>
+							<xsd:element form="qualified" name="deliveryStatus" type="ResponseCode"/>
+							<xsd:element form="qualified" minOccurs="0" name="topUpValue" nillable="true" type="xsd:string"/>
+							<xsd:element form="qualified" minOccurs="0" name="meterSource" nillable="true" type="MeterSource"/>
+							<xsd:element form="qualified" minOccurs="0" name="creditRemaining" nillable="true" type="xsd:string"/>
+							<xsd:element form="qualified" minOccurs="0" name="vendCode" nillable="true" type="xsd:string"/>
+						</xsd:sequence>
+					</xsd:extension>
+				</xsd:complexContent>
+			</xsd:complexType>
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="p2.acknowledgePaymentDeliveryRequest">
+    <wsdl:part name="parameters" element="p2:acknowledgePaymentDelivery">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="p2.acknowledgePaymentDeliveryResponse">
+    <wsdl:part name="parameters" element="p2:acknowledgePaymentDeliveryResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SmartMeterProcessingActionVMSAcknowledgment_In">
+    <wsdl:operation name="HESAcknowledgment_Sync_In">
+      <wsdl:input message="p1:p2.acknowledgePaymentDeliveryRequest">
+    </wsdl:input>
+      <wsdl:output message="p1:p2.acknowledgePaymentDeliveryResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SmartMeterProcessingActionVMSAcknowledgment_InBinding" type="p1:SmartMeterProcessingActionVMSAcknowledgment_In">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="HESAcknowledgment_Sync_In">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SmartMeterProcessingActionVMSAcknowledgment_In">
+    <wsdl:port name="SmartMeterProcessingActionVMSAcknowledgmentEndpoint" binding="p1:SmartMeterProcessingActionVMSAcknowledgment_InBinding">
+      <soap:address location="http://localhost:8080/axis2/services/SmartMeterProcessingActionVMSAcknowledgment"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,570 @@
+
+
+prompt delete the rows from meter details table...
+delete from meter_details;
+
+prompt delete the rows from quartz tables...
+delete from qrtz_job_listeners;
+delete from qrtz_trigger_listeners;
+delete from qrtz_fired_triggers;
+delete from qrtz_simple_triggers;
+delete from qrtz_cron_triggers;
+delete from qrtz_blob_triggers;
+delete from qrtz_triggers;
+delete from qrtz_job_details;
+delete from qrtz_calendars;
+delete from qrtz_paused_trigger_grps;
+delete from qrtz_locks;
+delete from qrtz_scheduler_state;
+
+
+
+prompt delete the rows from vend transaction table...
+delete from VEND_TRANSACTION;
+
+prompt delete the rows from source details table...
+delete from source_details;
+
+prompt delete the rows from status details table...
+delete from status_details;
+
+prompt delete the rows from vend creditid table...
+delete from VEND_CREDITID;
+
+prompt delete the rows from vms user function table...
+delete from VMS_USERFUNCTION;
+
+prompt delete the rows from vms user table...
+delete from VMS_USER;
+
+prompt delete the rows from vms function table...
+delete from VMS_FUNCTION;
+
+prompt delete the rows from vms group table...
+delete from VMS_GROUP;
+
+prompt delete the rows from vms messaging system table...
+delete from VMS_MESSAGINGSYSTEM;
+
+
+
+prompt drop meter details table...
+drop table meter_details;
+
+prompt drop quartz tables...
+drop table qrtz_calendars;
+drop table qrtz_fired_triggers;
+drop table qrtz_trigger_listeners;
+drop table qrtz_blob_triggers;
+drop table qrtz_cron_triggers;
+drop table qrtz_simple_triggers;
+drop table qrtz_triggers;
+drop table qrtz_job_listeners;
+drop table qrtz_job_details;
+drop table qrtz_paused_trigger_grps;
+drop table qrtz_locks;
+drop table qrtz_scheduler_state;
+
+prompt drop vend transaction table...
+drop table VEND_TRANSACTION;
+
+prompt drop source details table...
+drop table source_details;
+
+prompt drop status details table...
+drop table status_details;
+
+prompt drop vend creditid table...
+drop table VEND_CREDITID;
+
+
+prompt drop vms user function table...
+drop table VMS_USERFUNCTION;
+
+
+prompt drop vms user table...
+drop table VMS_USER;
+
+prompt drop vms function table...
+drop table VMS_FUNCTION;
+
+prompt drop vms group table...
+drop table VMS_GROUP;
+
+prompt drop vms messaging system table...
+drop table VMS_MESSAGINGSYSTEM;
+
+
+prompt drop vms user sequence...
+drop SEQUENCE SEQ_VMS_USER;
+
+prompt drop vms user function sequence...
+drop SEQUENCE SEQ_VMS_USERFUNCTION;
+
+
+
+
+
+prompt drop synonym details synonym...
+drop synonym meter_details;
+
+prompt drop quartz synonyms...
+drop synonym qrtz_calendars;
+drop synonym qrtz_fired_triggers;
+drop synonym qrtz_trigger_listeners;
+drop synonym qrtz_blob_triggers;
+drop synonym qrtz_cron_triggers;
+drop synonym qrtz_simple_triggers;
+drop synonym qrtz_triggers;
+drop synonym qrtz_job_listeners;
+drop synonym qrtz_job_details;
+drop synonym qrtz_paused_trigger_grps;
+drop synonym qrtz_locks;
+drop synonym qrtz_scheduler_state;
+
+
+
+prompt drop vend transaction synonym...
+drop synonym VEND_TRANSACTION;
+
+prompt drop source details synonym...
+drop synonym source_details;
+
+prompt drop status details synonym...
+drop synonym status_details;
+
+prompt drop vend creditid synonym...
+drop synonym VEND_CREDITID;
+
+
+prompt drop vms user function synonym...
+drop synonym VMS_USERFUNCTION;
+
+
+prompt drop vms user synonym...
+drop synonym VMS_USER;
+
+prompt drop vms function synonym...
+drop synonym VMS_FUNCTION;
+
+prompt drop vms group synonym...
+drop synonym VMS_GROUP;
+
+prompt drop vms messaging system synonym...
+drop synonym VMS_MESSAGINGSYSTEM;
+
+
+prompt drop vms user sequence...
+drop SEQUENCE SEQ_VMS_USER;
+
+prompt drop vms user function sequence...
+drop SEQUENCE SEQ_VMS_USERFUNCTION;
+
+
+
+prompt create vms user sequence...
+CREATE SEQUENCE SEQ_VMS_USER MINVALUE 1;
+
+prompt create vms user function sequence...
+CREATE SEQUENCE SEQ_VMS_USERFUNCTION;
+
+
+
+
+prompt create meter details table...
+CREATE TABLE METER_DETAILS (MSN VARCHAR(30) PRIMARY KEY,PPKEY VARCHAR(40) NOT NULL,FUELTYPE VARCHAR(20) NOT NULL);
+
+prompt create quartz tables...
+CREATE TABLE qrtz_job_details
+  (
+    JOB_NAME  VARCHAR2(200) NOT NULL,
+    JOB_GROUP VARCHAR2(200) NOT NULL,
+    DESCRIPTION VARCHAR2(250) NULL,
+    JOB_CLASS_NAME   VARCHAR2(250) NOT NULL, 
+    IS_DURABLE VARCHAR2(1) NOT NULL,
+    IS_VOLATILE VARCHAR2(1) NOT NULL,
+    IS_STATEFUL VARCHAR2(1) NOT NULL,
+    REQUESTS_RECOVERY VARCHAR2(1) NOT NULL,
+    JOB_DATA BLOB NULL,
+    PRIMARY KEY (JOB_NAME,JOB_GROUP)
+);
+CREATE TABLE qrtz_job_listeners
+  (
+    JOB_NAME  VARCHAR2(200) NOT NULL, 
+    JOB_GROUP VARCHAR2(200) NOT NULL,
+    JOB_LISTENER VARCHAR2(200) NOT NULL,
+    PRIMARY KEY (JOB_NAME,JOB_GROUP,JOB_LISTENER),
+    FOREIGN KEY (JOB_NAME,JOB_GROUP) 
+ REFERENCES QRTZ_JOB_DETAILS(JOB_NAME,JOB_GROUP)
+);
+CREATE TABLE qrtz_triggers
+  (
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    JOB_NAME  VARCHAR2(200) NOT NULL, 
+    JOB_GROUP VARCHAR2(200) NOT NULL,
+    IS_VOLATILE VARCHAR2(1) NOT NULL,
+    DESCRIPTION VARCHAR2(250) NULL,
+    NEXT_FIRE_TIME NUMBER(13) NULL,
+    PREV_FIRE_TIME NUMBER(13) NULL,
+    PRIORITY NUMBER(13) NULL,
+    TRIGGER_STATE VARCHAR2(16) NOT NULL,
+    TRIGGER_TYPE VARCHAR2(8) NOT NULL,
+    START_TIME NUMBER(13) NOT NULL,
+    END_TIME NUMBER(13) NULL,
+    CALENDAR_NAME VARCHAR2(200) NULL,
+    MISFIRE_INSTR NUMBER(2) NULL,
+    JOB_DATA BLOB NULL,
+    PRIMARY KEY (TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (JOB_NAME,JOB_GROUP) 
+ REFERENCES QRTZ_JOB_DETAILS(JOB_NAME,JOB_GROUP) 
+);
+CREATE TABLE qrtz_simple_triggers
+  (
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    REPEAT_COUNT NUMBER(7) NOT NULL,
+    REPEAT_INTERVAL NUMBER(12) NOT NULL,
+    TIMES_TRIGGERED NUMBER(10) NOT NULL,
+    PRIMARY KEY (TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (TRIGGER_NAME,TRIGGER_GROUP) 
+ REFERENCES QRTZ_TRIGGERS(TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_cron_triggers
+  (
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    CRON_EXPRESSION VARCHAR2(120) NOT NULL,
+    TIME_ZONE_ID VARCHAR2(80),
+    PRIMARY KEY (TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (TRIGGER_NAME,TRIGGER_GROUP) 
+ REFERENCES QRTZ_TRIGGERS(TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_blob_triggers
+  (
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    BLOB_DATA BLOB NULL,
+    PRIMARY KEY (TRIGGER_NAME,TRIGGER_GROUP),
+    FOREIGN KEY (TRIGGER_NAME,TRIGGER_GROUP) 
+        REFERENCES QRTZ_TRIGGERS(TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_trigger_listeners
+  (
+    TRIGGER_NAME  VARCHAR2(200) NOT NULL, 
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    TRIGGER_LISTENER VARCHAR2(200) NOT NULL,
+    PRIMARY KEY (TRIGGER_NAME,TRIGGER_GROUP,TRIGGER_LISTENER),
+    FOREIGN KEY (TRIGGER_NAME,TRIGGER_GROUP) 
+ REFERENCES QRTZ_TRIGGERS(TRIGGER_NAME,TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_calendars
+  (
+    CALENDAR_NAME  VARCHAR2(200) NOT NULL, 
+    CALENDAR BLOB NOT NULL,
+    PRIMARY KEY (CALENDAR_NAME)
+);
+CREATE TABLE qrtz_paused_trigger_grps
+  (
+    TRIGGER_GROUP  VARCHAR2(200) NOT NULL, 
+    PRIMARY KEY (TRIGGER_GROUP)
+);
+CREATE TABLE qrtz_fired_triggers 
+  (
+    ENTRY_ID VARCHAR2(95) NOT NULL,
+    TRIGGER_NAME VARCHAR2(200) NOT NULL,
+    TRIGGER_GROUP VARCHAR2(200) NOT NULL,
+    IS_VOLATILE VARCHAR2(1) NOT NULL,
+    INSTANCE_NAME VARCHAR2(200) NOT NULL,
+    FIRED_TIME NUMBER(13) NOT NULL,
+    PRIORITY NUMBER(13) NOT NULL,
+    STATE VARCHAR2(16) NOT NULL,
+    JOB_NAME VARCHAR2(200) NULL,
+    JOB_GROUP VARCHAR2(200) NULL,
+    IS_STATEFUL VARCHAR2(1) NULL,
+    REQUESTS_RECOVERY VARCHAR2(1) NULL,
+    PRIMARY KEY (ENTRY_ID)
+);
+CREATE TABLE qrtz_scheduler_state 
+  (
+    INSTANCE_NAME VARCHAR2(200) NOT NULL,
+    LAST_CHECKIN_TIME NUMBER(13) NOT NULL,
+    CHECKIN_INTERVAL NUMBER(13) NOT NULL,
+    PRIMARY KEY (INSTANCE_NAME)
+);
+CREATE TABLE qrtz_locks
+  (
+    LOCK_NAME  VARCHAR2(40) NOT NULL, 
+    PRIMARY KEY (LOCK_NAME)
+);
+
+prompt create source details table...
+CREATE TABLE SOURCE_DETAILS (SOURCE VARCHAR(30) PRIMARY KEY,HOLDING_PERIOD INTEGER NOT NULL,SOURCE_DESCRIPTION VARCHAR(50), MAX_VEND NUMBER(5), MAX_VEND_CONFIG NUMBER(1));
+
+prompt create status details table...
+CREATE TABLE STATUS_DETAILS(STATUS_CODE INTEGER PRIMARY KEY,STATUS_DESCRIPTION VARCHAR(100));
+
+prompt create vend creditid table...
+CREATE TABLE VEND_CREDITID (MSN VARCHAR(30),TRANSACTION_TYPE VARCHAR(30),CREDITID INTEGER NOT NULL,PRIMARY KEY (MSN, TRANSACTION_TYPE));
+
+prompt create vend transaction table...
+CREATE TABLE VEND_TRANSACTION (TRANSACTION_ID VARCHAR(20) PRIMARY KEY,PAN VARCHAR(30),VENDCODE VARCHAR(40),
+TRANSACTION_TYPE VARCHAR2(30) NOT NULL,STATUS INTEGER,TRIGGER_NAME VARCHAR(50),MSN VARCHAR(30),
+HOLDING_PERIOD INTEGER,SOURCE VARCHAR(30),ORIGINAL_TRANSACTION_ID VARCHAR(20),UPDATED_TIMESTAMP TIMESTAMP,
+CREATED_TIMESTAMP TIMESTAMP,ACTUAL_TIMESTAMP TIMESTAMP,VENDCODE_TIMESTAMP TIMESTAMP,CREDIT_VALUE VARCHAR(10),PPKEY VARCHAR(40),CREATED_BY VARCHAR(20),UPDATED_BY VARCHAR(20),VERSION INTEGER NOT NULL,FOREIGN KEY (STATUS) REFERENCES STATUS_DETAILS(STATUS_CODE),FOREIGN KEY (SOURCE) REFERENCES SOURCE_DETAILS(SOURCE));
+
+
+
+prompt create vms function table...
+CREATE TABLE VMS_FUNCTION (FUNCTION_CODE VARCHAR2(2) PRIMARY KEY,FUNCTION_DESCRIPTION VARCHAR(100) NOT NULL);
+
+prompt create vms group table...
+CREATE TABLE VMS_GROUP (GROUP_ID VARCHAR2(2) PRIMARY KEY,GROUP_DESCRIPTION VARCHAR(30) NOT NULL);
+
+prompt create vms messaging system table...
+CREATE TABLE VMS_MESSAGINGSYSTEM (MESSAGE_ID INTEGER, MESSAGE_TYPE VARCHAR2 (30), MESSAGE_DATA VARCHAR2 (2300), PRIMARY KEY (MESSAGE_ID));
+
+
+prompt create vms user table...
+CREATE TABLE VMS_USER (USER_ID INTEGER PRIMARY KEY,USERNAME VARCHAR2(20) UNIQUE NOT NULL,
+LAN_ID VARCHAR2(20) NOT NULL,GROUP_ID VARCHAR2(5) NOT NULL,RETRY_COUNT INTEGER DEFAULT 0,
+LOCK_IND CHAR DEFAULT 'N',SUPER_IND CHAR DEFAULT 'N',PASSWORD_DATE TIMESTAMP NOT NULL,
+POWER_IND CHAR DEFAULT 'N',CREATED_BY VARCHAR2(20) NOT NULL,UPDATED_BY VARCHAR2(20) NOT NULL,
+CREATED_TIMESTAMP TIMESTAMP NOT NULL,UPDATED_TIMESTAMP TIMESTAMP NOT NULL,PASSWORD VARCHAR2(20) NOT NULL,VERSION INTEGER NOT NULL,
+FOREIGN KEY (GROUP_ID) REFERENCES VMS_GROUP(GROUP_ID));
+
+prompt create vms user function table...
+CREATE TABLE VMS_USERFUNCTION (ID INTEGER PRIMARY KEY,USER_ID INTEGER,FUNCTION_CODE 
+VARCHAR2(2) NOT NULL, GROUP_ID VARCHAR2(2) NOT NULL,FOREIGN KEY (GROUP_ID) REFERENCES VMS_GROUP(GROUP_ID)
+,FOREIGN KEY (USER_ID) REFERENCES VMS_USER(USER_ID),FOREIGN KEY (FUNCTION_CODE) REFERENCES 
+VMS_FUNCTION(FUNCTION_CODE),UNIQUE(USER_ID,FUNCTION_CODE));
+
+
+
+prompt grant and create synonym for meter details table...
+grant select, insert, update, delete on METER_DETAILS to PREPAY_APP_ROLE;
+create public synonym METER_DETAILS for PREPAY_SCHEMA.METER_DETAILS;
+
+prompt grant and create synonym for quartz tables...
+grant select, insert, update, delete on qrtz_job_details to PREPAY_APP_ROLE;
+create public synonym qrtz_job_details for PREPAY_SCHEMA.qrtz_job_details;
+
+
+grant select, insert, update, delete on qrtz_job_listeners to PREPAY_APP_ROLE;
+create public synonym qrtz_job_listeners for PREPAY_SCHEMA.qrtz_job_listeners;
+
+grant select, insert, update, delete on qrtz_triggers to PREPAY_APP_ROLE;
+create public synonym qrtz_triggers for PREPAY_SCHEMA.qrtz_triggers;
+
+grant select, insert, update, delete on qrtz_simple_triggers to PREPAY_APP_ROLE;
+create public synonym qrtz_simple_triggers for PREPAY_SCHEMA.qrtz_simple_triggers;
+
+grant select, insert, update, delete on qrtz_cron_triggers to PREPAY_APP_ROLE;
+create public synonym qrtz_cron_triggers for PREPAY_SCHEMA.qrtz_cron_triggers;
+
+grant select, insert, update, delete on qrtz_blob_triggers to PREPAY_APP_ROLE;
+create public synonym qrtz_blob_triggers for PREPAY_SCHEMA.qrtz_blob_triggers;
+
+grant select, insert, update, delete on qrtz_trigger_listeners to PREPAY_APP_ROLE;
+create public synonym qrtz_trigger_listeners for PREPAY_SCHEMA.qrtz_trigger_listeners;
+
+
+grant select, insert, update, delete on qrtz_calendars to PREPAY_APP_ROLE;
+create public synonym qrtz_calendars for PREPAY_SCHEMA.qrtz_calendars;
+
+grant select, insert, update, delete on qrtz_paused_trigger_grps to PREPAY_APP_ROLE;
+create public synonym qrtz_paused_trigger_grps for PREPAY_SCHEMA.qrtz_paused_trigger_grps;
+
+grant select, insert, update, delete on qrtz_fired_triggers to PREPAY_APP_ROLE;
+create public synonym qrtz_fired_triggers for PREPAY_SCHEMA.qrtz_fired_triggers;
+
+grant select, insert, update, delete on qrtz_scheduler_state to PREPAY_APP_ROLE;
+create public synonym qrtz_scheduler_state for PREPAY_SCHEMA.qrtz_scheduler_state;
+
+grant select, insert, update, delete on qrtz_locks to PREPAY_APP_ROLE;
+create public synonym qrtz_locks for PREPAY_SCHEMA.qrtz_locks;
+
+prompt grant and create synonym for source details table...
+grant select, insert, update, delete on SOURCE_DETAILS to PREPAY_APP_ROLE;
+create public synonym SOURCE_DETAILS for PREPAY_SCHEMA.SOURCE_DETAILS;
+
+prompt grant and create synonym for status details table...
+grant select, insert, update, delete on STATUS_DETAILS to PREPAY_APP_ROLE;
+create public synonym STATUS_DETAILS for PREPAY_SCHEMA.STATUS_DETAILS;
+
+prompt grant and create synonym for vend creditid table...
+grant select, insert, update, delete on VEND_CREDITID to PREPAY_APP_ROLE;
+create public synonym VEND_CREDITID for PREPAY_SCHEMA.VEND_CREDITID;
+
+prompt grant and create synonym for vend transaction table...
+grant select, insert, update, delete on VEND_TRANSACTION to PREPAY_APP_ROLE;
+create public synonym VEND_TRANSACTION for PREPAY_SCHEMA.VEND_TRANSACTION;
+
+prompt grant and create synonym for vend function  table...
+create public synonym VMS_FUNCTION for PREPAY_SCHEMA.VMS_FUNCTION;
+GRANT select, insert, update, delete ON VMS_FUNCTION to PREPAY_APP_ROLE;
+
+prompt grant and create synonym for vend group table...
+create public synonym VMS_GROUP for PREPAY_SCHEMA.VMS_GROUP;
+GRANT select, insert, update, delete ON VMS_GROUP to PREPAY_APP_ROLE;
+
+prompt grant and create synonym for vend messaging system table...
+grant select, insert, update, delete on VMS_MESSAGINGSYSTEM to PREPAY_APP_ROLE;
+CREATE PUBLIC SYNONYM SEQ_VMS_MESSAGINGSYSTEM FOR PREPAY_SCHEMA.SEQ_VMS_MESSAGINGSYSTEM;
+
+prompt grant and create synonym for vms user sequence...
+create public synonym SEQ_VMS_USER for PREPAY_SCHEMA.SEQ_VMS_USER;
+GRANT SELECT ON SEQ_VMS_USER to PREPAY_APP_ROLE;
+
+prompt grant and create synonym for vms user table...
+create public synonym VMS_USER for PREPAY_SCHEMA.VMS_USER;
+GRANT select, insert, update, delete ON VMS_USER to PREPAY_APP_ROLE;
+
+prompt grant and create synonym for vms user function table...
+create public synonym VMS_USERFUNCTION for PREPAY_SCHEMA.VMS_USERFUNCTION;
+GRANT select, insert, update, delete ON VMS_USERFUNCTION to PREPAY_APP_ROLE;
+
+prompt grant and create synonym for vms user function sequence...
+create public synonym SEQ_VMS_USERFUNCTION for PREPAY_SCHEMA.SEQ_VMS_USERFUNCTION;
+GRANT SELECT ON SEQ_VMS_USERFUNCTION to PREPAY_APP_ROLE;
+
+
+
+
+
+
+prompt create index for the quartz table...
+create index idx_qrtz_j_req_recovery on qrtz_job_details(REQUESTS_RECOVERY) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_t_next_fire_time on qrtz_triggers(NEXT_FIRE_TIME) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_t_state on qrtz_triggers(TRIGGER_STATE) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_t_nft_st on qrtz_triggers(NEXT_FIRE_TIME,TRIGGER_STATE) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_t_volatile on qrtz_triggers(IS_VOLATILE) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_trig_name on qrtz_fired_triggers(TRIGGER_NAME) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_trig_group on qrtz_fired_triggers(TRIGGER_GROUP) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_trig_nm_gp on qrtz_fired_triggers(TRIGGER_NAME,TRIGGER_GROUP) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_trig_volatile on qrtz_fired_triggers(IS_VOLATILE) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_trig_inst_name on qrtz_fired_triggers(INSTANCE_NAME) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_job_name on qrtz_fired_triggers(JOB_NAME) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_job_group on qrtz_fired_triggers(JOB_GROUP) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_job_stateful on qrtz_fired_triggers(IS_STATEFUL) TABLESPACE I_BGSM_PPY01;
+create index idx_qrtz_ft_job_req_recovery on qrtz_fired_triggers(REQUESTS_RECOVERY) TABLESPACE I_BGSM_PPY01;
+
+prompt create index for the vend credit id table...
+CREATE BITMAP INDEX IDX ON VEND_CREDITID (MSN,TRANSACTION_TYPE) TABLESPACE I_BGSM_PPY01;
+
+
+
+
+
+prompt create rows on quartz table...
+INSERT INTO qrtz_locks values('TRIGGER_ACCESS');
+INSERT INTO qrtz_locks values('JOB_ACCESS');
+INSERT INTO qrtz_locks values('CALENDAR_ACCESS');
+INSERT INTO qrtz_locks values('STATE_ACCESS');
+INSERT INTO qrtz_locks values('MISFIRE_ACCESS');
+
+
+prompt create rows on source details table...
+INSERT INTO SOURCE_DETAILS VALUES ('0-0','60','Paypoint-Internet', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('0-1','60','Paypoint-SMS', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('0-3','600','Paypoint-OTC', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('0-99','600','Paypoint-Unknown', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-0','60','BG-Internet', '3', '1');
+INSERT INTO SOURCE_DETAILS VALUES ('1-1','60','BG-SMS', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-2','60','BG-Telephone', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-6','60','BG-IVR', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-7','60','BG-ISU', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-8','0','BG-Adjustment', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('1-99','60','BG-Unknown', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('2-3','600','Postoffice-OTC', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('2-99','600','Postoffice-Unknown', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('3-4','60','Smart Home Top Up-IHD', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('3-8','60','Smart Home Top Up-Sky TV', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('3-10','60','Smart Home Top Up - Greengage', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('3-99','60','Smart Home Top Up - Unknown', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('4-0','60','Payzone-Internet', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('4-1','60','Payzone-SMS', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('4-3','600','Payzone-OTC', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('4-99','600','Payzone-Unknown', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-0','60','Other-Internet', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-1','60','Other-SMS', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-2','60','Other-Telephone', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-3','600','Other-OTC', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-4','60','Other-IHD', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-5','60','Other-iphone', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-6','60','Other-IVR', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-7','60','Other-ISU', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-8','60','Other-Sky TV', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-9','60','Other-ATM', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-10','60','Other-Greengage', '', '');
+INSERT INTO SOURCE_DETAILS VALUES ('5-99','600','Other-Unknown', '', '');
+
+
+prompt create rows on status details table...
+INSERT INTO STATUS_DETAILS VALUES (100,'HEADEND_RECEIVED BY METER');
+INSERT INTO STATUS_DETAILS VALUES (110,'HEADEND_NOT RECEIVED BY METER');
+INSERT INTO STATUS_DETAILS VALUES (115,'VENDCODE GENERATED');
+INSERT INTO STATUS_DETAILS VALUES (120,'VENDCODE IN HOLDING PEN');
+INSERT INTO STATUS_DETAILS VALUES (125,'UNSENT TO HEADEND');
+INSERT INTO STATUS_DETAILS VALUES (130,'REVERSED');
+INSERT INTO STATUS_DETAILS VALUES (135,'VOIDED THE REVERSAL');
+INSERT INTO STATUS_DETAILS VALUES (140,'VOIDED VEND CODE IN HOLDING PEN');
+INSERT INTO STATUS_DETAILS VALUES (145,'VOIDED VENDCODE SENT TO HEADEND');
+INSERT INTO STATUS_DETAILS VALUES (150,'REVERSAL ACCEPTED');
+INSERT INTO STATUS_DETAILS VALUES (155,'REVERSAL REJECTED');
+INSERT INTO STATUS_DETAILS VALUES (160,'VOID ACCEPTED');
+INSERT INTO STATUS_DETAILS VALUES (165,'VOID REJECTED');
+INSERT INTO STATUS_DETAILS VALUES (200,'SENT TO HEADEND');
+INSERT INTO STATUS_DETAILS VALUES (300,'HEADEND_UNHANDLED ERROR');
+INSERT INTO STATUS_DETAILS VALUES (310,'HEADEND_DEVICE DOES N0T EXIST');
+INSERT INTO STATUS_DETAILS VALUES (320,'HEADEND_MULTIPLE DEVICE EXIST');
+INSERT INTO STATUS_DETAILS VALUES (330,'HEADEND_DEVICE NOT ACTIVE');
+INSERT INTO STATUS_DETAILS VALUES (340,'HEADEND_DEVICE NOT CONNECTED');
+INSERT INTO STATUS_DETAILS VALUES (350,'HEADEND_DEVICE NOT IN PREPAYMENT MODE');
+INSERT INTO STATUS_DETAILS VALUES (90,'EXCEEDS_MAX_VEND_FOR_SOURCE');
+
+
+prompt create rows on vms function table...
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('00','HOME');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('01','CREATE VEND');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('02','CREATE ADJUSTMENT');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('03','VIEW VEND HISTORY');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('04','CREATE METER DETAILS');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('05','PRODUCTION SUPPORT UTILITY');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('06','POWER USER ADMIN PAGE');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('07','USER ADMIN PAGE');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('08','CHANGE PASSWORD');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('09','VEND REPORT UTILITY');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('20','LOG OFF');
+INSERT INTO VMS_FUNCTION (FUNCTION_CODE,FUNCTION_DESCRIPTION) VALUES ('25', 'SOURCE DETAILS');
+
+
+prompt create rows on vms group table...
+INSERT INTO VMS_GROUP (GROUP_ID,GROUP_DESCRIPTION) VALUES ('G1','SUPER USER');
+INSERT INTO VMS_GROUP (GROUP_ID,GROUP_DESCRIPTION) VALUES ('G2','SUPPORT');
+INSERT INTO VMS_GROUP (GROUP_ID,GROUP_DESCRIPTION) VALUES ('G3','AGENT');
+INSERT INTO VMS_GROUP (GROUP_ID,GROUP_DESCRIPTION) VALUES ('G4','HEADEND');
+
+
+prompt create rows on vms user table...
+INSERT INTO VMS_USER (USER_ID,USERNAME,LAN_ID,GROUP_ID,RETRY_COUNT,LOCK_IND,SUPER_IND,PASSWORD_DATE,POWER_IND,CREATED_BY,UPDATED_BY,CREATED_TIMESTAMP,
+UPDATED_TIMESTAMP,PASSWORD,VERSION) VALUES (SEQ_VMS_USER.NEXTVAL,'superuser','SUPERUSER','G1',0,'N','Y',SYSDATE,
+'N','DBA','DBA',SYSDATE,SYSDATE,'vmstemp1',0);
+
+
+prompt create rows on vms user function table...
+INSERT INTO VMS_USERFUNCTION (ID,USER_ID,FUNCTION_CODE,GROUP_ID) VALUES (SEQ_VMS_USERFUNCTION.NEXTVAL,
+SEQ_VMS_USER.CURRVAL,'06','G1');
+
+INSERT INTO VMS_USERFUNCTION (ID,USER_ID,FUNCTION_CODE,GROUP_ID) VALUES (SEQ_VMS_USERFUNCTION.NEXTVAL,
+SEQ_VMS_USER.CURRVAL,'01','G1');
+
+
+INSERT INTO VMS_USERFUNCTION (ID,USER_ID,FUNCTION_CODE,GROUP_ID) VALUES (SEQ_VMS_USERFUNCTION.NEXTVAL,
+SEQ_VMS_USER.CURRVAL,'03','G1');
+
+INSERT INTO VMS_USERFUNCTION (ID,USER_ID,FUNCTION_CODE,GROUP_ID) VALUES (SEQ_VMS_USERFUNCTION.NEXTVAL,
+SEQ_VMS_USER.CURRVAL,'04','G1');
+
+ INSERT INTO VMS_USERFUNCTION (ID,USER_ID,FUNCTION_CODE,GROUP_ID) VALUES (SEQ_VMS_USERFUNCTION.NEXTVAL, SEQ_VMS_USER.CURRVAL, '25', 'G2');
+ 

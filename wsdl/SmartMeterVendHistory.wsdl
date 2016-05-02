@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" name="SmartMeterVendHistory"  xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:xsd="http://service.sap.ws.vh.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema"  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://service.sap.ws.vh.vms.centrica.com">
+    <wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://service.sap.ws.vh.vms.centrica.com" schemaLocation="VHServiceSchema.xsd" />
+		</xs:schema>
+    </wsdl:types>
+    <wsdl:message name="VendHistoryRequest">
+        <wsdl:part name="parameters" element="xsd:GetVendHistory"/>
+    </wsdl:message>
+    <wsdl:message name="VendHistoryResponse">
+        <wsdl:part name="parameters" element="xsd:GetVendHistoryResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="SmartMeterVendHistoryPortType">
+        <wsdl:operation name="VendHistory">
+            <wsdl:input message="xsd:VendHistoryRequest" wsaw:Action="urn:VendHistory"/>
+            <wsdl:output message="xsd:VendHistoryResponse" wsaw:Action="urn:VendHistoryResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SmartMeterVendHistorySoapBinding" type="xsd:SmartMeterVendHistoryPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="VendHistory">
+            <soap:operation soapAction="urn:VendHistory" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="SmartMeterVendHistory">
+        <wsdl:port name="SmartMeterVendHistoryHttpSoapEndpoint" binding="xsd:SmartMeterVendHistorySoapBinding">
+            <soap:address location="http://localhost:8080/axis2/services/SmartMeterVendHistory"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

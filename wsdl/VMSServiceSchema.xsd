@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xsd="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	attributeFormDefault="qualified" elementFormDefault="qualified"
+	targetNamespace="http://service.sap.ws.vms.centrica.com">
+	<xs:import namespace="urn:britishgas.co.uk:Enterprise:SmartMeterProcessing"
+		schemaLocation="VMSMainSchema.xsd" />
+	<xs:element name="CreateVend">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="paymentRequest" type="xsd:CreateVendMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="CreateVendResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="paymentResponse" type="xsd:CreateVendResponseMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReverseVend">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="reverseTxnRequest" type="xsd:ReverseVendMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="ReverseVendResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="reverseTxnResponse" type="xsd:ReverseVendResponseMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VoidVend">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="voidTxnRequest" type="xsd:VoidVendRequestMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="VoidVendResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="voidTxnResponse" type="xsd:VoidVendRequestResponseMessage" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

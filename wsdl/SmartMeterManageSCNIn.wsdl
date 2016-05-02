@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SmartMeterManageSCNIn"
+	targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing"
+	xmlns:p2="http://service.pi.ws.vms.centrica.com" xmlns:p1="urn:britishgas.co.uk:Vend:SmartMeterProcessing"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="urn:britishgas.co.uk:Vend:SCNRegistration"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+	<wsdl:documentation />
+	<wsp:UsingPolicy wsdl:required="true" />
+	<wsp:Policy wsu:Id="OP_SmartMeterManageSCNIn" />
+	<wsdl:types>
+        <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://service.pi.ws.vms.centrica.com" schemaLocation="SCNRegistration.xsd" />
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name="p2.asynActivationandDeactivationRequest">
+		<wsdl:documentation />
+		<wsdl:part name="parameters" element="p4:asynActivationandDeactivation"
+			xmlns:p4="http://service.pi.ws.vms.centrica.com" />
+	</wsdl:message>
+	<wsdl:portType name="SmartMeterManageSCNIn">
+		<wsdl:documentation />
+		<wsdl:operation name="SmartMeterManageSCNIn">
+			<wsdl:input message="p1:p2.asynActivationandDeactivationRequest" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="SmartMeterManageSCNInBinding" type="p1:SmartMeterManageSCNIn">
+		<soap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		<wsdl:operation name="SmartMeterManageSCNIn">
+			<soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			<wsdl:input>
+				<soap:body use="literal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+			</wsdl:input>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="SmartMeterManageSCNInService">
+		<wsdl:port name="SmartMeterManageSCNInPort" binding="p1:SmartMeterManageSCNInBinding">
+			<soap:address
+				location="http://tpicxd2dv.uk.centricaplc.com:50000/sap/xi/engine?type=entry&amp;version=3.0&amp;Sender.Service=VEND_MODULE_SMART&amp;Interface=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing%5ESmartMeterManageSCNIn"
+				xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="AMIInterfaceImplService" targetNamespace="http://TrilliantAMIService/" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:tns="http://TrilliantAMIService/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <types>
+    <xsd:schema>
+			<xsd:import namespace="http://www.iec.ch/TC57/2008/schema/message" schemaLocation="AMIInterfaceImplService_schema1.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" schemaLocation="AMIInterfaceImplService_schema2.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="AMIInterfaceImplService_schema3.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://www.TrilliantAMI/TrilliantEndDeviceControls#" schemaLocation="AMIInterfaceImplService_schema5.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://www.TrilliantAMI/TrilliantCommonTypes" schemaLocation="AMIInterfaceImplService_schema6.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://www.TrilliantAMI/AdjustCreditMessages" schemaLocation="AMIInterfaceImplService_schema8.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://iec.ch/TC57/2009/EndDeviceControls#" schemaLocation="AMIInterfaceImplService_schema9.xsd"/>
+		</xsd:schema>
+    <xsd:schema>
+			<xsd:import namespace="http://TrilliantAMIService/" schemaLocation="AMIInterfaceImplService_schema10.xsd"/>
+		</xsd:schema>
+  </types>
+  <message name="adjustCredit">
+    <part name="parameters" element="tns:adjustCredit">
+    </part>
+  </message>
+  <message name="adjustCreditResponse">
+    <part name="parameters" element="tns:adjustCreditResponse">
+    </part>
+  </message>
+  <portType name="AMIInterface">
+    <operation name="adjustCredit">
+      <input message="tns:adjustCredit" wsam:Action="http://TrilliantAMIService/AMIInterface/adjustCreditRequest">
+    </input>
+      <output message="tns:adjustCreditResponse" wsam:Action="http://TrilliantAMIService/AMIInterface/adjustCreditResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="AMIInterfaceImplPortBinding" type="tns:AMIInterface">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="adjustCredit">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="AMIInterfaceImplService">
+    <port name="AMIInterfaceImplHTTPSPort" binding="tns:AMIInterfaceImplPortBinding">
+      <soap:address location="https://localhost:8443/trilliant/services/AMIInterfaceImplService/"/>
+    </port>
+    <port name="AMIInterfaceImplHTTPPort" binding="tns:AMIInterfaceImplPortBinding">
+      <soap:address location="http://localhost:8443/trilliant/services/AMIInterfaceImplService/"/>
+    </port>
+  </service>
+</definitions>

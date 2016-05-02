@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?> 
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN" "http://struts.apache.org/dtds/struts-config_1_2.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="MeterDetailsForm" type="com.centrica.vms.form.MeterDetailsForm" />
+		<form-bean name="VendHistoryForm" type="com.centrica.vms.form.VendHistoryDetailsForm" />
+		<form-bean name="VendRequestForm" type="com.centrica.vms.form.VendRequestDetailsForm" />
+		<form-bean name="VoidVendRequestForm" type="com.centrica.vms.form.VoidRequestDetailsForm" />
+		<form-bean name="AckVendRequestForm" type="com.centrica.vms.form.AckRequestDetailsForm" />
+		<form-bean name="VMSLoginForm" type="com.centrica.vms.form.VMSLoginForm" />
+		<form-bean name="PowerUserAdminForm" type="com.centrica.vms.form.PowerUserAdminForm" />
+		<form-bean name="UserAdminForm" type="com.centrica.vms.form.UserAdminForm" />
+		<form-bean name="AdjustmentRequestForm" type="com.centrica.vms.form.AdjustmentRequestDetailsForm" />
+		<form-bean name="ChangePasswordForm" type="com.centrica.vms.form.ChangePasswordForm" />
+		<form-bean name="UtilityRequestForm" type="com.centrica.vms.form.UtilityRequestForm" />
+		<form-bean name="HEUtilityRequestForm" type="com.centrica.vms.form.HEUtilityRequestForm" />
+		<form-bean name="VendReportRequestForm" type="com.centrica.vms.form.VendReportRequestForm" />
+		<form-bean name="CustomerDetailsForm" type="com.centrica.vms.form.CustomerDetailsForm" />
+		<form-bean name="PremiseDetailsForm" type="com.centrica.vms.form.PremiseDetailsForm" />
+		<form-bean name="SourceDetailsForm" type="com.centrica.vms.form.SourceDetailsForm" />
+	</form-beans>
+	<global-forwards>
+		<forward name="mainPage" path="/WEB-INF/jsp/MainPage.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action path="/MeterDispatchSearchAction" type="com.centrica.vms.action.MeterDispatchAction"
+			name="MeterDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/MeterDetailsSearch.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/MeterDetailsSearch.jsp" />
+			<forward name="detailPage" path="/WEB-INF/jsp/MeterDetails.jsp"/>
+		</action>
+		<action path="/MeterDispatchDetailAction" type="com.centrica.vms.action.MeterDispatchAction"
+			name="MeterDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/MeterDetails.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/MeterDetailsSearch.jsp" />
+			<forward name="confirmPage" path="/WEB-INF/jsp/MeterDetailsConfirmationPage.jsp"/>
+		</action>
+		<action path="/VendHistorySearchAction" type="com.centrica.vms.action.VendHistoryDispatchAction"
+			name="VendHistoryForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/VendHistorySearch.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/VendHistorySearch.jsp"/>
+			<forward name="detailPage" path="/WEB-INF/jsp/VendHistoryDetails.jsp"/>
+		</action>
+		<action path="/VendRequestAction" type="com.centrica.vms.action.VendRequestDispatchAction"
+			name="VendRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/VendRequestDetails.jsp" parameter="dispatch">
+			<forward name="requestPage" path="/WEB-INF/jsp/VendRequestDetails.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/VendRequestConfirm.jsp"/>
+			<forward name="responsePage" path="/WEB-INF/jsp/VendResponseDetails.jsp"/>
+		</action>
+		<action path="/VoidVendRequestAction" type="com.centrica.vms.action.VoidRequestDispatchAction"
+			name="VoidVendRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/VoidVendRequest.jsp" parameter="dispatch">
+			<forward name="requestPage" path="/WEB-INF/jsp/VoidVendRequest.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/VoidVendConfirm.jsp"/>
+			<forward name="responsePage" path="/WEB-INF/jsp/VoidVendResponse.jsp"/>
+		</action>
+		<action path="/AckVendRequestAction" type="com.centrica.vms.action.AckRequestDispatchAction"
+			name="AckVendRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/AckVendRequest.jsp" parameter="dispatch">
+			<forward name="requestPage" path="/WEB-INF/jsp/AckVendRequest.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/AckVendConfirm.jsp"/>
+			<forward name="responsePage" path="/WEB-INF/jsp/AckVendResponse.jsp"/>
+		</action>
+		<action path="/VMSHome" type="com.centrica.vms.action.VMSLoginAction"
+			name="VMSLoginForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/VendLogin.jsp" parameter="dispatch">
+			<forward name="loginPage" path="/WEB-INF/jsp/VendLogin.jsp"/>
+			<forward name="logoffPage" path="/WEB-INF/jsp/LogOff.jsp"/>
+		</action>
+		<action path="/PowerUserAdminAction" type="com.centrica.vms.action.PowerUserAdminDispatchAction"
+			name="PowerUserAdminForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/GroupPage.jsp" parameter="dispatch">
+			<forward name="groupPage" path="/WEB-INF/jsp/GroupPage.jsp"/>
+			<forward name="detailPage" path="/WEB-INF/jsp/PowerUserAdminDetails.jsp"/>
+		</action>
+		<action path="/PowerUserAdminDetailAction" type="com.centrica.vms.action.PowerUserAdminDispatchAction"
+			name="PowerUserAdminForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/PowerUserAdminDetails.jsp" parameter="dispatch">
+			<forward name="detailPage" path="/WEB-INF/jsp/PowerUserAdminDetails.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/PowerUserConfirmationPage.jsp"/>
+		</action>
+		<action path="/UserAdminAction" type="com.centrica.vms.action.UserAdminDispatchAction"
+			name="UserAdminForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/UserSearchPage.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/UserSearchPage.jsp"/>
+			<forward name="detailPage" path="/WEB-INF/jsp/UserAdminDetails.jsp"/>
+		</action>
+		<action path="/UserAdminDetailAction" type="com.centrica.vms.action.UserAdminDispatchAction"
+			name="UserAdminForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/UserAdminDetails.jsp" parameter="dispatch">
+			<forward name="detailPage" path="/WEB-INF/jsp/UserAdminDetails.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/UserConfirmationPage.jsp"/>
+		</action>
+		<action path="/ChangePwdAction" type="com.centrica.vms.action.ChangePwdDispatchAction"
+			name="ChangePasswordForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/ChangePassword.jsp" parameter="dispatch">
+			<forward name="passwordPage" path="/WEB-INF/jsp/ChangePassword.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/ChangePwdConfirmationPage.jsp"/>
+		</action>
+		<action path="/AdjustmentRequestAction" type="com.centrica.vms.action.AdjustmentRequestDispatchAction"
+			name="AdjustmentRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/AdjustRequestDetails.jsp" parameter="dispatch">
+			<forward name="requestPage" path="/WEB-INF/jsp/AdjustRequestDetails.jsp"/>
+			<forward name="confirmPage" path="/WEB-INF/jsp/AdjustRequestConfirm.jsp"/>
+			<forward name="responsePage" path="/WEB-INF/jsp/AdjustResponseDetails.jsp"/>
+		</action>
+		<action path="/UtilityRequestAction" type="com.centrica.vms.action.VMSUtilityDispatchAction"
+			name="UtilityRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/UtilityRequestType.jsp" parameter="dispatch">
+			<forward name="requestType" path="/WEB-INF/jsp/UtilityRequestType.jsp"/>
+			<forward name="hePhase2Request" path="/HEPhase2UtilityRequestAction"/>
+			<forward name="hePhase3Request" path="/HEPhase3UtilityRequestAction"/>
+			<forward name="heCIMRequest" path="/HECIMUtilityRequestAction"/>
+		</action>
+		<action path="/HEPhase2UtilityRequestAction" type="com.centrica.vms.action.HEPhase2UtilityDispatchAction"
+			name="HEUtilityRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/HEPhase2UtilityDetail.jsp" parameter="dispatch">
+			<forward name="hePhase2Request" path="/WEB-INF/jsp/HEPhase2UtilityDetail.jsp"/>
+			<forward name="heConfirmPage" path="/WEB-INF/jsp/HEUtilityConfirmationPage.jsp"/>
+		</action>
+		<action path="/HEPhase3UtilityRequestAction" type="com.centrica.vms.action.HEPhase3UtilityDispatchAction"
+			name="HEUtilityRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/HEPhase3UtilityDetail.jsp" parameter="dispatch">
+			<forward name="hePhase3Request" path="/WEB-INF/jsp/HEPhase3UtilityDetail.jsp"/>
+			<forward name="heConfirmPage" path="/WEB-INF/jsp/HEUtilityConfirmationPage.jsp"/>
+		</action>
+		<action path="/HECIMUtilityRequestAction" type="com.centrica.vms.action.HECIMUtilityDispatchAction"
+			name="HEUtilityRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/HECIMUtilityDetail.jsp" parameter="dispatch">
+			<forward name="heCIMRequest" path="/WEB-INF/jsp/HECIMUtilityDetail.jsp"/>
+			<forward name="heConfirmPage" path="/WEB-INF/jsp/HEUtilityConfirmationPage.jsp"/>
+		</action>
+		<action path="/VendReportAction" type="com.centrica.vms.action.VendReportDispatchAction"
+			name="VendReportRequestForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/VendReportUtility.jsp" parameter="dispatch">
+			<forward name="reportPage" path="/WEB-INF/jsp/VendReportUtility.jsp"/>
+		</action>
+		<action path="/SourceDetailsAction" type="com.centrica.vms.action.SourceDetailsDispatchAction"
+			name="SourceDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/SourceDetails.jsp" parameter="dispatch">
+			<forward name="showSource" path="/WEB-INF/jsp/SourceDetails.jsp"/>
+		</action>
+		<action path="/CustomerDispatchSearchAction" type="com.centrica.vms.action.CustomerDispatchAction"
+			name="CustomerDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/CustomerDetailsSearch.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/CustomerDetailsSearch.jsp" />
+			<forward name="detailPage" path="/WEB-INF/jsp/CustomerDetails.jsp"/>
+		</action>
+		<action path="/CustomerDispatchDetailAction" type="com.centrica.vms.action.CustomerDispatchAction"
+			name="CustomerDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/CustomerDetails.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/CustomerDetailsSearch.jsp" />
+			<forward name="confirmPage" path="/WEB-INF/jsp/CustomerDetailsConfirmationPage.jsp"/>
+		</action>
+		<action path="/PremiseDispatchSearchAction" type="com.centrica.vms.action.PremiseDispatchAction"
+			name="PremiseDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/PremiseDetailsSearch.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/PremiseDetailsSearch.jsp" />
+			<forward name="detailPage" path="/WEB-INF/jsp/PremiseDetails.jsp"/>
+		</action>
+		<action path="/PremiseDispatchDetailAction" type="com.centrica.vms.action.PremiseDispatchAction"
+			name="PremiseDetailsForm" scope="request" validate="true"
+			input="/WEB-INF/jsp/PremiseDetails.jsp" parameter="dispatch">
+			<forward name="searchPage" path="/WEB-INF/jsp/PremiseDetailsSearch.jsp" />
+			<forward name="confirmPage" path="/WEB-INF/jsp/PremiseDetailsConfirmationPage.jsp"/>
+		</action>
+	</action-mappings>
+	<controller processorClass="org.apache.struts.action.RequestProcessor" />
+	<message-resources parameter="properties.ApplicationResources" />
+</struts-config>

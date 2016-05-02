@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.scheduler.model.VendTxnSchedulerDetails" table="VEND_TRANSACTION">
+	<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+	</id>
+	<version column="VERSION" name="version" type="java.lang.Integer"/>
+	<properties name="name" update="false">
+		<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+		<property column="ORIGINAL_TRANSACTION_ID" name="originalTransactionID" type="java.lang.String"/>
+	</properties>
+	<property column="TRIGGER_NAME" name="triggerName" type="java.lang.String"/>
+	<property column="UPDATED_BY" name="updatedBy" type="java.lang.String"/>
+	<set name="txnStatusDetails" cascade="save-update" lazy="false" order-by="UPDATED_TIMESTAMP desc">
+		<key column="TRANSACTION_ID"/>
+		<one-to-many class="com.centrica.vms.model.VendTxnStatus" />
+	</set>
+</class>
+</hibernate-mapping>

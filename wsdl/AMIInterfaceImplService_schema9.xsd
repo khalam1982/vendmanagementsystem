@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://iec.ch/TC57/2009/EndDeviceControls#" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:complexType name="EndDeviceControl">
+    <xs:sequence>
+      <xs:element name="mRID" type="xs:string" minOccurs="0"/>
+      <xs:element name="description" type="xs:string" minOccurs="0"/>
+      <xs:element name="drProgramLevel" type="xs:integer" minOccurs="0"/>
+      <xs:element name="drProgramMandatory" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="priceSignal" type="xs:float" minOccurs="0"/>
+      <xs:element name="type" type="xs:string"/>
+      <xs:element name="DemandResponseProgram" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mRID" type="xs:string" minOccurs="0"/>
+            <xs:element name="name" type="xs:string" minOccurs="0"/>
+            <xs:element name="type" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="EndDeviceAsset" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mRID" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="EndDeviceGroup" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mRID" type="xs:string" minOccurs="0"/>
+            <xs:element name="groupAddress" type="xs:integer" minOccurs="0"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="scheduledInterval" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="end" type="xs:dateTime"/>
+            <xs:element name="start" type="xs:dateTime"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ServiceDeliveryPoint" minOccurs="0">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="mRID" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

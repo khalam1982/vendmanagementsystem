@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.VendReportDetails" table="VEND_TRANSACTION" optimistic-lock="none">
+<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+</id>
+<property column="TRANSACTION_TYPE" name="transactionType" type="java.lang.String"/>
+<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+<property column="CREDIT_VALUE" name="creditValue" type="java.lang.String"/>
+<property column="PAN" name="pan" type="java.lang.String"/>
+<property column="TRIGGER_NAME" name="triggerName" type="java.lang.String"/>
+<set name="txnStatusDetails" cascade="save-update" lazy="false" order-by="UPDATED_TIMESTAMP desc">
+	<key column="TRANSACTION_ID"/>
+	<one-to-many class="com.centrica.vms.model.VendTxnStatus" />
+</set>
+<many-to-one name="sourceDetails" class="com.centrica.vms.model.SourceDetails" column="SOURCE" update="false" insert="false" lazy="false"/>
+</class>
+</hibernate-mapping>

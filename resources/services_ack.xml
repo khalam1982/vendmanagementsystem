@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.4.1  Built on : Aug 19, 2008 (10:13:39 LKT) -->
+<serviceGroup>
+    <service name="VMSHeadendService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="com.centrica.vms.ws.headend.service.VMSHeadendServiceMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">com.centrica.vms.ws.headend.service.VMSHeadendServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="acknowledgePaymentDelivery" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.headend.ws.vms.centrica.com">
+            <actionMapping>urn:acknowledgePaymentDelivery</actionMapping>
+            <outputActionMapping>urn:acknowledgePaymentDeliveryResponse</outputActionMapping>
+            <faultActionMapping faultName="LoginFault">http://service.headend.ws.vms.centrica.com/VMSHeadendServicePortType/acknowledgePaymentDelivery/Fault/LoginFault</faultActionMapping>
+        </operation>
+     	<operation name="acknowledgePPKeyDelivery" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://service.headend.ws.vms.centrica.com">
+            <actionMapping>urn:acknowledgePPKeyDelivery</actionMapping>
+            <outputActionMapping>urn:acknowledgePPKeyDeliveryResponse</outputActionMapping>
+            <faultActionMapping faultName="LoginFault">http://service.headend.ws.vms.centrica.com/VMSHeadendServicePortType/acknowledgePPKeyDelivery/Fault/LoginFault</faultActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

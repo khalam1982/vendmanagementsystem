@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SmartMeterManageSCNAcknOut" targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:p2="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:p1="http://ack.pi.ws.vms.centrica.com" xmlns:xsd="urn:britishgas.co.uk:Vend:SmartMeteringSCNAck" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<wsdl:documentation/>
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://ack.pi.ws.vms.centrica.com" schemaLocation="SmartMeteringSCNAck.xsd"/>
+		</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SmartMeterManageSCNAckn">
+    <wsdl:part name="SmartMeterManageSCNAckn" element="p1:SmartMeterManageSCNAckn">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SmartMeterManageSCNAcknOut">
+    <wsdl:operation name="SmartMeterManageSCNAckn">
+      <wsdl:input message="p2:SmartMeterManageSCNAckn">
+    </wsdl:input>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SmartMeterManageSCNAcknOutBinding" type="p2:SmartMeterManageSCNAcknOut">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SmartMeterManageSCNAckn">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SmartMeterManageSCNAcknOutService">
+    <wsdl:port name="HTTPS_Port" binding="p2:SmartMeterManageSCNAcknOutBinding">
+      <soap:address location="https://tpicxd2dv.uk.centricaplc.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterManageSCNAcknOut&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing"/>
+    </wsdl:port>
+    <wsdl:port name="HTTP_Port" binding="p2:SmartMeterManageSCNAcknOutBinding">
+      <soap:address location="http://tpicxd2dv.uk.centricaplc.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterManageSCNAcknOut&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy wsdl:required="true"/>
+    <wsp:Policy wsu:Id="OP_SmartMeterManageSCNAckn"/>
+</wsdl:definitions>

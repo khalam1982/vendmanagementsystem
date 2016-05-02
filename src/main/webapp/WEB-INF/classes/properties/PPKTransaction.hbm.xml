@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.PPKeyTransaction" dynamic-update="true" table="PPK_TRANSACTION">
+	<id column="TRANSACTION_ID" name="transactionId" type="java.lang.String">
+	</id>
+	<properties name="name"  update="true">
+		<property column="MPXN" name="mpxn" type="java.lang.String"/>
+		<property column="MSN" name="msn" type="java.lang.String"/>
+		<property column="PPKEY" name="ppKey" type="java.lang.String"/>
+		<property column="REQUEST_TIMESTAMP" name="requestDate" type="java.util.Date"/>
+		<property column="CREATED_BY" name="createdBy" type="java.lang.String"/>
+		<property column="UPDATE_TIMESTAMP" name="updatedDate" type="java.util.Date"/>
+		<property column="HEADEND" name="headend" type="java.lang.String"/>
+	</properties>
+	<property column="UPDATED_BY" name="updatedBy" type="java.lang.String"/>
+	<set name="statusDetails" cascade="save-update" lazy="false" order-by="UPDATED_TIMESTAMP desc">
+		<key column="TRANSACTION_ID"/>
+		<one-to-many class="com.centrica.vms.model.PPKeyTxnStatus" />
+	</set>
+</class>
+</hibernate-mapping>

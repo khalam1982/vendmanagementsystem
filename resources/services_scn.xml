@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.4.1  Built on : Aug 19, 2008 (10:13:39 LKT) -->
+<serviceGroup>
+    <service name="SmartMeterManageSCNInService">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="smartmeterprocessing.vend.uk.co.britishgas.SmartMeterManageSCNInServiceMessageReceiverInOnly"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">smartmeterprocessing.vend.uk.co.britishgas.SmartMeterManageSCNInServiceSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="SmartMeterManageSCNIn" mep="http://www.w3.org/ns/wsdl/in-only" namespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing">
+            <actionMapping>http://sap.com/xi/WebService/soap1.1</actionMapping>
+        </operation>
+    </service>
+</serviceGroup>

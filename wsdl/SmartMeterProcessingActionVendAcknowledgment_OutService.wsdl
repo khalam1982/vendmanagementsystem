@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SmartMeterProcessingActionVendAcknowledgment_Out" targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:p1="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns="urn:britishgas.co.uk:Vend:SmartMeterProcessing" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<xsd:element name="VendAcknowlegmentRequest" type="VendAcknowlegmentRequestMessage"/>
+			<xsd:element name="VendAcknowlegmentResponse" type="VendAcknowlegmentResponseMessage"/>
+			<xsd:complexType name="VendAcknowlegmentRequestMessage">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">415a2620082911e4985a00000091f37a
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="TransactionId" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a88082911e48f6200ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="MSN" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a89082911e4b4b800ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="VendCode" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a8a082911e4b52000ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="CreditValue" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a8b082911e4b5f300ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Status" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a8c082911e4a27a00ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="PAN" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a8d082911e4a55c00ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Date" type="xsd:dateTime">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">40c24a8e082911e4baa600ff986c0f87
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+			<xsd:complexType name="VendAcknowlegmentResponseMessage">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/VersionID">487c84fefd2a11e39efc00000091f37a
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:sequence>
+					<xsd:element name="TransactionId" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">5409bf82fd2a11e3968b00ffb05bf706
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ReasonCode" type="xsd:integer">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">5409bf83fd2a11e3b22400ffb05bf706
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Description" type="xsd:string">
+						<xsd:annotation>
+							<xsd:appinfo source="http://sap.com/xi/TextID">5409bf84fd2a11e3b4be00ffb05bf706
+							</xsd:appinfo>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+		</xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="VendAcknowlegmentResponse">
+    <wsdl:part name="VendAcknowlegmentResponse" element="p1:VendAcknowlegmentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="VendAcknowlegmentRequest">
+    <wsdl:part name="VendAcknowlegmentRequest" element="p1:VendAcknowlegmentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SmartMeterProcessingActionVendAcknowledgment_Out">
+    <wsdl:operation name="VMS_VendAcknowledgment_Sync_Out">
+      <wsdl:input message="p1:VendAcknowlegmentRequest">
+    </wsdl:input>
+      <wsdl:output message="p1:VendAcknowlegmentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SmartMeterProcessingActionVendAcknowledgment_OutBinding" type="p1:SmartMeterProcessingActionVendAcknowledgment_Out">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="VMS_VendAcknowledgment_Sync_Out">
+      <soap:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SmartMeterProcessingActionVendAcknowledgment_OutService">
+    <wsdl:port name="HTTPS_Port" binding="p1:SmartMeterProcessingActionVendAcknowledgment_OutBinding">
+      <soap:address location="https://tpicxd2dv.uk.centricaplc.com:50001/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterProcessingActionVendAcknowledgment_Out&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing"/>
+    </wsdl:port>
+    <wsdl:port name="HTTP_Port" binding="p1:SmartMeterProcessingActionVendAcknowledgment_OutBinding">
+      <soap:address location="http://tpicxd2dv.uk.centricaplc.com:50000/XISOAPAdapter/MessageServlet?senderParty=&amp;senderService=VEND_MODULE_SMART&amp;receiverParty=&amp;receiverService=&amp;interface=SmartMeterProcessingActionVendAcknowledgment_Out&amp;interfaceNamespace=urn%3Abritishgas.co.uk%3AVend%3ASmartMeterProcessing"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

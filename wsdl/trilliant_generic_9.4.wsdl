@@ -1,0 +1,4027 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions targetNamespace="urn:ws.unity.trilliantnetworks.com" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:rpt="urn:reporting.ws.unity.trilliantnetworks.com" xmlns:tcsch="urn:command.tsched.ws.scheduler.unity.trilliantnetworks.com" xmlns:fns="urn:fault.ws.unity.trilliantnetworks.com" xmlns:dcens="urn:event.command.ws.unity.trilliantnetworks.com" xmlns:mrns="urn:meterdata.ws.unity.trilliantnetworks.com" xmlns:dcns="urn:command.ws.unity.trilliantnetworks.com" xmlns:resns="urn:result.ws.unity.trilliantnetworks.com" xmlns:dcuns="urn:util.command.ws.unity.trilliantnetworks.com" xmlns:qry="urn:query.ws.unity.trilliantnetworks.com" xmlns:tsch="urn:tsched.ws.scheduler.unity.trilliantnetworks.com" xmlns:ens="urn:tobject.ws.unity.trilliantnetworks.com" xmlns:sns="urn:ws.scheduler.unity.trilliantnetworks.com" xmlns:trns="urn:ws.unity.trilliantnetworks.com" xmlns:hdns="urn:header.ws.unity.trilliantnetworks.com" xmlns:pre="urn:prepay.ws.unity.trilliantnetworks.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:trsch="urn:trigger.ws.scheduler.unity.trilliantnetworks.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types>
+    <schema elementFormDefault="qualified" targetNamespace="urn:command.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:util.command.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:event.command.ws.unity.trilliantnetworks.com"/>
+      
+      <complexType abstract="true" name="deviceCommand">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="description" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="devicePk" nillable="true" type="xsd:long"/>
+          <element maxOccurs="1" minOccurs="1" name="deviceId" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="deviceType" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="functionId" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="deviceStatus" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="runId" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="compositeDeviceCommand">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="unbounded" minOccurs="0" name="deviceCommands" nillable="false" type="dcns:deviceCommand"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+
+      <complexType name="nd08Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="zone" nillable="true" type="xsd:int"/>
+      				<element default="false" maxOccurs="1" minOccurs="0" name="updateTemperatureUnit" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateHeatingSetpoint" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateCoolingSetpoint" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateHvacMode" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateFanMode" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateOccupiedMode" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="temperatureUnit" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="heatingSetpoint" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="coolingSetpoint" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="hvacMode" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="fanMode" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="occupiedMode" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="indoorTemperature" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="outdoorTemperature" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="heatingStatus" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="coolingStatus" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="fanStatus" nillable="true" type="xsd:string"/>  
+					<element maxOccurs="1" minOccurs="0" name="forceTransfer" nillable="true" type="xsd:string"/>   
+					<element default="false" maxOccurs="1" minOccurs="0" name="updateDuplicate" nillable="true" type="xsd:boolean"/>     				       				   				
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+
+      <complexType name="nd04Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="action" nillable="true" type="xsd:string"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+      
+      <complexType name="nd05Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="maxDownloadCount" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="downloadTimeoutInSeconds" nillable="true" type="xsd:int"/>
+      				<element default="false" maxOccurs="1" minOccurs="0" name="ignoreGaps" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="includeOnlyAptitles" nillable="true" type="xsd:string"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+      <complexType name="genericAdHocCommand">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="partnerId" nillable="false" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="adHocType" nillable="false" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="userId" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="deviceParameter" nillable="true" type="dcuns:DeviceParameter"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="specificInformation" nillable="true" type="xsd:string"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+      <complexType name="nd09Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="unbounded" minOccurs="0" name="relay" nillable="true" type="dcuns:Relay"/>
+      				<element maxOccurs="1" minOccurs="0" name="numberOfRelays" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="forceTransfer" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateDuplicate" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="loadSheddingEntries" nillable="true" type="dcuns:ND09LoadSheddingEntry"/>
+      				<element maxOccurs="1" minOccurs="0" name="loadSheddingParams" nillable="true" type="dcuns:ND09LoadSheddingEntry"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+      
+      <complexType name="nd12Command">
+    	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="state" nillable="true" type="xsd:string"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+    </complexType>
+    
+    <complexType name="eg01Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="area" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="billingPoint" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="drProgram" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="feederIdentifier" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="forceTransfer" nillable="true" type="xsd:string"/>
+					<element maxOccurs="1" minOccurs="0" name="eventParams" nillable="true" type="dcens:EG01Event"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="loadSheddingEvents" nillable="true" type="dcens:LoadSheddingEvent"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="priceEvents" nillable="true" type="dcens:PriceEvent"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="eg01ThermostatHoldControlEvent" nillable="true" type="dcens:EG01ThermostatHoldControlEvent"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="eg01ThermostatModeControlEvent" nillable="true" type="dcens:EG01ThermostatModeControlEvent"/>
+      				<element maxOccurs="1" minOccurs="0" name="sourceUtility" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="thermostatStatus" nillable="true" type="dcuns:ThermostatStatus"/>
+      				<element default="false" maxOccurs="1" minOccurs="0" name="updateDuplicate" nillable="true" type="xsd:boolean"/>
+      				<element maxOccurs="1" minOccurs="0" name="messageEvent" nillable="true" type="dcens:MessageEvent"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+	</complexType>
+	
+	<complexType name="az01Command"> 
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="seasonID" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="month" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="1" minOccurs="0" name="day" nillable="true" type="xsd:int"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="dayIdArray" nillable="true" type="xsd:int"/>      				
+					<element maxOccurs="unbounded" minOccurs="0" name="yearArray" nillable="true" type="dcuns:AZ01Year"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="dayArray" nillable="true" type="dcuns:AZ01Day"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="rateArray" nillable="true" type="dcuns:AZ01Rate"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="costArray" nillable="true" type="dcuns:AZ01Cost"/>
+      				<element maxOccurs="1" minOccurs="0" name="prepayConfig" nillable="true" type="dcuns:AZ01PrepayConfig"/>
+      				<element maxOccurs="1" minOccurs="0" name="prepayAccount" nillable="true" type="dcuns:AZ01PrepayAccount"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+	</complexType>
+	
+	<complexType name="nd10Command">
+      	<complexContent>
+      		<extension base="dcns:deviceCommand">
+      			<sequence>
+      				<element maxOccurs="1" minOccurs="0" name="forceTransfer" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="1" minOccurs="0" name="updateDuplicate" nillable="true" type="xsd:boolean"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+     </complexType>
+     
+     <complexType name="deviceParameterCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="1" minOccurs="0" name="deviceParameterType" nillable="true" type="xsd:string"/>
+     				<element maxOccurs="1" minOccurs="0" name="deviceParameter" nillable="true" type="dcuns:DeviceParameter"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+     
+     <complexType name="lg01BillingPeriodConfigCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="1" minOccurs="0" name="startMonth" nillable="true" type="xsd:short"/>
+     				<element maxOccurs="1" minOccurs="0" name="startDate" nillable="true" type="xsd:short"/>
+     				<element maxOccurs="1" minOccurs="0" name="days" nillable="true" type="xsd:short"/>
+     				<element maxOccurs="1" minOccurs="0" name="months" nillable="true" type="xsd:short"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>    
+    
+     <complexType name="lg01BlockTariffThresholdsConfigCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="unbounded" minOccurs="0" name="blockTariffThresholds" nillable="true" type="xsd:int"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+     
+     <complexType name="lg01CreditModeCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="1" minOccurs="0" name="creditMode" nillable="true" type="dcuns:LG01CreditMode"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+     
+     <complexType name="lg01IntervalDataConfigCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="1" minOccurs="0" name="utcStartTime" nillable="true" type="xsd:dateTime"/>
+     				<element maxOccurs="1" minOccurs="0" name="utcEndTime" nillable="true" type="xsd:dateTime"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+     
+     <complexType name="lg01ScheduledReadsConfigCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="1" minOccurs="0" name="period" nillable="true" type="dcuns:LG01Period"/>
+     				<element maxOccurs="1" minOccurs="0" name="randomizeReportTransmission" nillable="true" type="xsd:boolean"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+     
+     <complexType name="Lg01TariffPricesConfigCommand">
+     	<complexContent>
+     		<extension base="dcns:deviceCommand">
+     		 	<sequence>
+     				<element maxOccurs="unbounded" minOccurs="0" name="tariffPrices" nillable="true" type="xsd:int"/>
+     				<element maxOccurs="1" minOccurs="0" name="futureRateActivationDate" nillable="true" type="xsd:dateTime"/>
+     			</sequence>
+     		</extension>
+     	</complexContent>
+     </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:util.command.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">  		
+
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:tobject.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:command.ws.unity.trilliantnetworks.com"/>
+      
+      <complexType name="Relay">
+      		<sequence>
+		      	<element maxOccurs="1" minOccurs="0" name="state" nillable="true" type="xsd:boolean"/>
+		      	<element maxOccurs="1" minOccurs="0" name="label" nillable="true" type="xsd:string"/>
+     				<element maxOccurs="1" minOccurs="0" name="controlledState" nillable="true" type="xsd:boolean"/>	
+     				<element maxOccurs="1" minOccurs="0" name="coldLoadPickup" nillable="true" type="xsd:int"/>	      	
+	      	</sequence>
+      </complexType>
+
+      <complexType name="ThermostatStatus">
+            <sequence>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="communicationLinkDown" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="configurationError" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="controlMode" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="coolSetpoint" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="day" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="daysRemaining" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="equipmentType" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="eventCancelledByUser" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="eventDisabledByUser" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="fanMode" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="fanOperation" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="filterFault" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="heatPumpDisabled" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="heatPumpFault" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="heatSetpoint" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="holdSetpointNumber" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="holdType" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="hoursRemaining" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="loadSheddingInProgress" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="lowBattery" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="mandatoryLoadShedding" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="month" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="nbrOfCoolingStages" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="nbrOfHeatingStages" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="nbrOfStagesEngaged" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="newMessage" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="operationMode" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="outputShortCircuit" nillable="true" type="xsd:boolean"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="priceEventInProgress" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="temperature" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="temperatureScaleDisplayed" nillable="true" type="xsd:int"/>	          
+            </sequence>
+      </complexType>
+
+      <complexType name="ND09LoadSheddingEntry">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="cyclingCtrl" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="duration" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="randomEnd" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="randomStart" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="startDateTime" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+      </complexType>
+      
+      <complexType name="AZ01Year">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="dayOfYear" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="dayID" nillable="true" type="xsd:int"/>
+            </sequence>
+      </complexType>
+
+      <complexType name="AZ01Day">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="dayID" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="unbounded" minOccurs="0" name="rateIDArray" nillable="true" type="xsd:int"/>
+            </sequence>
+      </complexType>
+
+      <complexType name="AZ01Cost">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="costID" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="type" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="cost" nillable="true" type="xsd:int"/>
+            </sequence>
+      </complexType>
+
+      <complexType name="AZ01Rate">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="rateID" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="pattern" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="color" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="symbolSelector" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="symbolCount" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="typeLimited" nillable="true" type="xsd:int"/>
+	          <!-- typeContinuous was spelled incorrectly as typeContinious in unityclient so I have to match it for the mapper to succeed -->
+	          <element maxOccurs="1" minOccurs="0" name="typeContinious" nillable="true" type="xsd:boolean"/> 
+	          <element maxOccurs="1" minOccurs="0" name="acknowledge" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="tone" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="advanceWarningHours" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="cost" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="limit" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="next" nillable="true" type="xsd:int"/>
+            </sequence>
+      </complexType>
+
+      <complexType name="AZ01PrepayAccount">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="prepayEnabled" nillable="true" type="xsd:boolean"/>
+              <element maxOccurs="1" minOccurs="0" name="updateTime" nillable="true" type="xsd:dateTime"/>
+	          <element maxOccurs="1" minOccurs="0" name="lastTransactionDate" nillable="true" type="xsd:dateTime"/>
+	          <element maxOccurs="1" minOccurs="0" name="lastTransactionAmount" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="remainingFunds" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="remainingEnergy" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="expectedDisconnect" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+      </complexType>
+
+      <complexType name="AZ01PrepayConfig">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="limitUnit" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="lowLimitWarning" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="lowWarningPattern" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="lowWarningColor" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="lowLimitWarningMessage" nillable="true" type="xsd:string"/>
+	          <element maxOccurs="1" minOccurs="0" name="criticalWarningLimit" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="criticalWarningPattern" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="criticalWarningColor" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="criticalLimitWarningMessage" nillable="true" type="xsd:string"/>
+            </sequence>
+      </complexType>   
+      
+      <complexType name="DeviceParameterField">
+      	<sequence>
+      		<element maxOccurs="1" minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="field" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="type" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="value" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="visible" nillable="true" type="xsd:boolean"/>
+      		<element maxOccurs="1" minOccurs="0" name="rowPosition" nillable="true" type="xsd:int"/>
+      		<element maxOccurs="1" minOccurs="0" name="columnPosition" nillable="true" type="xsd:int"/>
+      	</sequence>
+      </complexType>  
+      
+      <complexType name="DeviceParameterFieldGroup">
+      	<complexContent>
+      		<extension base="dcuns:DeviceParameterField">
+      			<sequence>
+      				<element maxOccurs="unbounded" minOccurs="0" name="values" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="subFields" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="subFieldNames" nillable="true" type="xsd:string"/>
+      				<element maxOccurs="unbounded" minOccurs="0" name="columns" nillable="true" type="xsd:int"/>
+      			</sequence>
+      		</extension>
+      	</complexContent>
+      </complexType>
+      
+      <complexType name="DeviceParameter">
+      	<sequence>
+      	 	<element maxOccurs="unbounded" minOccurs="0" name="deviceParameterFields" nillable="true" type="dcuns:DeviceParameterField"/>
+      	</sequence>
+      </complexType>
+      
+      <simpleType name="LG01CreditMode">
+        <restriction base="xsd:string">
+          <enumeration value="PREPAYMENT"/>
+          <enumeration value="CREDIT"/>
+        </restriction>
+      </simpleType>
+      
+      <simpleType name="LG01Period">
+        <restriction base="xsd:string">
+          <enumeration value="DISABLED"/>
+          <enumeration value="DAILY"/>
+          <enumeration value="WEEKLY"/>
+          <enumeration value="MONTHLY"/>
+          <enumeration value="ON_BILLING_PERIOD"/>
+        </restriction>
+      </simpleType>      
+      
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:event.command.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">  		
+
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:tobject.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:command.ws.unity.trilliantnetworks.com"/> 
+           
+      <complexType abstract="true" name="EG01Event">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="eventId" nillable="true" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="0" name="startTime" nillable="true" type="xsd:dateTime"/>
+          <element maxOccurs="1" minOccurs="0" name="stopTime" nillable="true" type="xsd:dateTime"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="PriceEvent">
+        <complexContent>
+          <extension base="dcens:EG01Event">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="price" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="priceRatio" nillable="true" type="xsd:int"/>
+        	  <element maxOccurs="1" minOccurs="0" name="priceTier" nillable="true" type="xsd:int"/>
+			  <element maxOccurs="1" minOccurs="0" name="receiveTimestamp" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="receiveOrder" nillable="true" type="xsd:int"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>      
+
+      <complexType name="LoadSheddingEvent">
+        <complexContent>
+          <extension base="dcens:EG01Event">
+            <sequence>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="emergencySetback" nillable="true" type="xsd:boolean"/>
+	          <element maxOccurs="1" minOccurs="0" name="newTemperature" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="receiveOrder" nillable="true" type="xsd:int"/>
+	          <element maxOccurs="1" minOccurs="0" name="temperatureOffset" nillable="true" type="xsd:int"/>
+	          <element default="false" maxOccurs="1" minOccurs="0" name="utilitySetback" nillable="true" type="xsd:boolean"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>  
+      
+      <complexType name="EG01ThermostatModeControlEvent">
+        <complexContent>
+          <extension base="dcens:EG01Event">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="equipmentOperationMode" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="fanMode" nillable="true" type="xsd:int"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>   
+      
+      <complexType name="EG01ThermostatHoldControlEvent">
+        <complexContent>
+          <extension base="dcens:EG01Event">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="holdType" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="holdSetpointNumber" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="hoursRemaining" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="daysRemaining" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="day" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="month" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="temporaryHeatSetpoint" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="temporaryCoolSetpoint" nillable="true" type="xsd:int"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>   
+      
+      <complexType name="MessageEvent">
+        <complexContent>
+          <extension base="dcens:EG01Event">
+            <sequence>
+	          <element maxOccurs="1" minOccurs="0" name="messageLength" nillable="true" type="xsd:int"/>
+    	      <element maxOccurs="1" minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:tobject.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      
+      <complexType name="tObject">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="id" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="type" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="createdById" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="createdDate" nillable="true" type="xsd:dateTime"/>
+          <element maxOccurs="1" minOccurs="0" name="lastModifiedById" nillable="true" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="lastModifiedByDate" nillable="true" type="xsd:dateTime"/>
+          <element maxOccurs="1" minOccurs="0" name="systemModStamp" nillable="true" type="xsd:dateTime"/>
+          <element maxOccurs="1" minOccurs="0" name="ownerId" nillable="true" type="xsd:string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="values" nillable="true" type="ens:BaseValue"/>
+        </sequence>
+      </complexType>
+   
+
+    
+      <complexType abstract="true" name="BaseValue">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="fieldName" nillable="false" type="xsd:string"/>        
+        </sequence>
+      </complexType>
+           
+      <complexType name="FieldValue">
+        <complexContent>
+          <extension base="ens:BaseValue">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="type" nillable="true" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+           
+      <complexType name="TObjectValue">
+        <complexContent>
+          <extension base="ens:BaseValue">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="true" type="ens:tObject"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+           
+      <complexType name="ArrayValue">
+        <complexContent>
+          <extension base="ens:BaseValue">
+            <sequence>
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="true" type="ens:tObject"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+           
+      <complexType name="StringArrayValue">
+        <complexContent>
+          <extension base="ens:BaseValue">
+            <sequence>
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="true" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:query.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      
+      <complexType name="query">
+      	<sequence>  
+          <element maxOccurs="1" minOccurs="0" name="identifier" nillable="false" type="xsd:string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="criterias" nillable="true" type="qry:criteria"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="joins" nillable="true" type="qry:join"/>      	
+          <element maxOccurs="1" minOccurs="0" name="start" nillable="true" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="0" name="pageSize" nillable="true" type="xsd:int"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="orderBy" nillable="true" type="qry:orderBy"/>
+          <element maxOccurs="1" minOccurs="0" name="distinct" nillable="true" type="xsd:boolean"/>
+          <element maxOccurs="1" minOccurs="0" name="entityType" nillable="true" type="xsd:string"/>
+      	</sequence>
+      </complexType>
+           
+      <complexType name="apTitleQuery">
+        <complexContent>
+          <extension base="qry:query">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="apTitle" nillable="true" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+           
+      <complexType name="partnerFilteredQuery">
+        <complexContent>
+          <extension base="qry:query">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="partnerColumn" nillable="false" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="partnerId" nillable="false" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+           <complexType name="accountRateProgramWithNoDeviceFilteredQuery">
+        <complexContent>
+          <extension base="qry:query">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="fuelType" nillable="false" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="accountWithNoDeviceFilteredQuery">
+        <complexContent>
+          <extension base="qry:query">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="accountId" nillable="false" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="orderBy">
+      	<sequence>  
+          <element maxOccurs="1" minOccurs="0" name="identifier" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="field" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="isAscending" nillable="false" type="xsd:boolean"/>      	     	
+      	</sequence>
+      </complexType> 
+      
+      <complexType name="join">
+      	<sequence>  
+          <element maxOccurs="1" minOccurs="0" name="identifier" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="objectType" nillable="false" type="xsd:string"/>      	     	
+      	</sequence>
+      </complexType> 
+      
+      <complexType abstract="true" name="criteria">
+      	<sequence>  
+          <element maxOccurs="1" minOccurs="0" name="connector" nillable="false" type="qry:Connector"/>
+          <element maxOccurs="1" minOccurs="0" name="identifier" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="field" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      
+      <complexType name="joinCriteria">
+        <complexContent>
+          <extension base="qry:criteria">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="joinIdentifier" nillable="false" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="joinField" nillable="false" type="xsd:string"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>   
+      
+      <complexType name="groupCriteria">
+        <complexContent>
+          <extension base="qry:criteria">
+      	    <sequence>  
+          	  <element maxOccurs="unbounded" minOccurs="0" name="criterias" nillable="true" type="qry:criteria"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>   
+      
+      <!-- SIMPLE TYPE CRITERIA -->      
+      <complexType abstract="true" name="simpleCriteria">
+        <complexContent>
+          <extension base="qry:criteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="operator" nillable="false" type="qry:Operator"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="stringCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:string"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="integerCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:int"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="longCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:long"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="floatCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:float"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="dateTimeCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:dateTime"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="booleanCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>  
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:boolean"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      
+      <!-- COLLECTION CRITERIA -->   
+      <complexType abstract="true" name="collectionCriteria">
+        <complexContent>
+          <extension base="qry:simpleCriteria">
+      	    <sequence>       	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="stringCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:string"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="integerCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:int"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="longCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:long"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="floatCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:float"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="dateTimeCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:dateTime"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="booleanCollectionCriteria">
+        <complexContent>
+          <extension base="qry:collectionCriteria">
+      	    <sequence>  
+              <element maxOccurs="unbounded" minOccurs="0" name="value" nillable="false" type="xsd:boolean"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>  
+      
+      <simpleType name="Connector">
+        <restriction base="xsd:string">
+          <enumeration value="AND"/>
+          <enumeration value="OR"/>
+        </restriction>
+      </simpleType>
+      <simpleType name="Operator">
+        <restriction base="xsd:string">
+          <enumeration value="EQUAL"/>
+          <enumeration value="NOT_EQUAL"/>
+          <enumeration value="LESS_THAN"/>
+          <enumeration value="LESS_THAN_EQUAL_TO"/>
+          <enumeration value="GREATER_THAN"/>
+          <enumeration value="GREATER_THAN_EQUAL_TO"/>
+          <enumeration value="LIKE"/>
+        </restriction>
+      </simpleType>      
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:reporting.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      
+      <simpleType name="Format">
+        <restriction base="xsd:string">
+          <enumeration value="HTML"/>
+          <enumeration value="PDF"/>
+          <enumeration value="XML"/>
+          <enumeration value="CSV"/>
+        </restriction>
+      </simpleType> 
+      
+      <complexType abstract="true" name="parameter">
+      	<sequence>  
+          <element maxOccurs="1" minOccurs="0" name="name" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      
+      <complexType name="stringParameter">
+        <complexContent>
+          <extension base="rpt:parameter">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:string"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType> 
+      <complexType name="integerParameter">
+        <complexContent>
+          <extension base="rpt:parameter">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:integer"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="doubleParameter">
+        <complexContent>
+          <extension base="rpt:parameter">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:double"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="dateParameter">
+        <complexContent>
+          <extension base="rpt:parameter">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:dateTime"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>  
+      <complexType name="booleanParameter">
+        <complexContent>
+          <extension base="rpt:parameter">
+      	    <sequence>  
+          	  <element maxOccurs="1" minOccurs="0" name="value" nillable="false" type="xsd:boolean"/>      	
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>      
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:meterdata.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+
+      <!-- MeterData abstract type definition  -->
+      <complexType abstract="true" name="meterData">
+        <sequence>
+          <element maxOccurs="1" minOccurs="0" name="Id" nillable="true" type="xsd:string"/>
+          <element minOccurs="0" name="CreatedById" nillable="true" type="xsd:string"/>
+          <element minOccurs="0" name="CreatedDate" nillable="true" type="xsd:dateTime"/>
+          <element minOccurs="0" name="LastModifiedById" nillable="true" type="xsd:string"/>
+          <element minOccurs="0" name="LastModifiedDate" nillable="true" type="xsd:dateTime"/>
+          <element minOccurs="0" name="SystemModstamp" nillable="true" type="xsd:dateTime"/>                            
+        </sequence>
+      </complexType>
+      <complexType name="Register">
+      	<sequence>
+      		<element maxOccurs="1" minOccurs="0" name="accountability" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="qualifier" nillable="true" type="xsd:string"/>
+      		<element maxOccurs="1" minOccurs="0" name="status" nillable="true" type="xsd:int"/>
+      		<element maxOccurs="1" minOccurs="0" name="time" nillable="true" type="xsd:dateTime"/>
+      		<element maxOccurs="1" minOccurs="0" name="value" nillable="true" type="xsd:double"/>
+      		<element maxOccurs="1" minOccurs="0" name="displayed" nillable="true" type="xsd:boolean"/>
+      		<element maxOccurs="1" minOccurs="0" name="formattedValue" nillable="true" type="xsd:string"/>
+      	</sequence>
+      </complexType>
+      <complexType name="CumulativeReading">
+        <complexContent>
+          <extension base="mrns:meterData">
+            <sequence>
+              <element maxOccurs="unbounded" minOccurs="0" name="registers" nillable="true" type="mrns:Register"/>
+              <element maxOccurs="1" minOccurs="0" name="EntryDate" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="CumRead" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="ReadTime" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+          </extension>
+        </complexContent>        
+      </complexType>
+      <complexType name="DemandReading">
+        <complexContent>
+          <extension base="mrns:meterData">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="EntryDate" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="DailyPeakDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="DailyPeakDemandTime" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="MaxCumulativeDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="ContMaxCumulativeDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="BCPeakDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="BCPeakDemandTime" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="LoadProfileReading">
+        <complexContent>
+          <extension base="mrns:meterData">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="startTime" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="endTime" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="endReading" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="value" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="channel" nillable="true" type="trns:MeterChannel"/>
+              <element maxOccurs="1" minOccurs="0" name="sensor" nillable="true" type="trns:MeterSensor"/>
+              <element maxOccurs="1" minOccurs="0" name="status" nillable="true" type="trns:MeterStatus"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="TOUReading">
+        <complexContent>
+          <extension base="mrns:meterData">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="EntryDate" nillable="false" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="TierId" nillable="false" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="TierCumRead" nillable="false" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="TierCumUsage" nillable="false" type="xsd:double"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+      <complexType name="TOUDemandReading">
+        <complexContent>
+          <extension base="mrns:meterData">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="EntryDate" nillable="false" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="TierId" nillable="false" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="TierCumRead" nillable="false" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="TierCumUsage" nillable="false" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="DailyPeakDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="DailyPeakDemandTime" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="MaxCumulativeDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="ContMaxCumulativeDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="BCPeakDemand" nillable="true" type="xsd:double"/>
+              <element maxOccurs="1" minOccurs="0" name="BCPeakDemandTime" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:header.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">    
+      
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+       
+	      	<complexType name="SessionHeader">
+	      		<sequence>
+	      			<element name="sessionId" nillable="false" type="xsd:string"/>
+	      			<!--<element name="userDetails" type="hdns:UserDetails" nillable="false" />-->
+	      			<element name="queryOptions" nillable="true" type="hdns:QueryOptions"/>
+	      			<element name="readMeterOptions" nillable="true" type="hdns:ReadMeterOptions"/>
+	      		</sequence>
+	      	</complexType>
+      
+	      <complexType name="GrantedAuthority">
+	      	<sequence>
+	        	<element name="authority" nillable="true" type="xsd:string"/>
+	        </sequence>
+	      </complexType>
+      
+	      <complexType name="UserDetails">
+		      <sequence>
+		        <element maxOccurs="1" minOccurs="0" name="password" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="username" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="id" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="logonId" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="email" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="partnerId" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="partnerName" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="partnerCountry" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="partnerTimeZoneLookupId" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="1" minOccurs="0" name="singlePartner" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="timeZone" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="timeZoneOlsonName" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="dateFormat" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="timeFormat" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="currencySymbol" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="homePreferences" nillable="true" type="xsd:string"/>
+		       	<element maxOccurs="1" minOccurs="0" name="utilityPreferences" nillable="true" type="xsd:string"/>
+		        <element maxOccurs="unbounded" minOccurs="0" name="authorities" nillable="true" type="hdns:GrantedAuthority"/>
+		       	<element maxOccurs="1" minOccurs="0" name="accountNonExpired" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="accountNonLocked" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="credentialsNonExpired" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="enabled" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="temporaryPassword" nillable="true" type="xsd:boolean"/>
+		        <element maxOccurs="1" minOccurs="0" name="passwordCreatedDate" nillable="true" type="xsd:date"/>
+				<element maxOccurs="1" minOccurs="0" name="partnerPasswordExpiration" nillable="true" type="xsd:int"/>
+		      </sequence>
+	      </complexType>
+	      
+		  <complexType name="QueryOptions">
+			<sequence>
+				<element minOccurs="0" name="batchSize" nillable="false" type="xsd:int"/>
+			</sequence>
+		  </complexType>
+
+		  <complexType name="ReadMeterOptions">
+			<sequence>
+				<element minOccurs="0" name="batchSize" nillable="false" type="xsd:int"/>
+			</sequence>
+		  </complexType> 
+	</schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:result.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:tobject.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:header.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:meterdata.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:command.ws.unity.trilliantnetworks.com"/>
+      
+      <complexType name="QueryResult">
+        <sequence>
+          <element name="done" type="xsd:boolean"/>
+          <element name="queryLocator" nillable="true" type="xsd:string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="records" nillable="true" type="ens:tObject"/>
+          <element name="size" type="xsd:int"/>
+          <element name="success" type="xsd:boolean"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>          
+        </sequence>
+      </complexType>
+
+      <complexType name="ReadMeterResult">
+        <sequence>
+          <element name="deviceId" nillable="true" type="xsd:string"/>
+          <element name="devicePk" nillable="true" type="xsd:long"/>
+          <element name="done" type="xsd:boolean"/>
+          <element name="readMeterLocator" nillable="true" type="xsd:string"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="meterData" nillable="true" type="mrns:meterData"/>
+          <element name="startTime" nillable="true" type="xsd:dateTime"/>
+          <element name="dataChannel" nillable="true" type="xsd:string"/>
+          <element name="interpolated" nillable="true" type="xsd:boolean"/>
+          <element name="dataType" nillable="true" type="xsd:string"/>
+          <element name="responseType" nillable="true" type="xsd:string"/>
+          <element name="dataInterval" nillable="true" type="xsd:string"/>
+          <element name="scalingFactor" nillable="true" type="xsd:double"/>
+          <element name="success" nillable="true" type="xsd:boolean"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+        </sequence>
+      </complexType>   
+            
+      <complexType name="RequestSyncResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+          <element name="success" type="xsd:boolean"/>
+        </sequence>
+      </complexType> 
+      
+      <complexType name="DeviceSyncRequestStatus">
+        <sequence>
+          <element maxOccurs="1" minOccurs="1" name="requestorRunId" nillable="false" type="xsd:string"/>
+          <element maxOccurs="1" minOccurs="0" name="done" nillable="true" type="xsd:boolean"/>
+          <element maxOccurs="1" minOccurs="1" name="syncedCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="skippedCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="pendingCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="failedCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="obsoleteCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="overriddenCount" nillable="false" type="xsd:int"/>
+          <element maxOccurs="1" minOccurs="1" name="inprogressCount" nillable="false" type="xsd:int"/>
+        </sequence>
+      </complexType>
+      
+      <complexType name="AcceptRatePlanResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+          <element name="success" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+      
+      <complexType name="ExecuteReportResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+          <element name="success" type="xsd:boolean"/>
+          <element maxOccurs="1" minOccurs="0" name="runId" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ServerTimestampResult">
+        <sequence>
+          <element name="timestamp" type="xsd:dateTime"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ResetPasswordResult">
+        <sequence>
+          <element name="password" nillable="true" type="xsd:string"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+          <element name="success" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="LoginResult">
+        <sequence>
+          <element name="passwordExpired" type="xsd:boolean"/>
+          <element name="serverUrl" nillable="true" type="xsd:string"/>
+          <element name="sessionId" nillable="true" type="xsd:string"/>
+          <element name="userId" nillable="true" type="xsd:string"/>
+          <element name="account" nillable="true" type="ens:tObject"/>
+          <element name="userInfo" type="hdns:UserDetails"/>
+          <element name="sessionHeader" nillable="true" type="hdns:SessionHeader"/>
+          <element name="logonId" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="CommandResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+          <element name="deviceCommand" nillable="true" type="dcns:deviceCommand"/>
+          <element name="success" type="xsd:boolean"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      
+      <complexType name="Result">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="errors" nillable="true" type="trns:Error"/>
+          <element name="id" nillable="true" type="xsd:string"/>
+          <element name="success" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="DescribeResult">
+        <sequence>
+          <element name="activateable" type="xsd:boolean"/>
+          <element name="createable" type="xsd:boolean"/>
+          <element name="deletable" type="xsd:boolean"/>
+          <element maxOccurs="unbounded" minOccurs="0" name="fields" nillable="true" type="trns:Field"/>
+          <element name="keyPrefix" nillable="true" type="xsd:string"/>
+          <element name="name" type="xsd:string"/>
+          <element name="queryable" type="xsd:boolean"/>
+          <element name="replicateable" type="xsd:boolean"/>
+          <element name="undeletable" type="xsd:boolean"/>
+          <element name="updateable" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="DescribeGlobalResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="types" nillable="true" type="xsd:string"/>
+        </sequence>
+      </complexType>      
+	</schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:fault.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <simpleType name="ExceptionCode">
+        <restriction base="xsd:string">
+          <enumeration value="API_CURRENTLY_DISABLED"/>
+          <enumeration value="BAD_CREDENTIALS"/>
+          <enumeration value="USER_LOCKOUT"/>
+          <enumeration value="INVALID_PERMISSION"/>
+          <enumeration value="EXCEEDED_ID_LIMIT"/>
+          <enumeration value="EXCEEDED_MAX_SIZE_REQUEST"/>
+          <enumeration value="EXCEEDED_MAX_TYPES_LIMIT"/>
+          <enumeration value="EXCEEDED_RATE_LIMIT"/>
+          <enumeration value="FUNCTIONALITY_NOT_ENABLED"/>
+          <enumeration value="IMAGE_TOO_LARGE"/>
+          <enumeration value="INACTIVE_USER"/>
+          <enumeration value="INSUFFICIENT_ACCESS"/>
+          <enumeration value="INVALID_ARGUMENT"/>
+          <enumeration value="INVALID_BATCH_SIZE"/>
+          <enumeration value="INVALID_COMM_CONFIG_CLASS"/>
+          <enumeration value="INVALID_CROSS_REFERENCE_KEY"/>
+          <enumeration value="INVALID_FIELD"/>
+          <enumeration value="INVALID_ID_FIELD"/>
+          <enumeration value="INVALID_LOGIN"/>
+          <enumeration value="INVALID_NEW_PASSWORD"/>
+          <enumeration value="INVALID_OPERATION"/>
+          <enumeration value="INVALID_OPERATION_WITH_EXPIRED_PASSWORD"/>
+          <enumeration value="INVALID_QUERY_FILTER_OPERATOR"/>
+          <enumeration value="INVALID_QUERY_LOCATOR"/>
+          <enumeration value="INVALID_QUERY_SCOPE"/>
+          <enumeration value="INVALID_SEARCH"/>
+          <enumeration value="INVALID_SEARCH_SCOPE"/>
+          <enumeration value="INVALID_SESSION_ID"/>
+          <enumeration value="INVALID_SOAP_HEADER"/>
+          <enumeration value="INVALID_SSO_GATEWAY_URL"/>
+          <enumeration value="INVALID_TDEVICE_TYPE"/>
+          <enumeration value="INVALID_TYPE"/>
+          <enumeration value="INVALID_TYPE_FOR_OPERATION"/>
+          <enumeration value="LOGIN_DURING_RESTRICTED_DOMAIN"/>
+          <enumeration value="LOGIN_DURING_RESTRICTED_TIME"/>
+          <enumeration value="MALFORMED_ID"/>
+          <enumeration value="MALFORMED_QUERY"/>
+          <enumeration value="MALFORMED_SEARCH"/>
+          <enumeration value="METER_READ_FAILED"/>
+          <enumeration value="MISSING_ARGUMENT"/>
+          <enumeration value="OPERATION_TOO_LARGE"/>
+          <enumeration value="PASSWORD_LOCKOUT"/>
+          <enumeration value="QUERY_TIMEOUT"/>
+          <enumeration value="QUERY_TOO_COMPLICATED"/>
+          <enumeration value="SERVER_UNAVAILABLE"/>
+          <enumeration value="SSO_SERVICE_DOWN"/>
+          <enumeration value="UNKNOWN_EXCEPTION"/>
+          <enumeration value="UNSUPPORTED_API_VERSION"/>
+          <enumeration value="UNSUPPORTED_CLIENT"/>
+          <enumeration value="UNSUPPORTED_OPERATION"/>
+          <enumeration value="JOB_DOES_NOT_EXIST"/>
+          <enumeration value="JOB_EXISTS"/>
+          <enumeration value="MAPPING_EXCEPTION"/>
+        </restriction>
+      </simpleType>
+      
+      <!-- Fault -->
+      <complexType name="ApiFault">
+        <sequence>
+          <element name="exceptionCode" type="fns:ExceptionCode"/>
+          <element name="exceptionMessage" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="ApiQueryFault">
+        <complexContent>
+          <extension base="fns:ApiFault">
+            <sequence>
+              <element name="systemMessage" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+	  <element name="LoginFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+	  </element>
+
+	  <element name="AccessDeniedFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+	  </element>
+
+      <element name="InvalidQueryLocatorFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+      
+      <element name="InvalidReadMeterLocatorFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="InvalidNewPasswordFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="InvalidIdFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="UnexpectedErrorFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="InvalidFieldFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiQueryFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="InvalidTObjectFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiQueryFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="MalformedQueryFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiQueryFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+
+	  <element name="DeviceCommandFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+      </element>
+      
+    <element name="SchedulerFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault"/>
+          </complexContent>
+        </complexType>
+    </element>
+      
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:prepay.ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">       
+      <complexType name="Prepayment">
+        <sequence>
+          <element minOccurs="1" name="paymentCardNumber" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <simpleType name="StatusCode">
+        <restriction base="xsd:int">
+          <enumeration value="200"/> <xsd:annotation>Success</xsd:annotation>
+          <enumeration value="300"/>
+          <enumeration value="310"/> <xsd:annotation>Used to notify that the device doesnt exist</xsd:annotation>
+          <enumeration value="320"/> <xsd:annotation>Multiple devices found for the same payment card number</xsd:annotation>
+          <enumeration value="330"/> <xsd:annotation>Device is not active</xsd:annotation>
+          <enumeration value="340"/> <xsd:annotation>Device is not connected</xsd:annotation>
+          <enumeration value="350"/> <xsd:annotation>Device is not in prepayment mode</xsd:annotation>
+        </restriction>
+      </simpleType>
+      <simpleType name="VendCodeType">
+        <restriction base="xsd:string">
+          <enumeration value="Purchase"/>
+          <enumeration value="Adjustment"/>
+        </restriction>
+      </simpleType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:ws.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:tobject.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:meterdata.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:header.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:result.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:query.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:command.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:reporting.ws.unity.trilliantnetworks.com"/> 
+      <import namespace="urn:prepay.ws.unity.trilliantnetworks.com"/>
+      
+      <complexType name="MeterSensor">
+        <sequence>
+          <element name="meterPhase" nillable="true" type="trns:MeterPhases"/> 
+          <element name="meterAccountability" nillable="true" type="trns:MeterAccountability"/>
+    		  <element name="meterTransport" nillable="true" type="trns:MeterTransport"/>
+		      <element name="meterDisplayed" nillable="true" type="trns:MeterDisplayed"/>
+    		  <element name="meterQualifier" nillable="true" type="trns:MeterQualifier"/>
+    		  <element name="description" nillable="true" type="xsd:string"/>
+    		  <element name="uom" nillable="true" type="xsd:int"/>
+    		  <element name="sourceId" nillable="true" type="xsd:int"/>
+    		  <element name="maxTrailingDigits" nillable="true" type="xsd:int"/>
+	     	  <element name="sumLeadingDigits" nillable="true" type="xsd:int"/>
+    		  <element name="sumSuppressZeros" nillable="true" type="xsd:boolean"/>
+    		  <element name="sumTrailingDigits" nillable="true" type="xsd:int"/>
+    		  <element name="sumScale" nillable="true" type="xsd:int"/>
+    		  <element name="trailingDigits" nillable="true" type="xsd:int"/>
+    		  <element name="cumDmdLeadingDigits" nillable="true" type="xsd:int"/>
+    		  <element name="cumDmdSuppressZeros" nillable="true" type="xsd:boolean"/>
+    		  <element name="cumDmdTrailingDigits" nillable="true" type="xsd:int"/>
+    		  <element name="cumDmdScale" nillable="true" type="xsd:int"/>
+    		  <element name="dmdTrailingDigits" nillable="true" type="xsd:int"/>
+  
+    		  <element default="1" name="registerMultiplier" type="xsd:double"/>
+    		  <element default="1" name="registerDivisor" type="xsd:double"/>
+    		  <element name="registerOffset" nillable="true" type="xsd:double"/>
+    		  <element default="1" name="ct" type="xsd:double"/>
+    		  <element default="1" name="pt" type="xsd:double"/>
+    		  <element default="1" name="lpScalar" type="xsd:double"/>
+    		  <element default="1" name="lpDivisor" type="xsd:double"/> 
+        </sequence>
+      </complexType>
+      
+      <complexType name="MeterChannel">
+          <sequence>
+            <element name="sensor" type="trns:MeterSensor"/>
+          </sequence>          
+      </complexType>
+      
+      
+      <complexType name="Version">
+          <sequence>
+            <element name="unityVersion" type="xsd:string"/>
+            <element name="svcTaskManagerVersion" type="xsd:string"/>
+            <element name="svcConfigManagerVersion" type="xsd:string"/>
+          </sequence>          
+      </complexType>
+      
+      <simpleType name="MeterPhases">
+        <restriction base="xsd:string">
+          <enumeration value="notPhaseRelated"/>
+          <enumeration value="phaseAtoB"/>
+          <enumeration value="phaseBtoC"/>
+          <enumeration value="phaseCtoA"/>
+          <enumeration value="neutralToGround"/>
+          <enumeration value="phaseAtoNeutral"/>
+          <enumeration value="phaseBtoNeutral"/>
+          <enumeration value="phaseCtoNeutral"/>
+          <enumeration value="other"/>
+        </restriction>
+      </simpleType>
+
+	  <simpleType name="MeterQualifier">
+		<restriction base="xsd:string">
+			<enumeration value="summation"/>
+			<enumeration value="consumption"/>
+			<enumeration value="instantaneousValue"/>
+			<enumeration value="minimumInstantaneousValue"/>
+			<enumeration value="maximumInstantaneousValue"/>
+			<enumeration value="averageInstantaneousValue"/>
+			<enumeration value="periodBasedValue"/>
+			<enumeration value="minimumPeriodBasedValue"/>
+			<enumeration value="maximumPeriodBasedValue"/>
+			<enumeration value="averagePeriodBasedValue"/>
+			<enumeration value="demand"/>
+			<enumeration value="minimumDemand"/>
+			<enumeration value="maximumDemand"/>
+			<enumeration value="averageDemand"/>
+			<enumeration value="other"/>
+		</restriction>
+	  </simpleType>
+
+	  <simpleType name="MeterAccountability">
+		<restriction base="xsd:string">
+			<enumeration value="unused0"/>
+			<enumeration value="quadrant1"/>
+			<enumeration value="quadrant2"/>
+			<enumeration value="quadrant12"/>
+			<enumeration value="quadrant3"/>
+			<enumeration value="quadrant13"/>
+			<enumeration value="quadrant23"/>
+			<enumeration value="quadrant123"/>
+			<enumeration value="quadrant4"/>
+			<enumeration value="quadrant14"/>
+			<enumeration value="quadrant24"/>
+			<enumeration value="quadrant124"/>
+			<enumeration value="quadrant34"/>
+			<enumeration value="quadrant134"/>
+			<enumeration value="quadrant234"/>
+			<enumeration value="allQuadrant"/>
+			<enumeration value="unused16"/>
+			<enumeration value="quadrant1NetFlow"/>
+			<enumeration value="quadrant2NetFlow"/>
+			<enumeration value="quadrant12NetFlow"/>
+			<enumeration value="quadrant3NetFlow"/>
+			<enumeration value="quadrant13NetFlow"/>
+			<enumeration value="quadrant23NetFlow"/>
+			<enumeration value="quadrant123NetFlow"/>
+			<enumeration value="quadrant4NetFlow"/>
+			<enumeration value="quadrant14NetFlow"/>
+			<enumeration value="quadrant24NetFlow"/>
+			<enumeration value="quadrant124NetFlow"/>
+			<enumeration value="quadrant34NetFlow"/>
+			<enumeration value="quadrant134NetFlow"/>
+			<enumeration value="quadrant234NetFlow"/>
+			<enumeration value="allQuadrantNetFlow"/>
+			<enumeration value="other"/>
+		</restriction>
+	  </simpleType>
+
+	  <simpleType name="MeterTransport">
+		<restriction base="xsd:string">
+			<enumeration value="rawValue"/>
+			<enumeration value="enginerringValue"/>
+			<enumeration value="primaryValue"/>
+		</restriction>
+	  </simpleType>
+
+	  <simpleType name="MeterDisplayed">
+		<restriction base="xsd:string">
+			<enumeration value="engineeringValue"/>
+			<enumeration value="primaryValue"/>
+		</restriction>
+	  </simpleType>
+	
+	  <simpleType name="MeterStatus">
+		<restriction base="xsd:string">
+			<enumeration value="dstWasInEffectAtStartOfInterval"/>
+			<enumeration value="powerFailWithinInterval"/>
+			<enumeration value="clockResetForwardDuringInterval"/>
+			<enumeration value="clockResetBackwardDuringInterval"/>
+			<enumeration value="unused"/>
+			<enumeration value="overflow"/>
+			<enumeration value="partialIntervalDueToCommonState"/>
+			<enumeration value="longIntervalDueToCommonState"/>
+			<enumeration value="intervalContainsTestModeData"/>
+			<enumeration value="invalid"/>
+			<enumeration value="manuallyEnteredOrModified"/>
+			<enumeration value="automaticallyEstimated"/>
+		</restriction>
+	  </simpleType>
+
+      <simpleType name="StatusCode">
+        <restriction base="xsd:string">
+          <enumeration value="CANNOT_RESOLVE_NAME"/>
+          <enumeration value="CREATE_FAILED"/>
+          <enumeration value="CUSTOM_INDEX_EXISTS"/>
+          <enumeration value="DELETE_FAILED"/>
+          <enumeration value="DUPLICATE_USERNAME"/>
+          <enumeration value="DUPLICATE_VALUE"/>
+          <enumeration value="ENTITY_FAILED_IFLASTMODIFIED_ON_UPDATE"/>
+          <enumeration value="ENTITY_IS_ARCHIVED"/>
+          <enumeration value="ENTITY_IS_DELETED"/>
+          <enumeration value="ENTITY_IS_LOCKED"/>
+          <enumeration value="FIELD_INTEGRITY_EXCEPTION"/>
+          <enumeration value="CONSTRAINT_VIOLATION_EXCEPTION"/>
+          <enumeration value="EXCEPTION"/>
+          <enumeration value="INACTIVE_OWNER_OR_USER"/>
+          <enumeration value="INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY"/>
+          <enumeration value="INSUFFICIENT_ACCESS_OR_READONLY"/>
+          <enumeration value="INVALID_ACCESS_LEVEL"/>
+          <enumeration value="INVALID_ARGUMENT_TYPE"/>
+          <enumeration value="INVALID_ASSIGNEE_TYPE"/>
+          <enumeration value="INVALID_ASSIGNMENT_RULE"/>
+          <enumeration value="INVALID_CROSS_REFERENCE_KEY"/>
+          <enumeration value="INVALID_CROSS_REFERENCE_TYPE_FOR_FIELD"/>
+          <enumeration value="INVALID_EMAIL_ADDRESS"/>
+          <enumeration value="INVALID_EMPTY_KEY_OWNER"/>
+          <enumeration value="INVALID_FIELD"/>
+          <enumeration value="INVALID_FIELD_FOR_INSERT_UPDATE"/>
+          <enumeration value="INVALID_FILTER_ACTION"/>
+          <enumeration value="INVALID_ID_FIELD"/>
+          <enumeration value="INVALID_INET_ADDRESS"/>
+          <enumeration value="INVALID_OPERATION"/>
+          <enumeration value="INVALID_OPERATOR"/>
+          <enumeration value="INVALID_STATUS"/>
+          <enumeration value="INVALID_TYPE"/>
+          <enumeration value="INVALID_TYPE_FOR_OPERATION"/>
+          <enumeration value="INVALID_TYPE_ON_FIELD_IN_RECORD"/>
+          <enumeration value="LAST_MODIFIED_SINCE_TOO_OLD"/>
+          <enumeration value="LICENSE_LIMIT_EXCEEDED"/>
+          <enumeration value="MALFORMED_ID"/>
+          <enumeration value="MISSING_ARGUMENT"/>
+          <enumeration value="NUMBER_OUTSIDE_VALID_RANGE"/>
+          <enumeration value="REQUIRED_FIELD_MISSING"/>
+          <enumeration value="STORAGE_LIMIT_EXCEEDED"/>
+          <enumeration value="TEXT_DATA_OUTSIDE_SUPPORTED_CHARSET"/>
+          <enumeration value="TOO_MANY_ENUM_VALUE"/>
+          <enumeration value="TRANSFER_REQUIRES_READ"/>
+          <enumeration value="UNKNOWN_EXCEPTION"/>
+          <enumeration value="UNSPECIFIED_EMAIL_ADDRESS"/>
+          <enumeration value="UPDATE_FAILED"/>
+          <enumeration value="CREATE_JOB_FAILED"/>
+        </restriction>
+      </simpleType>
+
+      <complexType name="Error">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="fields" nillable="true" type="xsd:string"/>
+          <element name="message" nillable="true" type="xsd:string"/>
+          <element name="statusCode" type="trns:StatusCode"/>
+        </sequence>
+      </complexType>
+      
+      <simpleType name="fieldType">
+        <restriction base="xsd:string">
+          <enumeration value="String"/>
+          <enumeration value="Reference"/>
+          <enumeration value="Base64"/>
+          <enumeration value="Boolean"/>
+          <enumeration value="Integer"/>
+          <enumeration value="Double"/>
+          <enumeration value="Long"/>
+          <enumeration value="Id"/>
+          <enumeration value="Date"/>
+          <enumeration value="DateTime"/>
+          <enumeration value="Image"/>
+        </restriction>
+      </simpleType>
+
+      
+      <simpleType name="uiType">
+      	<restriction base="xsd:string">
+      	  <enumeration value="Date"/>
+      	  <enumeration value="DateTime"/>
+      	  <enumeration value="TextBox"/>
+      	  <enumeration value="TextArea"/>
+      	  <enumeration value="Boolean"/>
+      	  <enumeration value="TypeAhead"/>
+      	  <enumeration value="ListBox"/>
+      	  <enumeration value="ImageUpload"/>
+      	  <enumeration value="Link"/>
+      	  <enumeration value="Static"/>
+      	  <enumeration value="Checkbox"/>
+      	  <enumeration value="ColorPicker"/>
+      	  <enumeration value="RadioBox"/>
+      	  <enumeration value="FileUpload"/>
+      	</restriction>
+      </simpleType>
+      
+      <complexType name="Field">
+        <sequence>
+          <element name="fieldId" type="xsd:string"/>
+          <element name="type" type="xsd:string"/><!-- object type eg. Lookup.getValue, dozer should get it-->
+          <element name="partner" nillable="true" type="ens:tObject"/>
+          <element name="name" type="xsd:string"/>
+          <element name="label" type="xsd:string"/>
+          <element name="fieldType" type="trns:fieldType"/>
+          <element name="uiType" type="trns:uiType"/>
+          <element name="unique" type="xsd:boolean"/>
+          <element name="required" type="xsd:boolean"/>
+          <element name="custom" type="xsd:boolean"/>
+          <element name="precision" type="xsd:int"/>
+          <element name="defaultValue" nillable="true" type="xsd:string"/>
+          <element name="columnPosition" type="xsd:int"/>
+          <element name="rowPosition" type="xsd:int"/>
+          <element name="displayLength" type="xsd:int"/>
+          <element name="maxLength" type="xsd:int"/>
+          <element name="createable" type="xsd:boolean"/>
+          <element name="updateable" type="xsd:boolean"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="PicklistEntry">
+        <sequence>
+          <element name="active" type="xsd:boolean"/>
+          <element name="defaultValue" type="xsd:boolean"/>
+          <element name="label" nillable="true" type="xsd:string"/>
+          <element name="value" type="xsd:string"/>
+        </sequence>
+      </complexType>
+
+      <!-- Login Message Types -->
+      <element name="login">
+        <complexType>
+          <sequence>
+            <element name="username" type="xsd:string"/>
+            <element name="password" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>      
+      <element name="loginResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:LoginResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="logout">
+        <complexType/>
+      </element>
+      <element name="logoutResponse">
+        <complexType/>
+      </element>
+	  
+      <!-- Describe Message Types -->
+      <element name="describe">
+        <complexType>
+          <sequence>
+            <element name="type" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="describeResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:DescribeResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="describeGlobal">
+        <complexType>
+          <sequence/>
+        </complexType>
+      </element>
+      <element name="describeGlobalResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:DescribeGlobalResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <!--  Command message types -->
+      <element name="commandRequest">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="deviceCommand" type="dcns:deviceCommand"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="commandResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="commandResult" type="resns:CommandResult"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <element name="groupCommandRequest">
+        <complexType>
+          <sequence>
+          	<element maxOccurs="unbounded" minOccurs="1" name="groupIds" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="1" name="deviceCommand" type="dcns:deviceCommand"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="groupCommandResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="commandResult" type="resns:CommandResult"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- Read Meter message type. -->
+      <element name="readMeter">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="meterIDs" type="xsd:string"/>
+            <element name="dataType" nillable="true" type="xsd:string"/>
+            <element name="dataStage" nillable="true" type="xsd:string"/>
+            <element name="dataInterval" nillable="true" type="xsd:string"/>
+            <element name="dataChannel" nillable="true" type="xsd:string"/>
+            <element name="maxNumberOfReports" nillable="true" type="xsd:int"/>            
+            <element name="startTime" nillable="true" type="xsd:dateTime"/>
+            <element name="endTime" nillable="true" type="xsd:dateTime"/>
+            <element name="onDemand" nillable="true" type="xsd:boolean"/>
+            <element name="responseType" nillable="true" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="readMeterResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="result" type="resns:ReadMeterResult"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- report message types -->
+      <element name="executeReport">
+        <complexType>
+          <sequence>
+          	<element maxOccurs="unbounded" minOccurs="0" name="reportIds" type="xsd:string"/>
+          	<element maxOccurs="1" minOccurs="0" name="templateId" type="xsd:string"/>
+          	<element maxOccurs="unbounded" minOccurs="0" name="parameters" type="rpt:parameter"/>          	
+          </sequence>
+        </complexType>
+      </element>
+      <element name="executeReportResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="0" name="executeReportResult" type="resns:ExecuteReportResult"/>
+          </sequence>
+        </complexType>
+      </element>  
+      
+      <!-- Create Message Types -->
+      <element name="create">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="tObjects" type="ens:tObject"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="createResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="result" type="resns:Result"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <!-- Retrieve Message Types -->
+      <element name="retrieve">
+        <complexType>
+          <sequence>
+            <element name="type" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="1" name="ids" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="0" name="result" nillable="true" type="ens:tObject"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <!-- Update Message Types -->
+      <element name="update">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="tObjects" type="ens:tObject"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="updateResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="result" type="resns:Result"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <!-- Delete Message Types -->
+      <element name="delete">
+        <complexType>
+          <sequence>
+          	<element maxOccurs="1" minOccurs="1" name="type" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="1" name="ids" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="deleteResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="result" type="resns:Result"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- Query  -->
+      <element name="query">
+        <complexType>
+          <sequence>
+          	<element maxOccurs="1" minOccurs="1" name="type" nillable="false" type="xsd:string"/>
+            <element name="query" nillable="true" type="qry:query"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- special query for expanding groups across devices and accounts -->
+      <element name="retrieveGroupMembers">
+      	<complexType>
+      		<sequence>
+            <element maxOccurs="1" minOccurs="1" name="group" nillable="false" type="ens:tObject"/>      		
+          	<element maxOccurs="1" minOccurs="1" name="first" nillable="true" type="xsd:int"/>
+          	<element maxOccurs="1" minOccurs="1" name="max" nillable="true" type="xsd:int"/>  
+      		</sequence>
+      	</complexType>
+      </element>
+      
+      <!-- int start, int pageSize, String letter, String orderBy, boolean isAscending -->
+      <!-- this version is used by the UI applications to build and page through lists of objects.  -->
+      <!-- foreign key is used to view parent child relationships. -->
+      <element name="queryPage">
+        <complexType>
+          <sequence>
+          	<element maxOccurs="1" minOccurs="1" name="type" nillable="false" type="xsd:string"/>
+          	<element maxOccurs="1" minOccurs="1" name="foreignKey" nillable="true" type="xsd:string"/>
+          	<element maxOccurs="1" minOccurs="1" name="foreignKeyValue" nillable="true" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="fields" nillable="true" type="trns:Field"/>
+            <element maxOccurs="1" minOccurs="0" name="start" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="pageSize" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="letter" nillable="true" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="orderBy" nillable="true" type="xsd:string"/>
+            <element default="false" maxOccurs="1" minOccurs="0" name="isAscending" nillable="true" type="xsd:boolean"/>
+          </sequence>
+        </complexType>
+      </element>      
+      
+      <!-- Shared response object for querys that return tObject types -->
+      <element name="queryResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:QueryResult"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <!-- Shared response object for querys of groups -->
+      <element name="retrieveGroupMembersResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:QueryResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="getServerTimestamp">
+        <complexType>
+          <sequence/>
+        </complexType>
+      </element>
+      <element name="getServerTimestampResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:ServerTimestampResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="resetPassword">
+        <complexType>
+          <sequence>
+            <element name="oldPassword" nillable="true" type="xsd:string"/>
+            <element name="newPassword" nillable="true" type="xsd:string"/>
+            <element name="verifyPassword" nillable="true" type="xsd:string"/>
+            <element name="userId" nillable="true" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="resetPasswordResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:ResetPasswordResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="getMeshGateIdByIp">
+      	<complexType>
+          <sequence>
+            <element name="mgIP" nillable="true" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="getMeshGateIdByIpResponse">
+      	<complexType>
+      		<sequence>
+      			<element name="out" type="string"/>
+      		</sequence>
+      	</complexType>
+      </element>
+      
+      <element name="getUserInfo">
+        <complexType>
+          <sequence/>
+        </complexType>
+      </element>
+      <element name="getUserInfoResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="hdns:UserDetails"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="getVersion">
+      	<complexType>
+          <sequence/>
+        </complexType>
+      </element>
+      <element name="getVersionResponse">
+      	<complexType>
+      		<sequence>
+      			<element name="out" type="trns:Version"/>
+      		</sequence>
+      	</complexType>
+      </element>
+
+      <element name="requestSync">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="requestorIds" nillable="false" type="string"/>
+            <element maxOccurs="1" minOccurs="0" name="requestorRunId" nillable="true" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="requestSyncResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="result" nillable="false" type="resns:RequestSyncResult"/>
+          </sequence>
+        </complexType>
+      </element>
+      
+      <element name="retrieveDeviceSyncRequestStatus">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="1" name="requestorRunId" nillable="false" type="string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveDeviceSyncRequestStatusResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="unbounded" minOccurs="0" name="result" nillable="false" type="resns:DeviceSyncRequestStatus"/>
+          </sequence>
+        </complexType>
+      </element>      
+
+      <element name="acceptRatePlan">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="1" minOccurs="0" name="ratePlan" type="ens:tObject"/>
+      			<element maxOccurs="1" minOccurs="0" name="timeToCommunicatewithDevices" type="xsd:dateTime"/>
+      		</sequence>
+      	</complexType>
+      </element>
+      <element name="acceptRatePlanResponse">
+      	<complexType>
+      		<sequence>
+            <element maxOccurs="1" minOccurs="1" name="result" nillable="false" type="resns:AcceptRatePlanResult"/>
+      		</sequence>
+      	</complexType>
+      </element>
+     <!-- Query to retrieve Logs from EventLogger-->
+      <element name="retrieveEventLog">
+      	<complexType>
+      		<sequence>
+		    <element maxOccurs="1" minOccurs="0" name="component" nillable="true" type="xsd:string"/>
+                    <element maxOccurs="1" minOccurs="0" name="computerName" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="processId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="userId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="partnerId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="requestURL" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="runId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="meshGateId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="endPointId" nillable="true" type="xsd:string"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="entityId" nillable="true" type="xsd:string"/> 
+   		    <element maxOccurs="1" minOccurs="0" name="eventDateTo" nillable="true" type="xsd:dateTime"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="eventDateFrom" nillable="true" type="xsd:dateTime"/>  
+   		    <element maxOccurs="1" minOccurs="0" name="eventLevel" nillable="true" type="xsd:string"/>
+   		    <element maxOccurs="1" minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+   		    <element maxOccurs="1" minOccurs="0" name="referenceFlag" nillable="true" type="xsd:int"/>
+		    <element maxOccurs="1" minOccurs="0" name="loggerName" nillable="true" type="xsd:string"/>	
+            <element maxOccurs="1" minOccurs="0" name="start" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="pageSize" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="parameter" nillable="true" type="xsd:string"/>
+            <element default="false" maxOccurs="1" minOccurs="0" name="isAscending" nillable="true" type="xsd:boolean"/>
+      		</sequence>
+      	</complexType>
+      </element>  
+      
+
+      
+      <element name="retrieveEventLogsResponse">
+        <complexType>
+          <sequence>
+            <element name="result" type="resns:QueryResult"/>
+          </sequence>
+        </complexType>
+      </element>    
+      <element name="approve">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="1" minOccurs="0" name="entityId" type="xsd:string"/>
+            	<element name="username" type="xsd:string"/>
+            	<element name="password" type="xsd:string"/>
+      		</sequence>
+      	</complexType>
+      </element>
+      <element name="approveResponse">
+      	<complexType>
+      		<sequence>
+            <element maxOccurs="1" minOccurs="1" name="result" nillable="false" type="resns:Result"/>
+      		</sequence>
+      	</complexType>
+      </element>
+                  
+      <element name="retrieveRatePlanSchedule">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="1" minOccurs="0" name="id" type="xsd:string"/>
+      			<element maxOccurs="1" minOccurs="0" name="startDateTime" type="xsd:dateTime"/>
+      			<element maxOccurs="1" minOccurs="0" name="endDateTime" type="xsd:dateTime"/>
+      			<element maxOccurs="1" minOccurs="0" name="max" type="xsd:int"/>
+      			<element default="true" maxOccurs="1" minOccurs="0" name="includeCpp" nillable="false" type="xsd:boolean"/>
+      			<element default="true" maxOccurs="1" minOccurs="0" name="includeHoliday" nillable="false" type="xsd:boolean"/>
+      			<element default="true" maxOccurs="1" minOccurs="0" name="includePrioritization" nillable="false" type="xsd:boolean"/>		
+      		</sequence>
+      	</complexType>
+      </element>
+      <element name="retrieveRatePlanScheduleResponse">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="unbounded" minOccurs="0" name="out" nillable="true" type="ens:tObject"/>
+      		</sequence>
+      	</complexType>
+      </element>
+      
+      <element name="retrieveBillingCycle">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="1" minOccurs="0" name="partnerId" nillable="true" type="xsd:string"/>
+      			<element maxOccurs="1" minOccurs="0" name="startDate" nillable="true" type="xsd:dateTime"/>
+      			<element maxOccurs="1" minOccurs="0" name="endDate" nillable="true" type="xsd:dateTime"/>	
+      		</sequence>
+      	</complexType>
+      </element>
+      <element name="retrieveBillingCycleResponse">
+      	<complexType>
+      		<sequence>
+      			<element maxOccurs="unbounded" minOccurs="0" name="out" type="ens:tObject"/>
+      		</sequence>
+      	</complexType>
+      </element>      
+      
+      <!-- Prepay messages -->
+      <element name="PrepayKeyRequest">
+        <complexType>
+          <complexContent>
+            <extension base="pre:Prepayment">
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="PrepayKeyResponse">
+        <complexType>
+          <complexContent>
+            <extension base="pre:Prepayment">
+              <sequence>
+                <element minOccurs="1" name="prepaymentKey" nillable="false" type="xsd:string"/>
+                <element minOccurs="1" name="deliveryStatus" nillable="false" type="pre:StatusCode"/>
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="ApplyVendCodeRequest">
+        <complexType>
+          <complexContent>
+            <extension base="pre:Prepayment">
+              <sequence>
+                <element minOccurs="1" name="vendCode" nillable="false" type="xsd:string"/>
+                <element minOccurs="1" name="transactionId" nillable="false" type="xsd:string"/>
+                <element minOccurs="0" name="type" nillable="true" type="pre:VendCodeType"/>
+                <element minOccurs="0" name="value" nillable="true" type="xsd:int"/>
+                <element minOccurs="0" name="timestamp" nillable="true" type="xsd:dateTime"/>                
+              </sequence>
+            </extension>
+          </complexContent>
+        </complexType>
+      </element>
+
+      <element name="ApplyVendCodeResponse">
+        <complexType>
+            <sequence>
+              <element minOccurs="1" name="transactionId" nillable="false" type="xsd:string"/>
+              <element minOccurs="1" name="deliveryStatus" nillable="false" type="pre:StatusCode"/>
+            </sequence>
+        </complexType>
+      </element>
+      
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:tsched.ws.scheduler.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:ws.scheduler.unity.trilliantnetworks.com"/>
+      <import namespace="urn:command.tsched.ws.scheduler.unity.trilliantnetworks.com"/>
+      <import namespace="urn:trigger.ws.scheduler.unity.trilliantnetworks.com"/>
+ 
+      <complexType name="SchedulerTask">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+            <sequence>
+              <element maxOccurs="1" minOccurs="1" name="taskId" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="description" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="name" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="ownerId" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="type" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="partnerId" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="commandInput" nillable="true" type="tcsch:SchedulerCommandInput"/>
+              <element maxOccurs="1" minOccurs="0" name="trigger" nillable="true" type="trsch:schedulerTrigger"/>
+              <element maxOccurs="1" minOccurs="0" name="sourceId" nillable="true" type="xsd:string"/>
+              <element default="0" maxOccurs="1" minOccurs="0" name="ranCount" nillable="true" type="xsd:int"/>
+              <element maxOccurs="1" minOccurs="0" name="createdDate" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="lastRanOn" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="firstRanOn" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="runsNextOn" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerRun">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="runId" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="status" nillable="true" type="sns:RunStatus"/>
+              <element maxOccurs="1" minOccurs="0" name="message" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="exception" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="0" name="startedAt" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="endedAt" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="commandInput" nillable="true" type="tcsch:SchedulerCommandInput"/>
+              <element maxOccurs="1" minOccurs="0" name="commandOutput" nillable="true" type="tcsch:SchedulerCommandOutput"/>
+              <element maxOccurs="1" minOccurs="0" name="commandOutputAsString" nillable="true" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="1" name="task" nillable="false" type="tsch:SchedulerTask"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerTaskQuery">
+        <complexContent>      
+          <extension base="sns:schBaseObj">
+          <sequence>
+            <element default="true" maxOccurs="1" minOccurs="0" name="includeExpiredTasks" nillable="true" type="xsd:boolean"/>
+            <element default="true" maxOccurs="1" minOccurs="0" name="includePendingTasks" nillable="true" type="xsd:boolean"/>
+            <element default="false" maxOccurs="1" minOccurs="0" name="excludeRanTasks" nillable="true" type="xsd:boolean"/>
+            <element maxOccurs="1" minOccurs="0" name="taskName" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="taskType" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="taskOwnerId" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="taskParentId" nillable="true" type="xsd:string"/>
+            <element default="true" maxOccurs="1" minOccurs="0" name="ignoreNullTaskParentId" nillable="true" type="xsd:boolean"/>
+            <element maxOccurs="1" minOccurs="0" name="taskId" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="taskSourceId" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="orderBy" nillable="true" type="xsd:string"/>
+            <element maxOccurs="1" minOccurs="0" name="isAscending" nillable="true" type="xsd:boolean"/>
+          </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerRunQuery">
+        <complexContent>
+          <extension base="tsch:SchedulerTaskQuery">
+            <sequence>
+              <element default="true" maxOccurs="1" minOccurs="0" name="includeStartedRuns" nillable="true" type="xsd:boolean"/>
+              <element default="false" maxOccurs="1" minOccurs="0" name="excludeEndedRuns" nillable="true" type="xsd:boolean"/>
+              <element default="true" maxOccurs="1" minOccurs="0" name="predictFromNow" nillable="true" type="xsd:boolean"/>
+              <element maxOccurs="1" minOccurs="0" name="from" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="to" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="predictionMax" nillable="true" type="xsd:int"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerTasksResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="list" type="tsch:SchedulerTask"/>
+          <element default="false" maxOccurs="1" minOccurs="0" name="hasMore" nillable="true" type="xsd:boolean"/>
+          <element default="0" maxOccurs="1" minOccurs="1" name="totalCount" nillable="false" type="xsd:int"/>
+          <element default="0" maxOccurs="1" minOccurs="1" name="firstIndex" nillable="false" type="xsd:int"/>
+        </sequence>
+      </complexType>
+
+      <complexType name="SchedulerRunsResult">
+        <sequence>
+          <element maxOccurs="unbounded" minOccurs="0" name="list" type="tsch:SchedulerRun"/>
+          <element default="false" maxOccurs="1" minOccurs="0" name="hasMore" nillable="true" type="xsd:boolean"/>
+          <element default="0" maxOccurs="1" minOccurs="1" name="totalCount" nillable="false" type="xsd:int"/>
+          <element default="0" maxOccurs="1" minOccurs="1" name="firstIndex" nillable="false" type="xsd:int"/>
+        </sequence>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:command.tsched.ws.scheduler.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+
+      <import namespace="urn:ws.scheduler.unity.trilliantnetworks.com"/>
+      <import namespace="urn:tsched.ws.scheduler.unity.trilliantnetworks.com"/>
+
+      <complexType name="CommandCall">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+          <sequence>
+            <element maxOccurs="1" minOccurs="0" name="serialVersionUID" nillable="true" type="xsd:long"/>
+            <element maxOccurs="1" minOccurs="0" name="methodName" nillable="false" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="parameters" nillable="true" type="xsd:string"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="parameterTypes" nillable="true" type="xsd:string"/>
+          </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerCommandInput">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+          <sequence>
+              <element maxOccurs="1" minOccurs="0" name="serialVersionUID" nillable="true" type="xsd:long"/>
+              <element maxOccurs="unbounded" minOccurs="0" name="commandCalls" nillable="true" type="tcsch:CommandCall"/>
+          </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerCommandOutput">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+          <sequence>
+              <element maxOccurs="1" minOccurs="0" name="serialVersionUID" nillable="true" type="xsd:long"/>
+            <element maxOccurs="unbounded" minOccurs="0" name="results" nillable="true" type="xsd:string"/>
+          </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:trigger.ws.scheduler.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:ws.scheduler.unity.trilliantnetworks.com"/>
+
+      <complexType name="schedulerTrigger">
+        <complexContent>
+          <extension base="sns:schBaseObj">
+            <sequence>
+              <element maxOccurs="1" minOccurs="0" name="lastTrigger" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="nextTrigger" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="startTime" nillable="true" type="xsd:dateTime"/>
+              <element maxOccurs="1" minOccurs="0" name="endTime" nillable="true" type="xsd:dateTime"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerTimeTrigger">
+        <complexContent>
+          <extension base="trsch:schedulerTrigger">
+            <sequence>
+              <element maxOccurs="1" minOccurs="1" name="repeatCount" nillable="false" type="xsd:int"/>
+              <element maxOccurs="1" minOccurs="1" name="repeatIntervalInMillis" nillable="false" type="xsd:long"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+      <complexType name="SchedulerCronTrigger">
+        <complexContent>
+          <extension base="trsch:schedulerTrigger">
+            <sequence>
+              <element maxOccurs="1" minOccurs="1" name="cronExpression" nillable="false" type="xsd:string"/>
+              <element maxOccurs="1" minOccurs="1" name="timeZone" nillable="false" type="xsd:string"/>
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+    </schema>
+    <schema elementFormDefault="qualified" targetNamespace="urn:ws.scheduler.unity.trilliantnetworks.com" xmlns="http://www.w3.org/2001/XMLSchema">
+      <import namespace="urn:tsched.ws.scheduler.unity.trilliantnetworks.com"/>
+    <import namespace="urn:header.ws.unity.trilliantnetworks.com"/>
+
+      <simpleType name="ID">
+        <restriction base="xsd:string">
+          <length value="26"/>
+          <pattern value="[0-9]{26}"/>
+        </restriction>
+      </simpleType>      
+      
+      <complexType abstract="true" name="schBaseObj">
+        <sequence>
+          <element minOccurs="0" name="createdById" nillable="true" type="xsd:string"/>
+          <element minOccurs="0" name="createdDate" nillable="true" type="xsd:dateTime"/>
+          <element minOccurs="0" name="lastModifiedById" nillable="true" type="xsd:string"/>
+          <element minOccurs="0" name="lastModifiedDate" nillable="true" type="xsd:dateTime"/>
+          <element minOccurs="0" name="systemModstamp" nillable="true" type="xsd:dateTime"/>
+        </sequence>
+      </complexType>
+
+      <simpleType name="RunStatus">
+        <restriction base="xsd:string">
+          <enumeration value="pending"/>
+          <enumeration value="running"/>
+          <enumeration value="succeeded"/>
+          <enumeration value="failed"/>
+          <enumeration value="cancelled"/>
+          <enumeration value="interrupted"/>
+          <enumeration value="unknown"/>
+        </restriction>
+      </simpleType>
+
+      <element name="createTask">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="schedulerTask" nillable="false" type="tsch:SchedulerTask"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="createTaskResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="schedulerTask" nillable="false" type="tsch:SchedulerTask"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="retrieveTask">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="taskId" nillable="false" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveTaskResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="0" name="schedulerTask" nillable="true" type="tsch:SchedulerTask"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="retrieveRun">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="runId" nillable="false" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveRunResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="schedulerRun" type="tsch:SchedulerRun"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="retrieveTasks">
+        <complexType>
+          <sequence>
+            <element default="-1" maxOccurs="1" minOccurs="0" name="first" nillable="true" type="xsd:int"/>
+            <element default="-1" maxOccurs="1" minOccurs="0" name="max" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="query" nillable="true" type="tsch:SchedulerTaskQuery"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveTasksResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="schedulerTasksResult" type="tsch:SchedulerTasksResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="deleteTasks">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="0" name="query" nillable="true" type="tsch:SchedulerTaskQuery"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="deleteTasksResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="0" name="deletedCount" nillable="true" type="xsd:int"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="retrieveRuns">
+        <complexType>
+          <sequence>
+            <element default="-1" maxOccurs="1" minOccurs="0" name="first" nillable="true" type="xsd:int"/>
+            <element default="-1" maxOccurs="1" minOccurs="0" name="max" nillable="true" type="xsd:int"/>
+            <element maxOccurs="1" minOccurs="0" name="query" nillable="true" type="tsch:SchedulerRunQuery"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="retrieveRunsResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="scheduledRunsResult" type="tsch:SchedulerRunsResult"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="runTaskNow">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="taskId" nillable="false" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="runTaskNowResponse">
+        <complexType/>
+      </element>
+
+      <element name="updateTask">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="task" nillable="false" type="tsch:SchedulerTask"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="updateTaskResponse">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="task" nillable="false" type="tsch:SchedulerTask"/>
+          </sequence>
+        </complexType>
+      </element>
+
+      <element name="deleteTask">
+        <complexType>
+          <sequence>
+            <element maxOccurs="1" minOccurs="1" name="taskId" nillable="false" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="deleteTaskResponse">
+        <complexType/>
+      </element>
+      
+    </schema>
+  </types>
+  <message name="updateTaskResponse">
+    <part name="parameters" element="sns:updateTaskResponse">
+    </part>
+  </message>
+  <message name="retrieveTask">
+    <part name="parameters" element="sns:retrieveTask">
+    </part>
+  </message>
+  <message name="loginRequest">
+    <part name="parameters" element="trns:login">
+    </part>
+  </message>
+  <message name="DeviceCommandFault">
+    <part name="fault" element="fns:DeviceCommandFault">
+    </part>
+  </message>
+  <message name="createTask">
+    <part name="parameters" element="sns:createTask">
+    </part>
+  </message>
+  <message name="requestSyncRequest">
+    <part name="parameters" element="trns:requestSync">
+    </part>
+  </message>
+  <message name="createResponse">
+    <part name="parameters" element="trns:createResponse">
+    </part>
+  </message>
+  <message name="resetPasswordResponse">
+    <part name="parameters" element="trns:resetPasswordResponse">
+    </part>
+  </message>
+  <message name="acceptRatePlanResponse">
+    <part name="parameters" element="trns:acceptRatePlanResponse">
+    </part>
+  </message>
+  <message name="groupCommandResponse">
+    <part name="parameters" element="trns:groupCommandResponse">
+    </part>
+  </message>
+  <message name="InvalidTObjectFault">
+    <part name="fault" element="fns:InvalidTObjectFault">
+    </part>
+  </message>
+  <message name="getMeshGateIdByIpResponse">
+    <part name="parameters" element="trns:getMeshGateIdByIpResponse">
+    </part>
+  </message>
+  <message name="createRequest">
+    <part name="parameters" element="trns:create">
+    </part>
+  </message>
+  <message name="executeReportResponse">
+    <part name="parameters" element="trns:executeReportResponse">
+    </part>
+  </message>
+  <message name="describeGlobalResponse">
+    <part name="parameters" element="trns:describeGlobalResponse">
+    </part>
+  </message>
+  <message name="LoginFault">
+    <part name="fault" element="fns:LoginFault">
+    </part>
+  </message>
+  <message name="deleteTaskResponse">
+    <part name="parameters" element="sns:deleteTaskResponse">
+    </part>
+  </message>
+  <message name="logoutResponse">
+    <part name="parameters" element="trns:logoutResponse">
+    </part>
+  </message>
+  <message name="requestSyncResponse">
+    <part name="parameters" element="trns:requestSyncResponse">
+    </part>
+  </message>
+  <message name="SchedulerFault">
+    <part name="fault" element="fns:SchedulerFault">
+    </part>
+  </message>
+  <message name="getVersionRequest">
+    <part name="parameters" element="trns:getVersion">
+    </part>
+  </message>
+  <message name="getVersionResponse">
+    <part name="parameters" element="trns:getVersionResponse">
+    </part>
+  </message>
+  <message name="retrieveEventLogsResponse">
+    <part name="parameters" element="trns:retrieveEventLogsResponse">
+    </part>
+  </message>
+  <message name="ApiFault">
+    <part name="fault" type="fns:ApiFault">
+    </part>
+  </message>
+  <message name="prepayKeyResponse">
+    <part name="parameters" element="trns:PrepayKeyResponse">
+    </part>
+  </message>
+  <message name="retrieveRun">
+    <part name="parameters" element="sns:retrieveRun">
+    </part>
+  </message>
+  <message name="getServerTimestampResponse">
+    <part name="parameters" element="trns:getServerTimestampResponse">
+    </part>
+  </message>
+  <message name="applyVendCodeRequest">
+    <part name="parameters" element="trns:ApplyVendCodeRequest">
+    </part>
+  </message>
+  <message name="retrieveRatePlanScheduleResponse">
+    <part name="parameters" element="trns:retrieveRatePlanScheduleResponse">
+    </part>
+  </message>
+  <message name="groupCommandRequest">
+    <part name="parameters" element="trns:groupCommandRequest">
+    </part>
+  </message>
+  <message name="retrieveTasks">
+    <part name="parameters" element="sns:retrieveTasks">
+    </part>
+  </message>
+  <message name="getUserInfoRequest">
+    <part name="parameters" element="trns:getUserInfo">
+    </part>
+  </message>
+  <message name="retrieveBillingCycleResponse">
+    <part name="parameters" element="trns:retrieveBillingCycleResponse">
+    </part>
+  </message>
+  <message name="readMeterRequest">
+    <part name="parameters" element="trns:readMeter">
+    </part>
+  </message>
+  <message name="deleteTask">
+    <part name="parameters" element="sns:deleteTask">
+    </part>
+  </message>
+  <message name="getUserInfoResponse">
+    <part name="parameters" element="trns:getUserInfoResponse">
+    </part>
+  </message>
+  <message name="retrieveRunsResponse">
+    <part name="parameters" element="sns:retrieveRunsResponse">
+    </part>
+  </message>
+  <message name="describeRequest">
+    <part name="parameters" element="trns:describe">
+    </part>
+  </message>
+  <message name="getMeshGateIdByIpRequest">
+    <part name="parameters" element="trns:getMeshGateIdByIp">
+    </part>
+  </message>
+  <message name="AccessDeniedFault">
+    <part name="fault" element="fns:AccessDeniedFault">
+    </part>
+  </message>
+  <message name="describeResponse">
+    <part name="parameters" element="trns:describeResponse">
+    </part>
+  </message>
+  <message name="InvalidNewPasswordFault">
+    <part name="fault" element="fns:InvalidNewPasswordFault">
+    </part>
+  </message>
+  <message name="approveResponse">
+    <part name="parameters" element="trns:approveResponse">
+    </part>
+  </message>
+  <message name="retrieveEventLogsRequest">
+    <part name="parameters" element="trns:retrieveEventLog">
+    </part>
+  </message>
+  <message name="readMeterResponse">
+    <part name="parameters" element="trns:readMeterResponse">
+    </part>
+  </message>
+  <message name="runTaskNowResponse">
+    <part name="parameters" element="sns:runTaskNowResponse">
+    </part>
+  </message>
+  <message name="Header">
+    <part name="request_header" type="hdns:SessionHeader">
+    </part>
+  </message>
+  <message name="getServerTimestampRequest">
+    <part name="parameters" element="trns:getServerTimestamp">
+    </part>
+  </message>
+  <message name="MalformedQueryFault">
+    <part name="fault" element="fns:MalformedQueryFault">
+    </part>
+  </message>
+  <message name="retrieveGroupMembersRequest">
+    <part name="parameters" element="trns:retrieveGroupMembers">
+    </part>
+  </message>
+  <message name="InvalidFieldFault">
+    <part name="fault" element="fns:InvalidFieldFault">
+    </part>
+  </message>
+  <message name="updateResponse">
+    <part name="parameters" element="trns:updateResponse">
+    </part>
+  </message>
+  <message name="UnexpectedErrorFault">
+    <part name="fault" element="fns:UnexpectedErrorFault">
+    </part>
+  </message>
+  <message name="updateRequest">
+    <part name="parameters" element="trns:update">
+    </part>
+  </message>
+  <message name="retrieveGroupMembersResponse">
+    <part name="parameters" element="trns:retrieveGroupMembersResponse">
+    </part>
+  </message>
+  <message name="InvalidQueryLocatorFault">
+    <part name="fault" element="fns:InvalidQueryLocatorFault">
+    </part>
+  </message>
+  <message name="deleteTasksResponse">
+    <part name="parameters" element="sns:deleteTasksResponse">
+    </part>
+  </message>
+  <message name="retrieveRatePlanScheduleRequest">
+    <part name="parameters" element="trns:retrieveRatePlanSchedule">
+    </part>
+  </message>
+  <message name="updateTask">
+    <part name="parameters" element="sns:updateTask">
+    </part>
+  </message>
+  <message name="executeReport">
+    <part name="parameters" element="trns:executeReport">
+    </part>
+  </message>
+  <message name="deleteRequest">
+    <part name="parameters" element="trns:delete">
+    </part>
+  </message>
+  <message name="retrieveDeviceSyncRequestStatusRequest">
+    <part name="parameters" element="trns:retrieveDeviceSyncRequestStatus">
+    </part>
+  </message>
+  <message name="InvalidIdFault">
+    <part name="fault" element="fns:InvalidIdFault">
+    </part>
+  </message>
+  <message name="retrieveTaskResponse">
+    <part name="parameters" element="sns:retrieveTaskResponse">
+    </part>
+  </message>
+  <message name="retrieveRuns">
+    <part name="parameters" element="sns:retrieveRuns">
+    </part>
+  </message>
+  <message name="createTaskResponse">
+    <part name="parameters" element="sns:createTaskResponse">
+    </part>
+  </message>
+  <message name="retrieveRunResponse">
+    <part name="parameters" element="sns:retrieveRunResponse">
+    </part>
+  </message>
+  <message name="describeGlobalRequest">
+    <part name="parameters" element="trns:describeGlobal">
+    </part>
+  </message>
+  <message name="approveRequest">
+    <part name="parameters" element="trns:approve">
+    </part>
+  </message>
+  <message name="queryPageRequest">
+    <part name="parameters" element="trns:queryPage">
+    </part>
+  </message>
+  <message name="deviceCommandRequest">
+    <part name="parameters" element="trns:commandRequest">
+    </part>
+  </message>
+  <message name="deleteResponse">
+    <part name="parameters" element="trns:deleteResponse">
+    </part>
+  </message>
+  <message name="runTaskNow">
+    <part name="parameters" element="sns:runTaskNow">
+    </part>
+  </message>
+  <message name="retrieveTasksResponse">
+    <part name="parameters" element="sns:retrieveTasksResponse">
+    </part>
+  </message>
+  <message name="retrieveRequest">
+    <part name="parameters" element="trns:retrieve">
+    </part>
+  </message>
+  <message name="deviceCommandResponse">
+    <part name="parameters" element="trns:commandResponse">
+    </part>
+  </message>
+  <message name="applyVendCodeResponse">
+    <part name="parameters" element="trns:ApplyVendCodeResponse">
+    </part>
+  </message>
+  <message name="retrieveBillingCycleRequest">
+    <part name="parameters" element="trns:retrieveBillingCycle">
+    </part>
+  </message>
+  <message name="prepayKeyRequest">
+    <part name="parameters" element="trns:PrepayKeyRequest">
+    </part>
+  </message>
+  <message name="loginResponse">
+    <part name="parameters" element="trns:loginResponse">
+    </part>
+  </message>
+  <message name="queryRequest">
+    <part name="parameters" element="trns:query">
+    </part>
+  </message>
+  <message name="queryResponse">
+    <part name="parameters" element="trns:queryResponse">
+    </part>
+  </message>
+  <message name="deleteTasks">
+    <part name="parameters" element="sns:deleteTasks">
+    </part>
+  </message>
+  <message name="retrieveResponse">
+    <part name="parameters" element="trns:retrieveResponse">
+    </part>
+  </message>
+  <message name="retrieveDeviceSyncRequestStatusResponse">
+    <part name="parameters" element="trns:retrieveDeviceSyncRequestStatusResponse">
+    </part>
+  </message>
+  <message name="resetPasswordRequest">
+    <part name="parameters" element="trns:resetPassword">
+    </part>
+  </message>
+  <message name="logoutRequest">
+    <part name="parameters" element="trns:logout">
+    </part>
+  </message>
+  <message name="acceptRatePlanRequest">
+    <part name="parameters" element="trns:acceptRatePlan">
+    </part>
+  </message>
+  <portType name="Soap">
+    <operation name="login">
+<documentation>Login to the Trilliant Networks</documentation>
+      <input message="trns:loginRequest">
+    </input>
+      <output message="trns:loginResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="LoginFault" message="trns:LoginFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="logout">
+<documentation>Logout from the Trilliant Networks</documentation>
+      <input message="trns:logoutRequest">
+    </input>
+      <output message="trns:logoutResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="describe">
+<documentation>Describe an Entity</documentation>
+      <input message="trns:describeRequest">
+    </input>
+      <output message="trns:describeResponse">
+    </output>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="describeGlobal">
+<documentation>Describe the Global state</documentation>
+      <input message="trns:describeGlobalRequest">
+    </input>
+      <output message="trns:describeGlobalResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="commandRequest">
+<documentation>Issue a command to a device</documentation>
+      <input message="trns:deviceCommandRequest">
+    </input>
+      <output message="trns:deviceCommandResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="DeviceCommandFault" message="trns:DeviceCommandFault">
+    </fault>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="groupCommandRequest">
+<documentation>Issue a command to a group of devices</documentation>
+      <input message="trns:groupCommandRequest">
+    </input>
+      <output message="trns:groupCommandResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="DeviceCommandFault" message="trns:DeviceCommandFault">
+    </fault>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="readMeter">
+<documentation>Reads a meter or meters</documentation>
+      <input message="trns:readMeterRequest">
+    </input>
+      <output message="trns:readMeterResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="executeReport">
+<documentation>Executes a report</documentation>
+      <input message="trns:executeReport">
+    </input>
+      <output message="trns:executeReportResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="create">
+<documentation>Create a set of new tObjects</documentation>
+      <input message="trns:createRequest">
+    </input>
+      <output message="trns:createResponse">
+    </output>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="update">
+<documentation>Update a set of tObjects</documentation>
+      <input message="trns:updateRequest">
+    </input>
+      <output message="trns:updateResponse">
+    </output>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="delete">
+<documentation>Delete a set of tObjects</documentation>
+      <input message="trns:deleteRequest">
+    </input>
+      <output message="trns:deleteResponse">
+    </output>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieve">
+<documentation>Get a set of tObjects</documentation>
+      <input message="trns:retrieveRequest">
+    </input>
+      <output message="trns:retrieveResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="queryPage">
+<documentation>Get a page of tObjects to display in the UI</documentation>
+      <input message="trns:queryPageRequest">
+    </input>
+      <output message="trns:queryResponse">
+    </output>
+      <fault name="MalformedQueryFault" message="trns:MalformedQueryFault">
+    </fault>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="query">
+<documentation>Find all of the tObjects that match the query parameters</documentation>
+      <input message="trns:queryRequest">
+    </input>
+      <output message="trns:queryResponse">
+    </output>
+      <fault name="MalformedQueryFault" message="trns:MalformedQueryFault">
+    </fault>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="InvalidTObjectFault" message="trns:InvalidTObjectFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveGroupMembers">
+<documentation>Expand a group into it's representative accounts and devices</documentation>
+      <input message="trns:retrieveGroupMembersRequest">
+    </input>
+      <output message="trns:retrieveGroupMembersResponse">
+    </output>
+      <fault name="MalformedQueryFault" message="trns:MalformedQueryFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="getServerTimestamp">
+<documentation>Gets server timestamp</documentation>
+      <input message="trns:getServerTimestampRequest">
+    </input>
+      <output message="trns:getServerTimestampResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+    </operation>
+    <operation name="resetPassword">
+<documentation>Reset a user's password</documentation>
+      <input message="trns:resetPasswordRequest">
+    </input>
+      <output message="trns:resetPasswordResponse">
+    </output>
+      <fault name="InvalidIdFault" message="trns:InvalidIdFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="getMeshGateIdByIp">
+<documentation>get version of unity web service</documentation>
+      <input message="trns:getMeshGateIdByIpRequest">
+    </input>
+      <output message="trns:getMeshGateIdByIpResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+    </operation>
+    <operation name="getUserInfo">
+<documentation>Returns standard information relevant to the current user</documentation>
+      <input message="trns:getUserInfoRequest">
+    </input>
+      <output message="trns:getUserInfoResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="getVersion">
+<documentation>get version of unity web service</documentation>
+      <input message="trns:getVersionRequest">
+    </input>
+      <output message="trns:getVersionResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+    </operation>
+    <operation name="retrieveRatePlanSchedule">
+<documentation>Retrieves a RateSchedule</documentation>
+      <input message="trns:retrieveRatePlanScheduleRequest">
+    </input>
+      <output message="trns:retrieveRatePlanScheduleResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="requestSync">
+<documentation>Requests a sync to be performed on devices related the specified source object(s)</documentation>
+      <input message="trns:requestSyncRequest">
+    </input>
+      <output message="trns:requestSyncResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveDeviceSyncRequestStatus">
+<documentation>Retrieves status of requests for device syncs</documentation>
+      <input message="trns:retrieveDeviceSyncRequestStatusRequest">
+    </input>
+      <output message="trns:retrieveDeviceSyncRequestStatusResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="acceptRatePlan">
+<documentation>retrieve RatePlan of unity web service</documentation>
+      <input message="trns:acceptRatePlanRequest">
+    </input>
+      <output message="trns:acceptRatePlanResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveEventLogs">
+<documentation>retrieve Logs</documentation>
+      <input message="trns:retrieveEventLogsRequest">
+    </input>
+      <output message="trns:retrieveEventLogsResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="approve">
+<documentation>approve an element of unity web service</documentation>
+      <input message="trns:approveRequest">
+    </input>
+      <output message="trns:approveResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveBillingCycle">
+<documentation>Gets the BillingCycle of a Partner with a given start date and end date</documentation>
+      <input message="trns:retrieveBillingCycleRequest">
+    </input>
+      <output message="trns:retrieveBillingCycleResponse">
+    </output>
+      <fault name="InvalidFieldFault" message="trns:InvalidFieldFault">
+    </fault>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="createTask">
+<documentation>Adds a SchedulerTask</documentation>
+      <input message="trns:createTask">
+    </input>
+      <output message="trns:createTaskResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveTask">
+<documentation>Returns a SchedulerTask</documentation>
+      <input message="trns:retrieveTask">
+    </input>
+      <output message="trns:retrieveTaskResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveRun">
+<documentation>Returns a SchedulerRun</documentation>
+      <input message="trns:retrieveRun">
+    </input>
+      <output message="trns:retrieveRunResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveTasks">
+<documentation>Returns an array of SchedulerTasks from the given criteria</documentation>
+      <input message="trns:retrieveTasks">
+    </input>
+      <output message="trns:retrieveTasksResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="deleteTasks">
+<documentation>Deletes SchedulerTasks from the given criteria</documentation>
+      <input message="trns:deleteTasks">
+    </input>
+      <output message="trns:deleteTasksResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrieveRuns">
+<documentation>Get the runs either those that ran, or will run depending on arguments</documentation>
+      <input message="trns:retrieveRuns">
+    </input>
+      <output message="trns:retrieveRunsResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="runTaskNow">
+<documentation>Run the task now</documentation>
+      <input message="trns:runTaskNow">
+    </input>
+      <output message="trns:runTaskNowResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="updateTask">
+<documentation>Update a task</documentation>
+      <input message="trns:updateTask">
+    </input>
+      <output message="trns:updateTaskResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="deleteTask">
+<documentation>Remove a task</documentation>
+      <input message="trns:deleteTask">
+    </input>
+      <output message="trns:deleteTaskResponse">
+    </output>
+      <fault name="SchedulerFault" message="trns:SchedulerFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="retrievePrepayKey">
+<documentation>Retrieve Prepayment Key</documentation>
+      <input message="trns:prepayKeyRequest">
+    </input>
+      <output message="trns:prepayKeyResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="LoginFault" message="trns:LoginFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+    <operation name="applyVendCode">
+<documentation>Apply Vend Code</documentation>
+      <input message="trns:applyVendCodeRequest">
+    </input>
+      <output message="trns:applyVendCodeResponse">
+    </output>
+      <fault name="UnexpectedErrorFault" message="trns:UnexpectedErrorFault">
+    </fault>
+      <fault name="LoginFault" message="trns:LoginFault">
+    </fault>
+      <fault name="AccessDeniedFault" message="trns:AccessDeniedFault">
+    </fault>
+    </operation>
+  </portType>
+  <binding name="SoapBinding" type="trns:Soap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="login">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:login"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="LoginFault">
+        <soap:fault name="LoginFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="logout">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:logout"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="describe">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:describe"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="describeGlobal">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:describeGlobal"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="create">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:create"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="update">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:update"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="delete">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:delete"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieve">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieve"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="commandRequest">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:commandRequest"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="DeviceCommandFault">
+        <soap:fault name="DeviceCommandFault" use="literal"/>
+      </fault>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="groupCommandRequest">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:groupCommandRequest"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="DeviceCommandFault">
+        <soap:fault name="DeviceCommandFault" use="literal"/>
+      </fault>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="executeReport">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:executeReport"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="query">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:query"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="MalformedQueryFault">
+        <soap:fault name="MalformedQueryFault" use="literal"/>
+      </fault>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveGroupMembers">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieveGroupMembers"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="MalformedQueryFault">
+        <soap:fault name="MalformedQueryFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="queryPage">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:queryPage"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="MalformedQueryFault">
+        <soap:fault name="MalformedQueryFault" use="literal"/>
+      </fault>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="InvalidTObjectFault">
+        <soap:fault name="InvalidTObjectFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="readMeter">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:readMeter"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getServerTimestamp">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:getServerTimeStamp"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="resetPassword">
+      <soap:operation soapAction="resetPassword"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidIdFault">
+        <soap:fault name="InvalidIdFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getMeshGateIdByIp">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:getMeshGateIdByIp"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getUserInfo">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:getUserInfo"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="getVersion">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:getVersion"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveRatePlanSchedule">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieveRatePlanSchedule"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="requestSync">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:requestSync"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveDeviceSyncRequestStatus">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieveDeviceSyncRequestStatus"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="acceptRatePlan">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:acceptRatePlan"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveEventLogs">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieveEventLogs"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="approve">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:approve"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveBillingCycle">
+      <soap:operation soapAction="urn:ws.unity.trilliantnetworks.com:Soap:retrieveBillingCycle"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="InvalidFieldFault">
+        <soap:fault name="InvalidFieldFault" use="literal"/>
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="createTask">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:createTask"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveTask">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:retrieveTask"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveRun">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:retrieveRun"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveTasks">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:retrieveTasks"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="deleteTasks">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:deleteTasks"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrieveRuns">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:retrieveRuns"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="updateTask">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:updateTask"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="deleteTask">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:deleteTask"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="runTaskNow">
+      <soap:operation soapAction="urn:ws.scheduler.unity.trilliantnetworks.com:Soap:runTaskNow"/>
+      <input>
+        <soap:body parts="parameters" use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="SchedulerFault">
+        <soap:fault name="SchedulerFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="retrievePrepayKey">
+      <soap:operation soapAction="urn:retrievePrepayKey" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="LoginFault">
+        <soap:fault name="LoginFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="applyVendCode">
+      <soap:operation soapAction="urn:applyVendCode" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal"/>
+      </fault>
+      <fault name="LoginFault">
+        <soap:fault name="LoginFault" use="literal"/>
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal"/>
+      </fault>
+    </operation>
+  </binding>
+  <service name="UnityService">
+<documentation>Trilliant Unity SOAP API</documentation>
+    <port name="UnityV1" binding="trns:SoapBinding">
+      <soap:address location="http://192.168.200.68:8080/trilliant/services/UnityService/"/>
+    </port>
+  </service>
+</definitions>

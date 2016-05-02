@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="http://ack.pi.ws.vms.centrica.com"
+	xmlns="http://ack.pi.ws.vms.centrica.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:element name="SmartMeterManageSCNAckn" type="SmartMeterManageSCNAcknMessage" />
+	<xsd:complexType name="SmartMeterManageSCNAcknMessage">
+		<xsd:annotation>
+			<xsd:appinfo source="http://sap.com/xi/VersionID">d1503245f3a111e2903200000091f37b
+			</xsd:appinfo>
+		</xsd:annotation>
+		<xsd:sequence>
+			<xsd:element name="SmartMeterManageSCNAcknData"
+				minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:appinfo source="http://sap.com/xi/TextID">d88ef30be25c11e29b050050569a114b
+					</xsd:appinfo>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SCN" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">
+									d88ef306e25c11e28fd80050569a114b</xsd:appinfo>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MPXN" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">
+									d88ef307e25c11e2b5400050569a114b</xsd:appinfo>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="StartDate" type="xsd:date"
+							minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">
+									d88ef308e25c11e2ca9f0050569a114b</xsd:appinfo>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="EndDate" type="xsd:date" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">
+									d88ef309e25c11e2a6160050569a114b</xsd:appinfo>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Flag" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:appinfo source="http://sap.com/xi/TextID">
+									d88ef30ae25c11e290580050569a114b</xsd:appinfo>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

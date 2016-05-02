@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:Meter" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="urn:britishgas.co.uk:Enterprise:Meter">
+<xsd:complexType name="MeteringAssetBasic">
+<xsd:sequence>
+ <xsd:element name="MeteringAssetEquipmentNumber" type="xsd:string" minOccurs="0" /> 
+ <xsd:element name="ManufacturerSerialNumber" type="xsd:string" minOccurs="0" /> 
+ <xsd:element name="SapMeteringAssetSerialNumber" type="xsd:string" minOccurs="0" /> 
+ </xsd:sequence>
+ </xsd:complexType>
+ </xsd:schema>

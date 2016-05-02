@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	name="SmartMeterPPKeyService" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:xsd="http://service.ppk.ws.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://service.ppk.ws.vms.centrica.com">
+	
+	<wsdl:types>
+		<xs:schema elementFormDefault="qualified"
+			targetNamespace="http://service.ppk.ws.vms.centrica.com" xmlns:tqns="http://service.ppk.ws.vms.centrica.com"
+			xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:element name="UpdatePPKeyRequest">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PPKeyRequest" type="tqns:UpdatePPKeyRequestMessage" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="UpdatePPKeyResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="PPKeyResponse" type="tqns:UpdatePPKeyResponseMessage" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="BusinessProcessingFault">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="exceptionCode" type="tqns:BusinessProcessingFaultCode" />
+						<xs:element name="exceptionMessage" type="xs:string" />
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:complexType name="UpdatePPKeyRequestMessage">
+				<xs:sequence>
+					<xs:element name="PPKeyRequestIdentifier" type="xs:string" />
+					<xs:element name="msn" type="xs:string" />
+					<xs:element name="mpxn" type="xs:string" />
+					<xs:element name="PPKey" type="xs:string" />
+					<xs:element name="PPKeyRequestDateTime" type="xs:dateTime" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="UpdatePPKeyResponseMessage">
+				<xs:sequence>
+					<xs:element name="statusCode" type="xs:string" />
+					<xs:element name="errorDescription" type="xs:string" />
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="BusinessProcessingFaultCode">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="200" />
+					<xs:enumeration value="P001" />
+					<xs:enumeration value="P002" />
+					<xs:enumeration value="P003" />
+					<xs:enumeration value="P004" />
+					<xs:enumeration value="P005" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="UpdatePPKeyRequest">
+		<wsdl:part name="parameters" element="xsd:UpdatePPKeyRequest" />
+	</wsdl:message>
+	
+	<wsdl:message name="UpdatePPKeyResponse">
+		<wsdl:part name="parameters" element="xsd:UpdatePPKeyResponse" />
+	</wsdl:message>
+	
+	<wsdl:message name="BusinessProcessingFault">
+		<wsdl:part name="fault" element="xsd:BusinessProcessingFault" />
+	</wsdl:message>
+	
+	<wsdl:portType name="SmartMeterPPKeyServicePortType">
+		<wsdl:operation name="UpdatePPKey">
+			<wsdl:input message="xsd:UpdatePPKeyRequest" />
+			<wsdl:output message="xsd:UpdatePPKeyResponse" />
+			<wsdl:fault name="BusinessProcessingFault" message="xsd:BusinessProcessingFault" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="SmartMeterPPKeyServiceSoapBinding" type="xsd:SmartMeterPPKeyServicePortType">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+		<wsdl:operation name="UpdatePPKey">
+			<soap:operation soapAction="urn:UpdatePPKey" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="BusinessProcessingFault">
+				<soap:body use="literal" />
+			</wsdl:fault>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="SmartMeterPPKeyService">
+		<wsdl:port name="SmartMeterPPKeyServiceHttpSoapEndpoint" binding="xsd:SmartMeterPPKeyServiceSoapBinding">
+			<soap:address location="http://localhost:8080/VendManagementSystem/services/SmartMeterPPKeyService" />
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

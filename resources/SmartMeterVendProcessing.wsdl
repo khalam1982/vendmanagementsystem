@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="SmartMeterVendProcessing" targetNamespace="http://service.sap.ws.vms.centrica.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://service.sap.ws.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import namespace="http://service.sap.ws.vms.centrica.com" schemaLocation="VMSServiceSchema.xsd"/>
+		</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="reversePaymentRequest">
+    <wsdl:part name="parameters" element="xsd:ReverseVend">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPaymentResponse">
+    <wsdl:part name="parameters" element="xsd:VoidVendResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="reversePaymentResponse">
+    <wsdl:part name="parameters" element="xsd:ReverseVendResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generatePaymentCodeRequest">
+    <wsdl:part name="parameters" element="xsd:CreateVend">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="voidPaymentRequest">
+    <wsdl:part name="parameters" element="xsd:VoidVend">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generatePaymentCodeResponse">
+    <wsdl:part name="parameters" element="xsd:CreateVendResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SmartMeterVendProcessingPortType">
+    <wsdl:operation name="VoidVend">
+      <wsdl:input message="xsd:voidPaymentRequest" wsaw:Action="urn:VoidVend">
+    </wsdl:input>
+      <wsdl:output message="xsd:voidPaymentResponse" wsaw:Action="urn:VoidVendResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseVend">
+      <wsdl:input message="xsd:reversePaymentRequest" wsaw:Action="urn:ReverseVend">
+    </wsdl:input>
+      <wsdl:output message="xsd:reversePaymentResponse" wsaw:Action="urn:ReverseVendResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateVend">
+      <wsdl:input message="xsd:generatePaymentCodeRequest" wsaw:Action="urn:CreateVend">
+    </wsdl:input>
+      <wsdl:output message="xsd:generatePaymentCodeResponse" wsaw:Action="urn:CreateVendResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SmartMeterVendProcessingSoapBinding" type="xsd:SmartMeterVendProcessingPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="VoidVend">
+      <soap:operation soapAction="urn:VoidVend" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReverseVend">
+      <soap:operation soapAction="urn:ReverseVend" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateVend">
+      <soap:operation soapAction="urn:CreateVend" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SmartMeterVendProcessing">
+    <wsdl:port name="SmartMeterVendProcessingHttpSoapEndpoint" binding="xsd:SmartMeterVendProcessingSoapBinding">
+      <soap:address location="http://localhost:8080/axis2/services/SmartMeterVendProcessing"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

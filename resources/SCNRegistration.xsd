@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://service.pi.ws.vms.centrica.com" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.pi.ws.vms.centrica.com">
+    <xsd:element name="asynActivationandDeactivation">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="CustomerDetails" type="CustomerDetails"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="CustomerDetails">
+        <xsd:sequence>
+            <xsd:element name="mxpn" type="xsd:string"/>
+            <xsd:element name="scn" type="xsd:string"/>
+            <xsd:element name="valid_from" type="xsd:dateTime"/>
+            <xsd:element name="valid_to" type="xsd:dateTime"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

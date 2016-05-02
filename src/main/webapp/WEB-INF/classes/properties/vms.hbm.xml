@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.SourceDetails" table="SOURCE_DETAILS">
+<id column="SOURCE" name="source" type="java.lang.String">
+</id>
+<property name="holdingPeriod" column="HOLDING_PERIOD" type="java.lang.Long"/>
+<property name="sourceDescription" column="SOURCE_DESCRIPTION" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.ws.model.MeterDetails" table="METER_DETAILS">
+<id column="MSN" name="msn" type="java.lang.String">
+</id>
+<property column="PPKEY" name="prepayKey" type="java.lang.String"/>
+<property column="FUELTYPE" name="fuelType" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.ws.model.CreditIDDetails" table="VEND_CREDITID">
+<composite-id name="creditIDCompKey" class="com.centrica.vms.ws.model.CreditIDCompKey">
+<key-property column="MSN" name="msn"  type="java.lang.String" />
+<key-property column="TRANSACTION_TYPE" name="transactionType"  type="java.lang.String" />
+</composite-id>
+<property  column="CREDITID" name="creditID"  type="java.lang.Integer"/>
+</class>
+<class name="com.centrica.vms.scheduler.model.VendTxnSchedulerDetails" table="VEND_TRANSACTION">
+<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+</id>
+<version column="VERSION" name="version" type="java.lang.Integer"/>
+<property column="STATUS" name="status" type="java.lang.Integer"/>
+<properties name="name" update="false">
+<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+<property column="ORIGINAL_TRANSACTION_ID" name="originalTransactionID" type="java.lang.String"/>
+</properties>
+<property column="UPDATED_TIMESTAMP" name="updatedTimeStamp" type="java.util.Date"/>
+<property column="TRIGGER_NAME" name="triggerName" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.ws.model.VendTxnWSDetails" table="VEND_TRANSACTION">
+<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+</id>
+<version column="VERSION" name="version" type="java.lang.Integer"/>
+<properties name="name"  update="false">
+<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+<property column="ACTUAL_TIMESTAMP" name="actualTimeStamp" type="java.util.Date"/>
+<property column="VENDCODE_TIMESTAMP" name="vendcodeTimeStamp" type="java.util.Date"/>
+<property column="VENDCODE" name="vendCode" type="java.lang.String"/>
+<property column="TRANSACTION_TYPE" name="transactionType" type="java.lang.String"/>
+<property column="CREDIT_VALUE" name="creditValue" type="java.lang.String"/>
+<property column="PAN" name="pan" type="java.lang.String"/>
+<property column="MSN" name="msn" type="java.lang.String"/>
+<property column="PPKEY" name="ppKey" type="java.lang.String"/>
+<property column="SOURCE" name="source" type="java.lang.String"/>
+<property column="HOLDING_PERIOD" name="holdingPeriod" type="java.lang.Long"/>
+<property column="ORIGINAL_TRANSACTION_ID" name="originalTransactionID" type="java.lang.String"/>
+<property column="CREATED_BY" name="createdBy" type="java.lang.String"/>
+<property column="UPDATED_BY" name="updatedBy" type="java.lang.String"/>
+</properties>
+<property column="STATUS" name="status" type="java.lang.Integer"/>
+<property column="UPDATED_TIMESTAMP" name="updatedTimeStamp" type="java.util.Date"/>
+</class>
+<class name="com.centrica.vms.model.VMSMessagingSystem" table="VMS_MESSAGINGSYSTEM" optimistic-lock="none">
+<id column="MESSAGE_ID" name="messageID" type="java.lang.Integer">
+<generator class="sequence">
+<param name="sequence">SEQ_VMS_MESSAGINGSYSTEM</param>
+</generator>
+</id>
+<property column="MESSAGE_TYPE" name="messageType" type="java.lang.String"/>
+<property column="MESSAGE_DATA" name="messageData" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.model.UnsendVCTransaction" table="VEND_TRANSACTION" optimistic-lock="none">
+<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+</id>
+<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+<property column="STATUS" name="status" type="java.lang.Integer"/>
+</class>
+<class name="com.centrica.vms.model.VendHistoryDetails" table="VEND_TRANSACTION" optimistic-lock="none">
+<id column="TRANSACTION_ID" name="transactionID" type="java.lang.String">
+</id>
+<property column="CREATED_TIMESTAMP" name="createdTimeStamp" type="java.util.Date"/>
+<property column="ACTUAL_TIMESTAMP" name="actualTimeStamp" type="java.util.Date"/>
+<property column="VENDCODE_TIMESTAMP" name="vendcodeTimeStamp" type="java.util.Date"/>
+<property column="VENDCODE" name="vendCode" type="java.lang.String"/>
+<property column="TRANSACTION_TYPE" name="transactionType" type="java.lang.String"/>
+<property column="CREDIT_VALUE" name="creditValue" type="java.lang.String"/>
+<property column="PAN" name="pan" type="java.lang.String"/>
+<many-to-one name="statusDetails" class="com.centrica.vms.model.StatusDetails" column="STATUS" lazy="false"/>
+<many-to-one name="sourceDetails" class="com.centrica.vms.model.SourceDetails" column="SOURCE" lazy="false"/>
+</class>
+<class name="com.centrica.vms.model.StatusDetails" table="STATUS_DETAILS" optimistic-lock="none">
+<id column="STATUS_CODE" name="statusCode" type="java.lang.Integer">
+</id>
+<property column="STATUS_DESCRIPTION" name="statusDesc" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.model.GroupDetails" table="VMS_GROUP">
+<id column="GROUP_ID" name="groupID" type="java.lang.String">
+</id>
+<property name="groupDescription" column="GROUP_DESCRIPTION" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.model.FunctionDetails" table="VMS_FUNCTION">
+<id column="FUNCTION_CODE" name="functionCode" type="java.lang.String">
+</id>
+<property name="functionDescription" column="FUNCTION_DESCRIPTION" type="java.lang.String"/>
+</class>
+<class name="com.centrica.vms.model.UserFunctionDetails" table="VMS_USERFUNCTION">
+<id column="ID" name="id" type="java.lang.Integer">
+<generator class="sequence">
+<param name="sequence">SEQ_VMS_USERFUNCTION</param>
+</generator>
+</id>
+<property column="FUNCTION_CODE" name="functionCode"  type="java.lang.String" />
+<property column="GROUP_ID" name="groupID" type="java.lang.String"/>
+<many-to-one name="functionDetails" class="com.centrica.vms.model.FunctionDetails" column="FUNCTION_CODE" update="false" insert="false" lazy="false"/>
+</class>
+<class name="com.centrica.vms.model.UserDetails" table="VMS_USER">
+<id column="USER_ID" name="userID" type="java.lang.Integer">
+<generator class="sequence">
+<param name="sequence">SEQ_VMS_USER</param>
+</generator>
+</id>
+<version column="VERSION" name="version" type="java.lang.Integer"/>
+<property name="userName" column="USERNAME" type="java.lang.String" />
+<property name="password" column="PASSWORD" type="java.lang.String"/>
+<property name="lanID" column="LAN_ID" type="java.lang.String"/>
+<property name="groupID" column="GROUP_ID" type="java.lang.String"/>
+<property name="retryCount" column="RETRY_COUNT" type="java.lang.Integer"/>
+<property name="lockIND" column="LOCK_IND" type="java.lang.Character"/>
+<property name="superIND" column="SUPER_IND" type="java.lang.Character"/>
+<property name="powerIND" column="POWER_IND" type="java.lang.Character"/>
+<property name="passwordDate" column="PASSWORD_DATE" type="java.util.Date"/>
+<property name="createdBy" column="CREATED_BY" type="java.lang.String"/>
+<property name="updatedBy" column="UPDATED_BY" type="java.lang.String"/>
+<property name="createdTimestamp" column="CREATED_TIMESTAMP" type="java.util.Date"/>
+<property name="updatedTimestamp" column="UPDATED_TIMESTAMP" type="java.util.Date"/>
+<set  name="userFunctionDetails" cascade="all,delete-orphan" lazy="false">
+<key column="USER_ID"/>
+<one-to-many class="com.centrica.vms.model.UserFunctionDetails" />
+</set >
+</class>
+<class name="com.centrica.vms.model.UserCredentials" table="VMS_USER">
+<id column="USER_ID" name="userID" type="java.lang.Integer">
+</id>
+<version column="VERSION" name="version" type="java.lang.Integer"/>
+<property name="userName" column="USERNAME" type="java.lang.String" />
+<property name="password" column="PASSWORD" type="java.lang.String"/>
+<property name="passwordDate" column="PASSWORD_DATE" type="java.util.Date"/>
+<property name="updatedBy" column="UPDATED_BY" type="java.lang.String"/>
+<property name="updatedTimestamp" column="UPDATED_TIMESTAMP" type="java.util.Date"/>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.StatusDetails" table="STATUS_DETAILS" optimistic-lock="none">
+	<id column="STATUS_CODE" name="statusCode" type="java.lang.Integer">
+	</id>
+	<property column="STATUS_DESCRIPTION" name="statusDesc" type="java.lang.String"/>
+</class>
+</hibernate-mapping>

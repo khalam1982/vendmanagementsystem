@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Trilliant Networks Web Services API version 1.0 -->
+<definitions targetNamespace="urn:ws.unity.trilliantnetworks.com" xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  xmlns:trns="urn:ws.unity.trilliantnetworks.com"
+  xmlns:fns="urn:fault.ws.unity.trilliantnetworks.com"
+  xmlns:resns="urn:result.ws.unity.trilliantnetworks.com"
+  xmlns:hdns="urn:header.ws.unity.trilliantnetworks.com"
+  xmlns:ens="urn:tobject.ws.unity.trilliantnetworks.com"
+  xmlns:dcns="urn:command.ws.unity.trilliantnetworks.com"
+  xmlns:dcuns="urn:util.command.ws.unity.trilliantnetworks.com"
+  xmlns:dcens="urn:event.command.ws.unity.trilliantnetworks.com"
+  xmlns:mrns="urn:meterdata.ws.unity.trilliantnetworks.com"
+  xmlns:qry="urn:query.ws.unity.trilliantnetworks.com"
+  xmlns:rpt="urn:reporting.ws.unity.trilliantnetworks.com"
+  xmlns:sns="urn:ws.scheduler.unity.trilliantnetworks.com"
+  xmlns:trsch="urn:trigger.ws.scheduler.unity.trilliantnetworks.com" 
+  xmlns:tsch="urn:tsched.ws.scheduler.unity.trilliantnetworks.com"
+  xmlns:pre="urn:prepay.ws.unity.trilliantnetworks.com"
+  xmlns:tcsch="urn:command.tsched.ws.scheduler.unity.trilliantnetworks.com">
+  
+  <types>
+	<!-- FAULE SCHEMA -->
+    <schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="urn:fault.ws.unity.trilliantnetworks.com">
+
+      <simpleType name="ExceptionCode">
+        <restriction base="xsd:string">
+          <enumeration value="API_CURRENTLY_DISABLED" />
+          <enumeration value="BAD_CREDENTIALS" />
+          <enumeration value="USER_LOCKOUT" />
+          <enumeration value="INVALID_PERMISSION" />
+          <enumeration value="EXCEEDED_ID_LIMIT" />
+          <enumeration value="EXCEEDED_MAX_SIZE_REQUEST" />
+          <enumeration value="EXCEEDED_MAX_TYPES_LIMIT" />
+          <enumeration value="EXCEEDED_RATE_LIMIT" />
+          <enumeration value="FUNCTIONALITY_NOT_ENABLED" />
+          <enumeration value="IMAGE_TOO_LARGE" />
+          <enumeration value="INACTIVE_USER" />
+          <enumeration value="INSUFFICIENT_ACCESS" />
+          <enumeration value="INVALID_ARGUMENT" />
+          <enumeration value="INVALID_BATCH_SIZE" />
+          <enumeration value="INVALID_COMM_CONFIG_CLASS" />
+          <enumeration value="INVALID_CROSS_REFERENCE_KEY" />
+          <enumeration value="INVALID_FIELD" />
+          <enumeration value="INVALID_ID_FIELD" />
+          <enumeration value="INVALID_LOGIN" />
+          <enumeration value="INVALID_NEW_PASSWORD" />
+          <enumeration value="INVALID_OPERATION" />
+          <enumeration value="INVALID_OPERATION_WITH_EXPIRED_PASSWORD" />
+          <enumeration value="INVALID_QUERY_FILTER_OPERATOR" />
+          <enumeration value="INVALID_QUERY_LOCATOR" />
+          <enumeration value="INVALID_QUERY_SCOPE" />
+          <enumeration value="INVALID_SEARCH" />
+          <enumeration value="INVALID_SEARCH_SCOPE" />
+          <enumeration value="INVALID_SESSION_ID" />
+          <enumeration value="INVALID_SOAP_HEADER" />
+          <enumeration value="INVALID_SSO_GATEWAY_URL" />
+          <enumeration value="INVALID_TDEVICE_TYPE" />
+          <enumeration value="INVALID_TYPE" />
+          <enumeration value="INVALID_TYPE_FOR_OPERATION" />
+          <enumeration value="LOGIN_DURING_RESTRICTED_DOMAIN" />
+          <enumeration value="LOGIN_DURING_RESTRICTED_TIME" />
+          <enumeration value="MALFORMED_ID" />
+          <enumeration value="MALFORMED_QUERY" />
+          <enumeration value="MALFORMED_SEARCH" />
+          <enumeration value="METER_READ_FAILED" />
+          <enumeration value="MISSING_ARGUMENT" />
+          <enumeration value="OPERATION_TOO_LARGE" />
+          <enumeration value="PASSWORD_LOCKOUT" />
+          <enumeration value="QUERY_TIMEOUT" />
+          <enumeration value="QUERY_TOO_COMPLICATED" />
+          <enumeration value="SERVER_UNAVAILABLE" />
+          <enumeration value="SSO_SERVICE_DOWN" />
+          <enumeration value="UNKNOWN_EXCEPTION" />
+          <enumeration value="UNSUPPORTED_API_VERSION" />
+          <enumeration value="UNSUPPORTED_CLIENT" />
+          <enumeration value="UNSUPPORTED_OPERATION" />
+          <enumeration value="JOB_DOES_NOT_EXIST" />
+          <enumeration value="JOB_EXISTS" />
+          <enumeration value="MAPPING_EXCEPTION" />
+          <enumeration value="RUNTIME_EXCEPTION" />
+        </restriction>
+      </simpleType>
+      
+      <!-- Fault -->
+      <complexType name="ApiFault">
+        <sequence>
+          <element name="exceptionCode" type="fns:ExceptionCode" />
+          <element name="exceptionMessage" type="xsd:string" />
+        </sequence>
+      </complexType>
+
+      <complexType name="ApiQueryFault">
+        <complexContent>
+          <extension base="fns:ApiFault">
+            <sequence>
+              <element name="systemMessage" type="xsd:string" />
+            </sequence>
+          </extension>
+        </complexContent>
+      </complexType>
+
+	  <element name="LoginFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault" />
+          </complexContent>
+        </complexType>
+	  </element>
+
+	  <element name="AccessDeniedFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault" />
+          </complexContent>
+        </complexType>
+	  </element>
+
+      <element name="UnexpectedErrorFault">
+        <complexType>
+          <complexContent>
+            <extension base="fns:ApiFault" />
+          </complexContent>
+        </complexType>
+      </element>
+      
+    </schema>	
+
+  <!-- Prepay -->
+    
+    <schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="urn:prepay.ws.unity.trilliantnetworks.com">       
+      <complexType name="Prepayment">
+        <sequence>
+          <element minOccurs="1" name="paymentCardNumber" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <simpleType name="StatusCode">
+        <restriction base="xsd:int">
+          <enumeration value="200"/> <xsd:annotation>Request accepted Successfully</xsd:annotation>
+          <enumeration value="210"/> <xsd:annotation>Sent to device successfully</xsd:annotation>
+		  <enumeration value="220"/> <xsd:annotation>Applied on Device successfully</xsd:annotation>
+          <enumeration value="300"/> <xsd:annotation>Vend Code Length validation error</xsd:annotation>
+          <enumeration value="310"/> <xsd:annotation>Used to notify that the device doesnt exist</xsd:annotation>
+          <enumeration value="320"/> <xsd:annotation>Multiple devices found for the same payment card number</xsd:annotation>
+          <enumeration value="330"/> <xsd:annotation>Device is not active</xsd:annotation>
+          <enumeration value="340"/> <xsd:annotation>Device is not commissioned</xsd:annotation>
+          <enumeration value="350"/> <xsd:annotation>Device is not in prepayment mode</xsd:annotation>
+          <enumeration value="360"/> <xsd:annotation>Device does not exists in HES</xsd:annotation>
+          <enumeration value="370"/> <xsd:annotation>Communication Failure in HES</xsd:annotation>
+          <enumeration value="380"/> <xsd:annotation>PPK lenght validation error</xsd:annotation>
+          <enumeration value="400"/> <xsd:annotation>Delivery to device Failed</xsd:annotation>
+		  <enumeration value="410"/> <xsd:annotation> Failed on Device</xsd:annotation>
+        </restriction>
+      </simpleType>
+    
+      <simpleType name="RequestSource">
+        <restriction base="xsd:string">
+          <enumeration value="VMS"/>
+          <enumeration value="SAP"/>
+          <enumeration value="HES"/>
+        </restriction>
+      </simpleType>
+      <complexType name="PrepaymentKeyRecord">
+        <sequence>
+          <element minOccurs="1" name="transactionId" nillable="false" type="xsd:string"/>
+          <element minOccurs="1" name="prepaymentKey" nillable="false" type="xsd:string"/>
+          <element minOccurs="1" name="deviceSerialNo" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+      <complexType name="PrepaymentKeyStatus">
+        <sequence>
+          <element minOccurs="1" name="transactionId" nillable="false" type="xsd:string"/>
+          <element minOccurs="1" name="deviceSerialNo" nillable="false" type="xsd:string"/>
+          <element minOccurs="1" name="deliveryStatus" nillable="false" type="pre:StatusCode"/>
+          <element minOccurs="0" name="deviceClass" nillable="false" type="xsd:string"/>
+        </sequence>
+      </complexType>
+    </schema>
+
+	<!-- CORE SCHEMA -->
+    <schema elementFormDefault="qualified" xmlns="http://www.w3.org/2001/XMLSchema"
+      targetNamespace="urn:ws.unity.trilliantnetworks.com">
+
+      <import namespace="urn:tobject.ws.unity.trilliantnetworks.com" />
+      <import namespace="urn:meterdata.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:header.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:result.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:query.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:command.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:reporting.ws.unity.trilliantnetworks.com" /> 
+      <import namespace="urn:prepay.ws.unity.trilliantnetworks.com"/>
+      <import namespace="urn:util.command.ws.unity.trilliantnetworks.com" />
+      
+      <element name="updatePrepaymentKeyRequest">
+       <complexType>
+           <sequence>
+             <element name="prepaymentKeyRecords" type="pre:PrepaymentKeyRecord" minOccurs="1" maxOccurs="unbounded" />
+             <element minOccurs="1" name="timeStamp" nillable="true" type="xsd:dateTime" />
+             <element minOccurs="1" name="source" nillable="true" type="pre:RequestSource" />
+           </sequence>
+        </complexType>
+      </element>
+      
+      <element name="updatePrepaymentKeyResponse">
+       <complexType>
+          <sequence>
+              <element name="updatePrepaymentKeyResults" type="pre:PrepaymentKeyStatus" minOccurs="1" maxOccurs="unbounded" />
+          </sequence>
+        </complexType>
+      </element>
+      
+   </schema>
+
+  </types>
+
+  <!-- Fault Messages -->
+  <message name="ApiFault">
+    <part name="fault" type="fns:ApiFault" />
+  </message>
+  <message name="LoginFault">
+    <part name="fault" element="fns:LoginFault" />
+  </message>
+  <message name="AccessDeniedFault">
+    <part name="fault" element="fns:AccessDeniedFault" />
+  </message>
+  <message name="InvalidIdFault">
+    <part name="fault" element="fns:InvalidIdFault" />
+  </message>
+  <message name="UnexpectedErrorFault">
+    <part name="fault" element="fns:UnexpectedErrorFault" />
+  </message>
+  <message name="InvalidFieldFault">
+    <part name="fault" element="fns:InvalidFieldFault" />
+  </message>
+ 
+  <!-- Header message --> 
+  <message name="Header">
+  	<part name="request_header" type="hdns:SessionHeader" />
+  </message>
+  
+  <!-- Prepay messages -->
+  <message name="updatePrepaymentKeyRequest">
+    <part name="parameters" element="trns:updatePrepaymentKeyRequest"/>
+  </message>
+  <message name="updatePrepaymentKeyResponse">
+    <part name="parameters" element="trns:updatePrepaymentKeyResponse"/>
+  </message>
+ 
+
+  <portType name="Soap">
+
+    <operation name="updatePrepaymentKey">
+      <documentation>Change Prepayment Key</documentation>      
+      <input message="trns:updatePrepaymentKeyRequest"/>
+      <output message="trns:updatePrepaymentKeyResponse"/>
+      <fault message="trns:LoginFault" name="LoginFault" />
+      <fault message="trns:AccessDeniedFault" name="AccessDeniedFault" />
+      <fault message="trns:UnexpectedErrorFault" name="UnexpectedErrorFault" />
+    </operation>
+	
+  </portType>
+  
+  <!-- Soap Binding -->
+  <binding name="SoapBinding" type="trns:Soap">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+    
+    <!-- Prepay operation -->
+    <operation name="updatePrepaymentKey">
+      <soap:operation soapAction="urn:updatePrepaymentKey" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+      <fault name="LoginFault">
+        <soap:fault name="LoginFault" use="literal" />
+      </fault>
+      <fault name="AccessDeniedFault">
+        <soap:fault name="AccessDeniedFault" use="literal" />
+      </fault>
+      <fault name="UnexpectedErrorFault">
+        <soap:fault name="UnexpectedErrorFault" use="literal" />
+      </fault>
+    </operation>
+    
+  </binding>
+
+  <!-- Soap Service Endpoint -->
+  <service name="UnityService">
+    <documentation>Trilliant Unity SOAP API</documentation>
+    <port binding="trns:SoapBinding" name="UnityV1">
+      <soap:address location="http://localhost:8080/trilliant/services/UnityService" />
+    </port>
+  </service>
+</definitions>
+
+

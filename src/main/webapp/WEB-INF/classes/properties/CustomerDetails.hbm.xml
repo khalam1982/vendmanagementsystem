@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.ws.model.CustomerDetails" table="CUSTOMER_DETAILS">
+	<id column="PAN" name="pan" type="java.lang.String">
+	</id>
+	<property column="VALID_FROM" name="validFrom" type="java.util.Date"/>
+	<property column="VALID_TO" name="validTo" type="java.util.Date"/>
+	<property column="MPXN" name="mpxn" type="java.lang.String"/>
+	<property column="CREATED_BY" name="createdBy" type="java.lang.String"/>
+	<property column="UPDATED_BY" name="updatedBy" type="java.lang.String"/>
+	<property column="CREATED_TIMESTAMP" name="createdTimestamp" type="java.util.Date"/>
+	<property column="UPDATED_TIMESTAMP" name="updatedTimestamp" type="java.util.Date"/>
+</class>
+</hibernate-mapping>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.iec.ch/TC57/2008/schema/message" xmlns:ns2="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:ns1="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:tns="http://www.iec.ch/TC57/2008/schema/message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" schemaLocation="AMIInterfaceImplService_schema3.xsd"/>
+
+  <xs:import namespace="http://www.docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" schemaLocation="AMIInterfaceImplService_schema2.xsd"/>
+
+  <xs:element name="EventMessage" type="tns:EventMessageType"/>
+
+  <xs:element name="FaultMessage" type="tns:FaultMessageType"/>
+
+  <xs:element name="Message" type="tns:MessageType"/>
+
+  <xs:element name="RequestMessage" type="tns:RequestMessageType"/>
+
+  <xs:element name="ResponseMessage" type="tns:ResponseMessageType"/>
+
+  <xs:complexType name="HeaderType">
+    <xs:sequence>
+      <xs:element name="Verb" type="xs:string"/>
+      <xs:element name="Noun" type="xs:string"/>
+      <xs:element name="Revision" type="xs:string" minOccurs="0"/>
+      <xs:element name="ReplayDetection" type="tns:ReplayDetectionType" minOccurs="0"/>
+      <xs:element name="Context" type="xs:string" minOccurs="0"/>
+      <xs:element name="Timestamp" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="Source" type="xs:string" minOccurs="0"/>
+      <xs:element name="AsyncReplyFlag" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="ReplyAddress" type="xs:string" minOccurs="0"/>
+      <xs:element name="AckRequired" type="xs:boolean" minOccurs="0"/>
+      <xs:element name="User" type="tns:UserType" minOccurs="0"/>
+      <xs:element name="MessageID" type="xs:string" minOccurs="0"/>
+      <xs:element name="CorrelationID" type="xs:string" minOccurs="0"/>
+      <xs:element name="Comment" type="xs:string" minOccurs="0"/>
+      <xs:element name="Property" type="tns:MessageProperty" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReplayDetectionType">
+    <xs:sequence>
+      <xs:element name="Nonce" type="ns1:EncodedString"/>
+      <xs:element name="Created" type="ns2:AttributedDateTime"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="UserType">
+    <xs:sequence>
+      <xs:element name="UserID" type="xs:string"/>
+      <xs:element name="Organization" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageProperty">
+    <xs:sequence>
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Value" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="MessageType">
+    <xs:sequence>
+      <xs:element name="Header" type="tns:HeaderType"/>
+      <xs:element name="Request" type="tns:RequestType" minOccurs="0"/>
+      <xs:element name="Reply" type="tns:ReplyType" minOccurs="0"/>
+      <xs:element name="Payload" type="tns:PayloadType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RequestType">
+    <xs:sequence>
+      <xs:element name="StartTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="EndTime" type="xs:dateTime" minOccurs="0"/>
+      <xs:element name="Option" type="xs:string" minOccurs="0"/>
+      <xs:element name="ID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ReplyType">
+    <xs:sequence>
+      <xs:element name="ReplyCode" type="xs:string"/>
+      <xs:element name="Error" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ID" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PayloadType">
+    <xs:sequence>
+      <xs:any processContents="lax" namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Compressed" type="xs:string" minOccurs="0"/>
+      <xs:element name="format" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ResponseMessageType">
+    <xs:sequence>
+      <xs:element name="Header" type="tns:HeaderType"/>
+      <xs:element name="Reply" type="tns:ReplyType"/>
+      <xs:element name="Payload" type="tns:PayloadType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RequestMessageType">
+    <xs:sequence>
+      <xs:element name="Header" type="tns:HeaderType"/>
+      <xs:element name="Request" type="tns:RequestType" minOccurs="0"/>
+      <xs:element name="Payload" type="tns:PayloadType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EventMessageType">
+    <xs:sequence>
+      <xs:element name="Header" type="tns:HeaderType"/>
+      <xs:element name="Request" type="tns:RequestType" minOccurs="0"/>
+      <xs:element name="Payload" type="tns:PayloadType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="FaultMessageType">
+    <xs:sequence>
+      <xs:element name="Reply" type="tns:ReplyType"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema targetNamespace="urn:britishgas.co.uk:Enterprise:Common"
+	xmlns="urn:britishgas.co.uk:Enterprise:Common" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+	<xsd:simpleType name="BG_LogItemSeverityCode">
+		<xsd:restriction base="xsd:token">
+			<xsd:length value="1" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_Amount">
+		<xsd:annotation>
+			<xsd:documentation xml:lang="EN">Financial
+				amount</xsd:documentation>
+		</xsd:annotation>
+		<xsd:restriction base="xsd:decimal" />
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_LogItemNote">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="200" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_ProcessingResultCode">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="2" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BG_MessageHeader">
+      <xsd:sequence>
+  		<xsd:element name="ServiceConsumer" type="xsd:string" minOccurs="0" /> 
+  		<xsd:element name="Version" type="xsd:string" minOccurs="0" /> 
+  	  </xsd:sequence>
+    </xsd:complexType>
+	<xsd:simpleType name="BG_LogItemTypeID">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="40" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_WebURI">
+		<xsd:restriction base="xsd:anyURI" />
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_Identifier.Content">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="40" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="BG_LogItemCategoryCode">
+		<xsd:restriction base="xsd:token">
+			<xsd:minLength value="1" />
+			<xsd:maxLength value="15" />
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="BG_Log">
+		<xsd:sequence>
+			<xsd:element name="BusinessDocumentProcessingResultCode"
+				type="BG_ProcessingResultCode" minOccurs="0" />
+			<xsd:element name="MaximumLogItemSeverityCode" type="BG_LogItemSeverityCode"
+				minOccurs="0" />
+			<xsd:element name="Item" type="BG_LogItem" minOccurs="0"
+				maxOccurs="unbounded" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BG_CurrencyAmount">
+		<xsd:sequence>
+			<xsd:element name="CurrencyType" type="xsd:string" />
+			<xsd:element name="Amount" type="BG_Amount" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BG_LogItem">
+		<xsd:sequence>
+			<xsd:element name="TypeID" type="BG_LogItemTypeID"
+				minOccurs="0" />
+			<xsd:element name="CategoryCode" type="BG_LogItemCategoryCode"
+				minOccurs="0" />
+			<xsd:element name="SeverityCode" type="BG_LogItemSeverityCode"
+				minOccurs="0" />
+			<xsd:element name="Note" type="BG_LogItemNote" />
+			<xsd:element name="WebURI" type="BG_WebURI" minOccurs="0" />
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BG_Identifier">
+		<xsd:simpleContent>
+			<xsd:extension base="BG_Identifier.Content">
+				<xsd:attribute name="schemeID">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:token">
+							<xsd:minLength value="1" />
+							<xsd:maxLength value="60" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+				<xsd:attribute name="schemeAgencyID">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:token">
+							<xsd:minLength value="1" />
+							<xsd:maxLength value="60" />
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:attribute>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+</xsd:schema>

@@ -1,0 +1,150 @@
+<wsdl:definitions name="QueryHeadendMastershipDetailsOut" targetNamespace="urn:britishgas.co.uk:Trilliant:SmartMeterProcessing" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soaphttp="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:p1="urn:britishgas.co.uk:Trilliant:SmartMeterProcessing" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+<wsdl:documentation/>
+  <wsdl:types>
+    <xsd:schema targetNamespace="urn:britishgas.co.uk:Trilliant:SmartMeterProcessing" xmlns="urn:britishgas.co.uk:Trilliant:SmartMeterProcessing" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="QueryHeadendMastershipRequest_MT" type="QueryHeadendMastershipRequest"/>
+      <xsd:element name="QueryHeadendMastershipResponse_MT" type="QueryHeadendMastershipResponse"/>
+      <xsd:complexType name="QueryHeadendMastershipResponse">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">584db4cd4a5f11e5a26b00000034770e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element name="ServerDetails">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f3481711e5bf1b00ffb0bb1107</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="HostName" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f0481711e5a21200ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="PortNumber" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f1481711e5a2f700ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="Username" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f2481711e59f8c00ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Password" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="HLU">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f5481711e5909a00ffb0bb1107</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="Provider" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">1688f2f4481711e58c3b00ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="AMIUser" type="xsd:string"/>
+                <xsd:element minOccurs="0" name="AMIPassword" type="xsd:string"/>
+                <xsd:element minOccurs="0" name="IsDefaultFlag" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element minOccurs="0" name="Exception">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">5832951c4a5f11e5a05d00ffb0bb1107</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element minOccurs="0" name="Code" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5832951a4a5f11e5899c00ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Description" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">5832951b4a5f11e5c25600ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="QueryHeadendMastershipRequest">
+        <xsd:annotation>
+          <xsd:appinfo source="http://sap.com/xi/VersionID">696160554a5e11e59a0300000034770e</xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="HLUParameters">
+            <xsd:annotation>
+              <xsd:appinfo source="http://sap.com/xi/TextID">669e7fbb4a5e11e5881f00ffb0bb1107</xsd:appinfo>
+            </xsd:annotation>
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="ParameterName" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">669e7fb94a5e11e5caed00ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element name="ParameterValue" type="xsd:string">
+                  <xsd:annotation>
+                    <xsd:appinfo source="http://sap.com/xi/TextID">669e7fba4a5e11e5b4a000ffb0bb1107</xsd:appinfo>
+                  </xsd:annotation>
+                </xsd:element>
+                <xsd:element minOccurs="0" name="Consumer" type="xsd:string"/>
+                <xsd:element minOccurs="0" name="ServiceId" type="xsd:string"/>
+              </xsd:sequence>
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="QueryHeadendMastershipRequest_MT">
+<wsdl:documentation/>
+    <wsdl:part name="QueryHeadendMastershipRequest_MT" element="p1:QueryHeadendMastershipRequest_MT">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="QueryHeadendMastershipResponse_MT">
+<wsdl:documentation/>
+    <wsdl:part name="QueryHeadendMastershipResponse_MT" element="p1:QueryHeadendMastershipResponse_MT">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="QueryHeadendMastershipDetailsOut">
+<wsdl:documentation/>
+    <wsdl:operation name="QueryHeadendMastershipDetailsOut">
+<wsdl:documentation/>
+      <wsdl:input message="p1:QueryHeadendMastershipRequest_MT">
+    </wsdl:input>
+      <wsdl:output message="p1:QueryHeadendMastershipResponse_MT">
+    </wsdl:output>
+    <wsp:Policy>
+        <wsp:PolicyReference URI="#OP_QueryHeadendMastershipDetailsOut"/>
+      </wsp:Policy>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="QueryHeadendMastershipDetailsOutBinding" type="p1:QueryHeadendMastershipDetailsOut">
+    <soaphttp:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="QueryHeadendMastershipDetailsOut">
+      <soaphttp:operation soapAction="http://sap.com/xi/WebService/soap1.1"/>
+      <wsdl:input>
+        <soaphttp:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soaphttp:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="QueryHeadendMastershipDetailsOutService">
+    <wsdl:port name="HTTPS_Port" binding="p1:QueryHeadendMastershipDetailsOutBinding">
+      <soaphttp:address location="http://LW71001286962:8088/mockQueryHeadendMastershipDetailsOutBinding"/>
+    </wsdl:port>
+    <wsdl:port name="HTTP_Port" binding="p1:QueryHeadendMastershipDetailsOutBinding">
+      <soaphttp:address location="http://LW71001286962:8088/mockQueryHeadendMastershipDetailsOutBinding"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:UsingPolicy wsdl:required="true"/>
+    <wsp:Policy wsu:Id="OP_QueryHeadendMastershipDetailsOut"/>
+</wsdl:definitions>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="VMSTransactionQuery" targetNamespace="http://query.transaction.ws.vms.centrica.com" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:tqns="http://query.transaction.ws.vms.centrica.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://query.transaction.ws.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://query.transaction.ws.vms.centrica.com" xmlns:tqns="http://query.transaction.ws.vms.centrica.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:element name="BusinessProcessingFault">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="exceptionCode" type="tqns:BusinessProcessingFaultCode"/>
+						<xs:element name="exceptionMessage" type="xs:string"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTransactions">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="transactionRequest" type="tqns:GetTransactionsRequestMessage"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="GetTransactionsResponse">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="transactionResponse" type="tqns:GetTransactionsResponseMessage"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="RequestHeader">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="userDetails" type="tqns:UserDetails"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:complexType name="VendCode">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="VendCode" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="VendAmount">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="VendAmount" type="tqns:BG_CurrencyAmount"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Status">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Status" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="Channel">
+				<xs:sequence>
+					<xs:element minOccurs="0" name="Channel" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="TransactionStartTimestamp">
+				<xs:sequence>
+					<xs:element name="TransactionStartTimestamp" type="xs:dateTime"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="TransactionEndTimestamp">
+				<xs:sequence>
+					<xs:element name="TransactionEndTimestamp" type="xs:dateTime"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="VendDateTimeStamp">
+				<xs:sequence>
+					<xs:element name="VendDateTimeStamp" type="xs:dateTime"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="PanNumber">
+				<xs:annotation>
+					<xs:documentation xml:lang="EN">PAN to fetch
+						transactions</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="PanNumber" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="NumberOfTransactions">
+				<xs:annotation>
+					<xs:documentation xml:lang="EN">NumberOfTransactions
+					</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element minOccurs="0" name="NumberOfTransactions" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetTransactionsRequestMessage">
+				<xs:sequence>
+					<xs:element name="PanNumber" type="tqns:PanNumber"/>
+					<xs:element minOccurs="0" name="TransactionStartTimestamp" type="tqns:TransactionStartTimestamp"/>
+					<xs:element minOccurs="0" name="TransactionEndTimestamp" type="tqns:TransactionEndTimestamp"/>
+					<xs:element name="NumberOfTransactions" type="tqns:NumberOfTransactions"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="GetTransactionsResponseMessage">
+				<xs:sequence>
+					<xs:element maxOccurs="unbounded" minOccurs="0" name="VendTransaction" type="tqns:VendTransaction"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="VendTransaction">
+				<xs:annotation>
+					<xs:documentation xml:lang="EN">Transaction
+						details</xs:documentation>
+				</xs:annotation>
+				<xs:sequence>
+					<xs:element name="VendDateTimeStamp" type="tqns:VendDateTimeStamp"/>
+					<xs:element minOccurs="0" name="Channel" type="tqns:Channel"/>
+					<xs:element minOccurs="0" name="VendCode" type="tqns:VendCode"/>
+					<xs:element name="VendAmount" type="tqns:VendAmount"/>
+					<xs:element minOccurs="0" name="Status" type="tqns:Status"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:simpleType name="BusinessProcessingFaultCode">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="INVALID_LOGIN_CREDENTIALS"/>
+					<xs:enumeration value="MISSING_PAN"/>
+					<xs:enumeration value="INVALID_PAN"/>
+					<xs:enumeration value="MISSING_QUERY_PARAMATERS"/>
+					<xs:enumeration value="INVALID_PARAMETER_FORMAT"/>
+					<xs:enumeration value="UNKNOWN_ERROR"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:complexType name="UserDetails">
+				<xs:sequence>
+					<xs:element name="userName" type="xs:string"/>
+					<xs:element name="password" type="xs:string"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:complexType name="BG_CurrencyAmount">
+        		<xs:sequence>
+            		<xs:element name="CurrencyType" type="xs:string"/>
+            		<xs:element name="Amount" type="tqns:BG_Amount"/>
+        		</xs:sequence>
+    		</xs:complexType>
+    		
+    		<xs:simpleType name="BG_Amount">
+       			 <xs:annotation>
+            		<xs:documentation xml:lang="EN">Financial	amount</xs:documentation>
+        		</xs:annotation>
+       				 <xs:restriction base="xs:decimal"/>
+   			 </xs:simpleType>
+    
+		</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="Header">
+    <wsdl:part name="request_header" element="tqns:RequestHeader">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionsRequest">
+    <wsdl:part name="parameters" element="tqns:GetTransactions">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getTransactionsResponse">
+    <wsdl:part name="parameters" element="tqns:GetTransactionsResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BusinessProcessingFault">
+    <wsdl:part name="fault" element="tqns:BusinessProcessingFault">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="VendTransactionQueryPortType">
+    <wsdl:operation name="GetTransactions">
+      <wsdl:input message="tqns:getTransactionsRequest" wsaw:Action="urn:GetTransactions">
+    </wsdl:input>
+      <wsdl:output message="tqns:getTransactionsResponse" wsaw:Action="urn:GetTransactionsResponse">
+    </wsdl:output>
+      <wsdl:fault name="BusinessProcessingFault" message="tqns:BusinessProcessingFault">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VendTransactionQuerySoapBinding" type="tqns:VendTransactionQueryPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetTransactions">
+      <soap:operation soapAction="urn:GetTransactions" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="BusinessProcessingFault">
+        <soap:fault name="BusinessProcessingFault" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VendTransactionQueryService">
+    <wsdl:port name="VendTransactionQueryServiceHttpSoapEndpoint" binding="tqns:VendTransactionQuerySoapBinding">
+      <soap:address location="http://localhost:8080/VendManagementSystem/services/VendTransactionQueryService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

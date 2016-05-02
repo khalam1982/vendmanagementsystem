@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd"> 
+<hibernate-mapping>
+<class name="com.centrica.vms.model.UserFunctionDetails" table="VMS_USERFUNCTION">
+	<id column="ID" name="id" type="java.lang.Integer">
+		<generator class="sequence">
+		<param name="sequence">SEQ_VMS_USERFUNCTION</param>
+		</generator>
+	</id>
+	<property column="FUNCTION_CODE" name="functionCode"  type="java.lang.String" />
+	<property column="GROUP_ID" name="groupID" type="java.lang.String"/>
+	<many-to-one name="functionDetails" class="com.centrica.vms.model.FunctionDetails" column="FUNCTION_CODE" update="false" insert="false" lazy="false"/>
+</class>
+</hibernate-mapping>

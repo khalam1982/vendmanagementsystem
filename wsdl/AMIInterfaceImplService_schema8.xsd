@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema elementFormDefault="qualified" version="1.0" targetNamespace="http://www.TrilliantAMI/AdjustCreditMessages" xmlns:ns2="http://www.TrilliantAMI/TrilliantCommonTypes" xmlns:ns1="http://www.iec.ch/TC57/2008/schema/message" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:import namespace="http://www.iec.ch/TC57/2008/schema/message" schemaLocation="AMIInterfaceImplService_schema1.xsd"/>
+
+  <xs:import namespace="http://www.TrilliantAMI/TrilliantCommonTypes" schemaLocation="AMIInterfaceImplService_schema6.xsd"/>
+
+  <xs:complexType name="AdjustCreditRequestMessage">
+    <xs:sequence>
+      <xs:element name="Header" type="ns1:HeaderType"/>
+      <xs:element name="payload" type="ns2:AdjustCreditValues"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AdjustCreditReplyMessage">
+    <xs:sequence>
+      <xs:element name="Header" type="ns1:HeaderType"/>
+      <xs:element name="Reply" type="ns1:ReplyType" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+
